@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1PoOxEAy3IGI1Vje2Zb6FL7D2hP" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1559289077611" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RunManager" selected="Application.MRB_Main">
+    <configuration name="MBI_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MBI.MBI_Main" />
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MBI.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MRB_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_Main" />
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MRBerror.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="QT.Main" />
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="QT.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OBTT_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="OBTT.OBTT_Main" />
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="OBTT.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test_BCTT" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="BCTT.Test_BCTT" />
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="BCTT.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.MRB_Main" />
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.MBI_Main" />
+        <item itemvalue="Application.OBTT_Main" />
+        <item itemvalue="Application.Test_BCTT" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\龚建民\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="" />
+      <created>1546495662435</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1546495662435</updated>
+      <workItem from="1546495678224" duration="116000" />
+      <workItem from="1546497450515" duration="1055000" />
+      <workItem from="1546501258710" duration="584000" />
+      <workItem from="1546503268400" duration="532000" />
+      <workItem from="1546926706101" duration="3341000" />
+      <workItem from="1546933993700" duration="4902000" />
+      <workItem from="1546939482510" duration="135000" />
+      <workItem from="1546939938696" duration="174000" />
+      <workItem from="1546951458346" duration="116000" />
+      <workItem from="1547196833015" duration="2191000" />
+      <workItem from="1551167331860" duration="1060000" />
+      <workItem from="1551168450544" duration="160000" />
+      <workItem from="1551168672205" duration="813000" />
+      <workItem from="1551169530676" duration="1479000" />
+      <workItem from="1551172337955" duration="2231000" />
+      <workItem from="1551699306584" duration="2078000" />
+      <workItem from="1551702125013" duration="4860000" />
+      <workItem from="1551757715795" duration="4986000" />
+      <workItem from="1551776201770" duration="2150000" />
+      <workItem from="1551794007464" duration="908000" />
+      <workItem from="1551849447387" duration="13279000" />
+      <workItem from="1551939885321" duration="3289000" />
+      <workItem from="1551946676136" duration="192000" />
+      <workItem from="1552467435172" duration="1429000" />
+      <workItem from="1553584084155" duration="6235000" />
+      <workItem from="1553604588837" duration="4310000" />
+      <workItem from="1553664440486" duration="9811000" />
+      <workItem from="1553772168977" duration="5624000" />
+      <workItem from="1553840164317" duration="4286000" />
+      <workItem from="1554018666420" duration="370000" />
+      <workItem from="1554100246529" duration="5792000" />
+      <workItem from="1554270649641" duration="4612000" />
+      <workItem from="1554277069835" duration="4510000" />
+      <workItem from="1554795371578" duration="3482000" />
+      <workItem from="1555419746054" duration="1456000" />
+      <workItem from="1555589014015" duration="659000" />
+      <workItem from="1556110845691" duration="4147000" />
+      <workItem from="1556160893035" duration="6403000" />
+      <workItem from="1556693114982" duration="6613000" />
+      <workItem from="1556710073417" duration="5502000" />
+      <workItem from="1556759836929" duration="3326000" />
+      <workItem from="1556769832264" duration="596000" />
+      <workItem from="1556869159899" duration="13816000" />
+      <workItem from="1556954019965" duration="12396000" />
+      <workItem from="1557038364725" duration="4636000" />
+      <workItem from="1557064975976" duration="1778000" />
+      <workItem from="1557229401750" duration="583000" />
+      <workItem from="1557888187374" duration="4654000" />
+      <workItem from="1557909547511" duration="611000" />
+      <workItem from="1558245521624" duration="5135000" />
+      <workItem from="1558262598350" duration="349000" />
+      <workItem from="1559279763989" duration="5678000" />
+      <workItem from="1559289281005" duration="280000" />
+      <workItem from="1559289724390" duration="51000" />
+      <workItem from="1566537232431" duration="147000" />
+      <workItem from="1566537554463" duration="463000" />
+      <workItem from="1566538627855" duration="268000" />
+      <workItem from="1566540245360" duration="1315000" />
+      <workItem from="1566711123142" duration="2381000" />
+      <workItem from="1566815576008" duration="1462000" />
+      <workItem from="1566883337259" duration="7331000" />
+      <workItem from="1568178113775" duration="3025000" />
+      <workItem from="1568201575814" duration="10000" />
+      <workItem from="1568693194989" duration="262000" />
+      <workItem from="1570098950494" duration="28000" />
+      <workItem from="1574581672191" duration="12695000" />
+      <workItem from="1574651757051" duration="12442000" />
+      <workItem from="1574757324921" duration="2972000" />
+      <workItem from="1574859528153" duration="3218000" />
+      <workItem from="1574911967525" duration="2873000" />
+      <workItem from="1575445306487" duration="4538000" />
+      <workItem from="1575527440011" duration="5484000" />
+      <workItem from="1575800806529" duration="5894000" />
+      <workItem from="1575965765295" duration="4709000" />
+      <workItem from="1575977046332" duration="2222000" />
+      <workItem from="1575984713332" duration="1295000" />
+      <workItem from="1575992568851" duration="2455000" />
+      <workItem from="1576065221708" duration="2646000" />
+      <workItem from="1576136695262" duration="755000" />
+      <workItem from="1576231050308" duration="187000" />
+      <workItem from="1578555626933" duration="852000" />
+      <workItem from="1578565153364" duration="662000" />
+      <workItem from="1579575073031" duration="1742000" />
+      <workItem from="1579748100580" duration="7326000" />
+      <workItem from="1580186803407" duration="2474000" />
+      <workItem from="1580280012537" duration="1194000" />
+      <workItem from="1580355915205" duration="602000" />
+      <workItem from="1580452093295" duration="1194000" />
+      <workItem from="1580529895409" duration="3057000" />
+      <workItem from="1580616522986" duration="1762000" />
+      <workItem from="1580702349116" duration="5587000" />
+      <workItem from="1580798313166" duration="598000" />
+      <workItem from="1580886582974" duration="1234000" />
+      <workItem from="1580956273412" duration="4045000" />
+      <workItem from="1580971817336" duration="917000" />
+      <workItem from="1581213385962" duration="4194000" />
+      <workItem from="1581321897465" duration="1666000" />
+      <workItem from="1581393750189" duration="639000" />
+      <workItem from="1581479949579" duration="599000" />
+      <workItem from="1581560876104" duration="7985000" />
+      <workItem from="1581647586300" duration="1422000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="361" y="91" key="#Project_Structure" timestamp="1578555709313">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="361" y="91" key="#Project_Structure/0.0.1536.864@0.0.1536.864" timestamp="1578555709313" />
+    <state x="516" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1581575426416">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="516" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.864@0.0.1536.864" timestamp="1581575426416" />
+    <state width="1493" height="202" key="GridCell.Tab.0.bottom" timestamp="1581586488557">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="202" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581586488557" />
+    <state width="1493" height="202" key="GridCell.Tab.0.center" timestamp="1581586488557">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="202" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1581586488557" />
+    <state width="1493" height="202" key="GridCell.Tab.0.left" timestamp="1581586488557">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="202" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1581586488557" />
+    <state width="1493" height="202" key="GridCell.Tab.0.right" timestamp="1581586488557">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="202" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1581586488557" />
+    <state width="1493" height="254" key="GridCell.Tab.1.bottom" timestamp="1581586488554">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="254" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1581586488554" />
+    <state width="1493" height="254" key="GridCell.Tab.1.center" timestamp="1581586488554">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="254" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1581586488554" />
+    <state width="1493" height="254" key="GridCell.Tab.1.left" timestamp="1581586488554">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="254" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1581586488554" />
+    <state width="1493" height="254" key="GridCell.Tab.1.right" timestamp="1581586488554">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state width="1493" height="254" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1581586488554" />
+    <state x="499" y="76" width="996" height="707" key="SettingsEditor" timestamp="1581216173008">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="76" width="996" height="707" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1581216173008" />
+    <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog" timestamp="1581647808480">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1581647808480" />
+    <state x="425" y="197" key="run.anything.popup" timestamp="1581214463587">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1581214463587" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1581214630176">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1581214630176" />
+    <state x="491" y="337" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581572057489">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="491" y="337" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1536.864@0.0.1536.864" timestamp="1581572057489" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
+          <line>251</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Main.java</url>
+          <line>65</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="sb" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
