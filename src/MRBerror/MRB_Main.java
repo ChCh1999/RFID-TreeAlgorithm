@@ -1,11 +1,8 @@
 package MRBerror;
 
-import QT.QT_Input;
-import QT.QT_Reader;
-import QT.QT_TagGenerator;
-
 import java.util.ArrayList;
 import java.util.List;
+import MRBerror.MRB_Reader.NUM;
 
 public class MRB_Main {
     static int tagIDlength = 10;         // 标签id长度
@@ -18,9 +15,12 @@ public class MRB_Main {
 
     public static void main(String[] args) {
     MRB_Reader r =new MRB_Reader();
-    MRB_Reader.resu res=r.OneFrame(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+    MRB_Reader.resu res=r.OneFrame(MRB_TagGenerator.generateTag(tagIDlength, tagCount),0);
     System.out.println(res);
-
+//    List<NUM> error_res=r.ident(new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength,tagCount)));
+//    for (NUM num:error_res){
+//        System.out.println(num);
+//    }
 /*        double[] j = new double[19];
 
         for (int i = 0; i < 10; i++) {
