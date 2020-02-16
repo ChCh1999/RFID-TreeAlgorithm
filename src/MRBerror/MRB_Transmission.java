@@ -15,9 +15,8 @@ public class MRB_Transmission {
             // 标签可用，且未发生动态错误的标签才正确接收读取器信息
             if(c<rError){
                 MRB_Reader.logger.error("****标签（"+t+"）接收广播时发生错误****");
-                continue;
             }
-            if(c>=rError&&t.use == true){
+            else if(t.use){
                 t.slot.receive = reader.slot.broadcast;
                 t.receiveReaderRequest();
                 t.slot.receive = "";
@@ -37,9 +36,7 @@ public class MRB_Transmission {
                     MRB_Reader.logger.error("****标签（"+t+"）发送反馈时发生错误****");
                     t.slot.msg = "";
                     continue;
-                }
-
-                if(d>=tError){
+                }else {
                     reader.slot.add(t.slot.msg);
                     t.slot.msg = "";
                 }

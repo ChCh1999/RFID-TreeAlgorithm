@@ -6,7 +6,7 @@ import MRBerror.MRB_Reader.NUM;
 
 public class MRB_Main {
     static int tagIDlength = 10;         // 标签id长度
-    static int tagCount=10;             //标签数
+    static int tagCount=20;             //标签数
     static int staticError = 20;         // 静态错误发生概率(百分制,下同)
     static int rError = 10;              // 动态错误中从读取器到标签信息丢失概率
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
@@ -15,12 +15,11 @@ public class MRB_Main {
 
     public static void main(String[] args) {
     MRB_Reader r =new MRB_Reader();
-    MRB_Reader.resu res=r.OneFrame(MRB_TagGenerator.generateTag(tagIDlength, tagCount),0);
-    System.out.println(res);
-//    List<NUM> error_res=r.ident(new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength,tagCount)));
-//    for (NUM num:error_res){
-//        System.out.println(num);
-//    }
+    MRB_Input input=new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+//    r.OneFrame(input.MRBTagList);
+    NUM res=r.getErrorProbablity(input.MRBTagList,3);
+    System.out.println(res.p4);
+
 /*        double[] j = new double[19];
 
         for (int i = 0; i < 10; i++) {
