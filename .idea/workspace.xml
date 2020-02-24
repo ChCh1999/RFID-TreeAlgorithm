@@ -3,20 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/MRB.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/MRB.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/log/MRBerror.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/MRBerror.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/MRBerror/DataRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/DataRecord.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$NUM.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$NUM.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$resu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$resu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_TagGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_TagGenerator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/about.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/MRBerror/test.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/test.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_TagGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_TagGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/about.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -266,7 +264,7 @@
       <workItem from="1582185262671" duration="5509000" />
       <workItem from="1582260503699" duration="38000" />
       <workItem from="1582344833979" duration="1198000" />
-      <workItem from="1582513160275" duration="9384000" />
+      <workItem from="1582513160275" duration="21797000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -319,38 +317,38 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="341" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1581855745614" />
-    <state width="1493" height="174" key="GridCell.Tab.0.bottom" timestamp="1582542190176">
+    <state width="1493" height="292" key="GridCell.Tab.0.bottom" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1582542190176" />
-    <state width="1493" height="174" key="GridCell.Tab.0.center" timestamp="1582542190176">
+    <state width="1493" height="292" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.0.center" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1582542190176" />
-    <state width="1493" height="174" key="GridCell.Tab.0.left" timestamp="1582542190175">
+    <state width="1493" height="292" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.0.left" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1582542190175" />
-    <state width="1493" height="174" key="GridCell.Tab.0.right" timestamp="1582542190176">
+    <state width="1493" height="292" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.0.right" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="174" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1582542190176" />
-    <state width="1493" height="372" key="GridCell.Tab.1.bottom" timestamp="1582541581233">
+    <state width="1493" height="292" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.1.bottom" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="372" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1582541581233" />
-    <state width="1493" height="372" key="GridCell.Tab.1.center" timestamp="1582541581233">
+    <state width="1493" height="292" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.1.center" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="372" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1582541581233" />
-    <state width="1493" height="372" key="GridCell.Tab.1.left" timestamp="1582541581233">
+    <state width="1493" height="292" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.1.left" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="372" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1582541581233" />
-    <state width="1493" height="372" key="GridCell.Tab.1.right" timestamp="1582541581233">
+    <state width="1493" height="292" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
+    <state width="1493" height="292" key="GridCell.Tab.1.right" timestamp="1582555858807">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="372" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1582541581233" />
+    <state width="1493" height="292" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1582555858807" />
     <state x="499" y="76" width="996" height="707" key="SettingsEditor" timestamp="1581678398723">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -377,8 +375,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Main.java</url>
-          <line>36</line>
+          <line>38</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
+          <line>1482</line>
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -386,6 +389,7 @@
       <configuration name="Application">
         <watch expression="reuseTagList.get(4)" />
         <watch expression="k1 + k2 + l + m" language="JAVA" />
+        <watch expression=" (resList.size() + 1);" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

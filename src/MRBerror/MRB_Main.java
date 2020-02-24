@@ -7,15 +7,17 @@ import MRBerror.MRB_Reader.NUM;
 import MRBerror.DataRecord;
 
 public class MRB_Main {
-    static int tagIDlength = 10;         // 标签id长度
-    static int tagCount = 1000;             //标签数
+    static int tagIDlength = 20;         // 标签id长度
+    static int tagCount = 2000;             //标签数
     static int staticError = 20;         // 静态错误发生概率(百分制,下同)
     static int rError = 10;              // 动态错误中从读取器到标签信息丢失概率
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
     static int captureError = 0;        // 多标签响应时捕获效应发生概率
-    static int thev = 80;                // Fast-Capture-Recapture标签复用率
+    static int thev = 100;                // Fast-Capture-Recapture标签复用率
 
     public static void main(String[] args) {
+
+
         System.out.println("exactly: "+getExactlyErrorProbablity());
 //        for (int i = 0; i <4 ; i++) {
 //            getAvgErrorProbablity(i);
@@ -28,7 +30,7 @@ public class MRB_Main {
         System.out.println(resList);
         */
 
-        List<DataRecord> resList=r.MultiSession(input.MRBTagList,0,0.001);
+        List<DataRecord> resList=r.MultiSession(input.MRBTagList,0,0.00);
         System.out.println(resList);
 
 //    NUM res=r.getErrorProbablity(input.MRBTagList,0);
@@ -239,7 +241,7 @@ public class MRB_Main {
         double staticError_d=(double) staticError/100;
         double rError_d=(double)rError/100;
         double tError_d=(double)tError/100;
-        return  staticError_d+(1-staticError_d)*rError_d+(1-(1-staticError_d)*rError_d)*tError_d;
-
+//        return  staticError_d+(1-staticError_d)*rError_d+(1-staticError_d)*(1-rError_d)*tError_d;
+        return 1-(1-staticError_d)*(1-rError_d)*(1-tError_d);
     }
 }
