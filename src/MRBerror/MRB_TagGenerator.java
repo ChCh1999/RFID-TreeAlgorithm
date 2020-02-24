@@ -7,6 +7,11 @@ import java.util.*;
 
 public class MRB_TagGenerator {
     public static List<MRB_Tag> generateTag(int len,int count){
+        if(Math.pow(2,len)<count){
+            System.out.println("参数错误，标签长度不足");
+            return null;
+        }
+
         ArrayList<MRB_Tag> MRBTagList=new ArrayList<MRB_Tag>();
         while (MRBTagList.size() < count) {
             MRB_Tag t = new MRB_Tag(len);

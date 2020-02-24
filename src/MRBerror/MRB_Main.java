@@ -2,23 +2,37 @@ package MRBerror;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import MRBerror.MRB_Reader.NUM;
+import MRBerror.DataRecord;
 
 public class MRB_Main {
     static int tagIDlength = 10;         // 标签id长度
-    static int tagCount=20;             //标签数
+    static int tagCount = 1000;             //标签数
     static int staticError = 20;         // 静态错误发生概率(百分制,下同)
     static int rError = 10;              // 动态错误中从读取器到标签信息丢失概率
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
     static int captureError = 0;        // 多标签响应时捕获效应发生概率
-    static int thev = 20;                // Fast-Capture-Recapture标签复用率
+    static int thev = 80;                // Fast-Capture-Recapture标签复用率
 
     public static void main(String[] args) {
-    MRB_Reader r =new MRB_Reader();
-    MRB_Input input=new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
-//    r.OneFrame(input.MRBTagList);
-    NUM res=r.getErrorProbablity(input.MRBTagList,3);
-    System.out.println(res.p4);
+        System.out.println("exactly: "+getExactlyErrorProbablity());
+//        for (int i = 0; i <4 ; i++) {
+//            getAvgErrorProbablity(i);
+//        }
+        MRB_Reader r = new MRB_Reader();
+        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+        /*
+        //ident方法
+        List<NUM> resList=r.ident(input);
+        System.out.println(resList);
+        */
+
+        List<DataRecord> resList=r.MultiSession(input.MRBTagList,0,0.001);
+        System.out.println(resList);
+
+//    NUM res=r.getErrorProbablity(input.MRBTagList,0);
+//    System.out.println(res.p4);
 
 /*        double[] j = new double[19];
 
@@ -206,6 +220,26 @@ public class MRB_Main {
         }
         System.out.print("]");
 */
+
+    }
+    static double getAvgErrorProbablity(int silenceStrategy){
+        MRB_Reader r = new MRB_Reader();
+        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+        ArrayList<Double> errorData = new ArrayList<Double>();
+        for (int i = 0; i < 10; i++) {
+            errorData.add(r.getErrorProbablity(input.MRBTagList, silenceStrategy).p4);
+        }
+        double sum=0;
+        for (double d:errorData)sum+=d;
+        double avg=sum/errorData.size();
+        System.out.println("沉默策略"+silenceStrategy+",平均错误概率："+avg);
+        return avg;
+    }
+    static double getExactlyErrorProbablity(){
+        double staticError_d=(double) staticError/100;
+        double rError_d=(double)rError/100;
+        double tError_d=(double)tError/100;
+        return  staticError_d+(1-staticError_d)*rError_d+(1-(1-staticError_d)*rError_d)*tError_d;
 
     }
 }

@@ -7,6 +7,27 @@ import java.util.*;
 
 import static MRBerror.MRB_Main.*;
 
+class DataRecord {
+    double p = 0;//估计标签丢失概率p
+    double p_true = 0;//实际的标签丢失概率
+    double n = 0;//估计的标签数目n
+    int n_true = 0;//实际的标签数目
+    double pm = 0;//丢失任一个标签的概率
+    int slotCount = 0;//本轮使用的时隙数
+
+    @Override
+    public String toString() {
+        return "DataRecord{" +
+                "p=" + p +
+//                ", p_true=" + p_true +
+                ", n=" + n +
+                ", n_true=" + n_true +
+                ", pm=" + pm +
+                ", slotCount=" + slotCount +
+                "}\n";
+    }
+}
+
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
     /*
@@ -27,7 +48,8 @@ public class MRB_Reader {
         double p2;  // 统计丢失标签概率
         double p3;  // pm值
         double p4;  // 估计丢失标签概率
-        int reuseCount;//复用数目
+        int reuseCount;// 复用数目
+        int slotCount;// 该轮识别所用的时隙数
 
         public NUM() {
             p1 = 0;
@@ -64,6 +86,7 @@ public class MRB_Reader {
         public String toString() {
             return "resu{" +
                     "identifiedTagList=" + identifiedTagList +
+                    ", silentedTagList=" + silentedTagList +
                     ", countOfSlot=" + countOfSlot +
                     '}';
         }
@@ -687,7 +710,7 @@ public class MRB_Reader {
      *
      * @param l               标签集合
      * @param silenceStrategy 沉默策略序号 1.随机沉默
-     * @return
+     * @return resu(包括识别的标签 、 沉默的标签 、 识别用的时隙数)
      */
     public resu OneFrame(List<MRB_Tag> l, int silenceStrategy) {
         // 这一帧已识别标签ID集合
@@ -724,7 +747,7 @@ public class MRB_Reader {
         int tagIDLength = MRBTagList.get(0).ID.length();*/
 
         logger.info("----------帧开始----------");
-        System.out.println("帧开始");
+//        System.out.println("帧开始");
         // 初始化输出信息
         int slotNum = 0;
         int totalBitNum = 0;
@@ -742,7 +765,7 @@ public class MRB_Reader {
         CCB.put(firstID, CCBValue);
         // 初始化PCB
         PCB.put("NS", new HashSet<>());
-
+        List<MRB_Tag> silentedTagList = new ArrayList<>();
         int i = 0;
         int N = l.size();
         int d = 0; // 用于统计跳过的被沉默的标签的个数，这些被沉默标签数目应当在通信时加入到groupsize中，并重置
@@ -753,6 +776,7 @@ public class MRB_Reader {
 
                 i++;
                 d++;
+//                silentedTagList.add(l.get(i));
                 continue;
             }
             logger.info("----------增加标签" + l.get(i).ID + "----------");
@@ -806,7 +830,7 @@ public class MRB_Reader {
                 MRB_Transmission.Broadcast(this, TheTrueTag);
                 // 读取器接受标签响应
                 MRB_Transmission.receiveReplies(this, TheTrueTag);
-                System.out.println("receive msg from tag: " + this.slot.receive);
+//                System.out.println("receive msg from tag: " + this.slot.receive);
                 logger.info("receive msg from tag: " + this.slot.receive);
                 int num = 0;   // 统计识别的标签数目
                 String s2 = "";
@@ -815,7 +839,7 @@ public class MRB_Reader {
                 for (String s : PCB.keySet()) {
                     if (s.equals(this.slot.receive)) {
                         logger.info("识别标签" + PCB.get(s));
-                        System.out.println("识别标签" + PCB.get(s));
+//                        System.out.println("识别标签" + PCB.get(s));
                         for (String st : PCB.get(s)) {
                             currentFrameTagList.add(st);
                             num++;
@@ -825,7 +849,6 @@ public class MRB_Reader {
                 }
 
                 this.slot.clear();
-
 
 
                 PCB.clear();
@@ -873,7 +896,7 @@ public class MRB_Reader {
         // 读取器接受标签响应
         MRB_Transmission.receiveReplies(this, TheTrueTag);
 
-        System.out.println("receive msg from tag: " + this.slot.receive);
+//        System.out.println("receive msg from tag: " + this.slot.receive);
         logger.info("receive msg from tag: " + this.slot.receive);
         int num = 0;   // 统计识别的标签数目
         String s2 = "";
@@ -882,7 +905,7 @@ public class MRB_Reader {
         for (String s : PCB.keySet()) {
             if (s.equals(this.slot.receive)) {
                 logger.info("识别标签" + PCB.get(s));
-                System.out.println("识别标签" + PCB.get(s));
+//                System.out.println("识别标签" + PCB.get(s));
                 for (String st : PCB.get(s)) {
                     currentFrameTagList.add(st);
                     num++;
@@ -893,27 +916,34 @@ public class MRB_Reader {
 
         this.slot.clear();
 
-        List<MRB_Tag> silentedTagList=new ArrayList<>();
+
         //根据参数对标签进行沉默
         int countOfCatchedTag = currentFrameTagList.size();         //捕获的标签数
-        int silentCount = thev * countOfCatchedTag /100;            //至少需要沉默的标签数
+        int silentCount = (100 - thev) * currentFrameTagList.size() / 100;            //至少需要沉默的标签数
         List<Integer> silentedIndex = new ArrayList<Integer>();        //沉默的序号，在currentFrameTagList中定位
-        List<String> silentIDs=new ArrayList<String>();            //将要沉默的标签的ID集合
-        if(countOfCatchedTag<=silentCount)silenceStrategy=-1;//若捕获数不满足最小需求，沉默所有捕获的标签
+        List<String> silentIDs = new ArrayList<String>();            //将要沉默的标签的ID集合
+
+
+        if(currentFrameTagList.size()<silentCount)silenceStrategy = -1;//若捕获数不满足最小需求，沉默所有捕获的标签
+//        //复原已沉默标签
+//        for (MRB_Tag tag : silentedTagList) tag.use = true;
+//        silentedTagList = new ArrayList<>();
+
         switch (silenceStrategy) {
             case -1:
                 silentIDs.addAll(currentFrameTagList);
                 break;
             case 0:
                 //随机沉默
+                int tagCount=currentFrameTagList.size();
                 Random random = new Random();
                 //随机选择沉默的标签序号
                 for (int silentIndex = 0; silentIndex < silentCount; silentIndex++) {
                     //随机生成沉默序号
-                    int index =-1;
+                    int index = -1;
                     do {
-                        index = random.nextInt(countOfCatchedTag);
-                    }while(silentedIndex.contains(index));
+                        index = random.nextInt(tagCount);
+                    } while (silentedIndex.contains(index));
                     silentedIndex.add(index);
                     //添加index的ID
                     silentIDs.add(currentFrameTagList.get(index));
@@ -923,13 +953,14 @@ public class MRB_Reader {
                 //从小的CBM沉默
                 CBMs.sort(Comparator.comparing(Map::size));
             case 1:
+
                 //以CBM为单位沉默
-                for (Map<String, Set<String>> cbm :CBMs){
-                    if(silentIDs.size()<silentCount){
+                for (Map<String, Set<String>> cbm : CBMs) {
+                    if (silentIDs.size() < silentCount) {
                         //将cbm的所有相关标签添加到沉默列表
-                        for(Set<String> id_list:cbm.values()){
-                            for(String id:id_list){
-                                if(!silentIDs.contains(id)){
+                        for (Set<String> id_list : cbm.values()) {
+                            for (String id : id_list) {
+                                if (!silentIDs.contains(id)) {
                                     silentIDs.add(id);
                                 }
                             }
@@ -939,75 +970,35 @@ public class MRB_Reader {
                 break;
             case 3:
                 //精确沉默
-                int cbm_index=0;
+                int cbm_index = 0;
                 //循环直到找齐
-                while (silentIDs.size()<silentCount){
+                while (silentIDs.size() < silentCount) {
                     //每次取出一个CBM中的第一个
-                    for(Set<String> id_list:CBMs.get(cbm_index).values()){
-                        boolean find=false;
-                        for(String id:id_list){
-                            if(!silentIDs.contains(id)){
+                    for (Set<String> id_list : CBMs.get(cbm_index).values()) {
+                        boolean find = false;
+                        for (String id : id_list) {
+                            if (!silentIDs.contains(id)) {
                                 silentIDs.add(id);
-                                find=true;
+                                find = true;
                                 break;
                             }
                         }
-                        if(find)break;
+                        if (find) break;
                     }
-                    cbm_index=(cbm_index+1)%CBMs.size();
+                    cbm_index = (cbm_index + 1) % CBMs.size();
                 }
                 break;
         }
+
         //沉默相应标签
-        for (MRB_Tag tag:l) {
-            if(silentIDs.contains(tag.ID)) {
+        for (MRB_Tag tag : l) {
+            if (silentIDs.contains(tag.ID)) {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 silentedTagList.add(tag);
             }
         }
-        // 添加对捕获效应处理
-        /*
 
-        if(num==1){
-            // 寻找到该时隙内唯一识别的标签，并将其沉默
-            for(MRB_Tag t:MRBTagList){
-                if(t.ID == s2){
-                    t.use=false;
-                    t3.add(t);
-                }
-            }
-
-            slot.broadcast = String.valueOf(i-groupSize) + "|" + String.valueOf(groupSize);
-            // 标签接受广播并进行响应
-            MRB_Transmission.Broadcast(this,TheTrueTag);
-            // 读取器接受标签响应
-            MRB_Transmission.receiveReplies(this,TheTrueTag);
-            s2="";
-            num=0;
-            slotNum++;
-            // 读取器处理标签响应，并将识别得到的标签存入已识别列表
-            for(String s:PCB.keySet()){
-                if(s.equals(this.slot.receive)){
-                    for(String st:PCB.get(s)){
-                        currentFrameTagList.add(st);
-                        num++;
-                        s2 = st;
-                    }
-                }
-            }
-            this.slot.clear();
-        };
-        // 将沉默标签恢复可用
-        for(MRB_Tag t:t3){
-            t.use = true;
-        }
-        t3.clear();
-
-
-
-
-         */
         slotNum++;
 
         logger.info("---------这轮识别结束，共消耗" + slotNum + "个时隙");
@@ -1023,35 +1014,111 @@ public class MRB_Reader {
             }
         }
         res.identifiedTagList = result;
-        res.silentedTagList=silentedTagList;
+        res.silentedTagList = silentedTagList;
         res.countOfSlot = slotNum;
         return res;
     }
 
     /**
      * 通过两轮识别估计错误概率
+     *
      * @param l
      * @param silenceStrategy
      * @return
      */
-    public NUM getErrorProbablity(List<MRB_Tag> l, int silenceStrategy){
-        NUM result=new NUM();
-        MRB_Reader.resu res=OneFrame(l,silenceStrategy);
-        MRB_Reader.resu res2=OneFrame(l,silenceStrategy);
-        int missFrame2=0,catchedFrame2=0;
-        List<MRB_Tag> reuseTagList=new ArrayList<>(res.identifiedTagList);
-        for(MRB_Tag tag : res.silentedTagList){
+    public NUM getErrorProbablity(List<MRB_Tag> l, int silenceStrategy) {
+        NUM result = new NUM();
+        MRB_Reader.resu res = OneFrame(l, silenceStrategy);
+        MRB_Reader.resu res2 = OneFrame(l, silenceStrategy);
+        int missFrame2 = 0, catchedFrame2 = 0;
+        List<MRB_Tag> reuseTagList = new ArrayList<>(res.identifiedTagList);
+        for (MRB_Tag tag : res.silentedTagList) {
             reuseTagList.remove(tag);
         }
-        for(MRB_Tag tag :reuseTagList){
-            if(res2.identifiedTagList.contains(tag))catchedFrame2++;
+        for (MRB_Tag tag : reuseTagList) {
+            if (res2.identifiedTagList.contains(tag)) catchedFrame2++;
             else missFrame2++;
         }
-        System.out.println(missFrame2);
-        System.out.println(reuseTagList.size());
-        result.p4=(double) missFrame2 / reuseTagList.size();
+//        System.out.println("第二次未捕获的标签"+missFrame2);
+//        System.out.println("第二次重用的标签"+reuseTagList.size());
+        result.slotCount = res.countOfSlot;
+        if (reuseTagList.size() == 0)
+            result.p4 = 1;
+        else
+            result.p4 = (double) missFrame2 / reuseTagList.size();
         return result;
     }
+
+    /**
+     * 通过多轮识别进行估计
+     *
+     * @param mrb_tags        参与识别的标签集合
+     * @param silenceStrategy 沉默策略
+     * @param thresholdOfPM   pm的阈值
+     * @return 估计结果
+     */
+    public List<DataRecord> MultiSession(List<MRB_Tag> mrb_tags, int silenceStrategy, double thresholdOfPM) {
+//        double p_true=
+        double pm = 1;
+        ArrayList<DataRecord> resList = new ArrayList<>(); //记录结果
+        int R = 0;//R记录循环轮次
+        int totalSilentedCount = 0;
+        resu lastFrame = OneFrame(mrb_tags, silenceStrategy);
+        totalSilentedCount = lastFrame.silentedTagList.size();
+        while (pm > thresholdOfPM && R < 20) {
+
+            //TODO:从已识别的全部标签中沉默
+
+            resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
+
+            //统计数据
+            int m = 0;    // 两次均找到的标签数  对应m
+            //计数 CommonTagCount
+            for (MRB_Tag tag : thisFrame.identifiedTagList) {
+                if (lastFrame.identifiedTagList.contains(tag)) m++;
+            }
+            //沉默标签数 k1
+            int k1 = lastFrame.silentedTagList.size();
+            //重用但没找到的标签数 l=上轮识别-上轮沉默-两轮均识别
+            int l = lastFrame.identifiedTagList.size() - k1 - m;
+            //上轮未识别这轮新识别的标签 k2
+            int k2 = thisFrame.identifiedTagList.size() - m;
+
+            //估计结果
+            //错误概率p的估计值 p=l/l+m
+            double p = (double) l / (l + m);
+            //p与之前结果取均值
+            for (DataRecord dataRecord : resList) p += dataRecord.p;
+            p = p / (resList.size() + 1);
+            //参与识别的标签数N的估计值
+            double N = ((double) (k1 + k2 + l + m))
+                    / ((double) 1 - Math.pow(p, 2));
+            //pm的估计值
+            pm = 1 - Math.pow(1 - Math.pow(p, ++R), (int) N);
+
+            //保存结果
+            DataRecord res = new DataRecord();
+            //估计标签数
+            res.n = N;
+            //实际标签数
+            res.n_true = mrb_tags.size() - totalSilentedCount;
+            //更新沉默标签数
+            totalSilentedCount += thisFrame.silentedTagList.size();
+            //估计丢失标签概率
+            res.p = p;
+            //时隙数
+            res.slotCount = thisFrame.countOfSlot;
+            //pm
+            res.pm = pm;
+            resList.add(res);
+            R++;
+
+            //更新帧
+            lastFrame = thisFrame;
+        }
+        return resList;
+    }
+
     // 将两个字符串进行碰撞，如果字符不一样，设为X，如果有NS，返回另一个字符串
     private String CB(String s1, String s2) {
         if (s1.equals("NS")) return s2;
