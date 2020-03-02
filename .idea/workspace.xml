@@ -2,29 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/MRBerror/fileUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/MRB.log" beforeDir="false" afterPath="$PROJECT_DIR$/log/MRB.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/log/MRBerror.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Tag$Slot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Tag$Slot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Tag.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Tag.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Transmission.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Transmission.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/about.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Tag.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Transmission.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Transmission.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/about.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/about.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/fileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/fileUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="209" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -278,7 +270,7 @@
       <workItem from="1582693654791" duration="7000" />
       <workItem from="1582782092172" duration="1790000" />
       <workItem from="1582789021239" duration="340000" />
-      <workItem from="1583124381081" duration="14237000" />
+      <workItem from="1583124381081" duration="17263000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -294,7 +286,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581855748591</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="确定四种沉默方式，修改日志输出，增加文件工具将日志格式化为json文件便于处理。">
+      <created>1583145749575</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1583145749575</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -312,7 +311,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="随机沉默待测试" />
     <MESSAGE value="实现四种沉默方式（效果待检验）" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现四种沉默方式（效果待检验）" />
+    <MESSAGE value="确定四种沉默方式，修改日志输出，增加文件工具将日志格式化为json文件便于处理。" />
+    <option name="LAST_COMMIT_MESSAGE" value="确定四种沉默方式，修改日志输出，增加文件工具将日志格式化为json文件便于处理。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="108" key="#HTTP_Proxy" timestamp="1582789355075">
@@ -331,30 +331,30 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="537" y="235" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog/0.0.1536.864@0.0.1536.864" timestamp="1582193532657" />
-    <state x="341" y="0" key="CommitChangelistDialog2" timestamp="1583145684863">
+    <state x="341" y="0" key="CommitChangelistDialog2" timestamp="1583145746560">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="341" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1583145684863" />
+    <state x="341" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1583145746560" />
     <state x="549" y="173" key="FileChooserDialogImpl" timestamp="1582789223392">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1582789223392" />
-    <state width="1493" height="250" key="GridCell.Tab.0.bottom" timestamp="1583145684910">
+    <state width="1493" height="178" key="GridCell.Tab.0.bottom" timestamp="1583154604928">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="250" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1583145684910" />
-    <state width="1493" height="250" key="GridCell.Tab.0.center" timestamp="1583145684910">
+    <state width="1493" height="178" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1583154604928" />
+    <state width="1493" height="178" key="GridCell.Tab.0.center" timestamp="1583154604928">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="250" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1583145684910" />
-    <state width="1493" height="250" key="GridCell.Tab.0.left" timestamp="1583145684910">
+    <state width="1493" height="178" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1583154604928" />
+    <state width="1493" height="178" key="GridCell.Tab.0.left" timestamp="1583154604928">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="250" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1583145684910" />
-    <state width="1493" height="250" key="GridCell.Tab.0.right" timestamp="1583145684910">
+    <state width="1493" height="178" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1583154604928" />
+    <state width="1493" height="178" key="GridCell.Tab.0.right" timestamp="1583154604928">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="250" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1583145684910" />
+    <state width="1493" height="178" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1583154604928" />
     <state width="1493" height="331" key="GridCell.Tab.1.bottom" timestamp="1583138054694">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -402,5 +402,10 @@
         <watch expression="res.identifiedTagList" language="JAVA" />
       </configuration>
     </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/RFID_TreeAlgorithm$MRB_Main.ic" NAME="MRB_Main Coverage Results" MODIFIED="1583148934639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>MRBerror.*</FILTER>
+    </SUITE>
   </component>
 </project>

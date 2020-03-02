@@ -1327,13 +1327,7 @@ public class MRB_Reader {
         List<String> silentIDs = new ArrayList<String>();            //将要沉默的标签的ID集合
 
 
-        if (currentFrameTagList.size() < silentCount && silenceStrategy != 0) {
-            silenceStrategy = -1;//若捕获数不满足最小需求，不更新沉默标签
-        } else {
-            for (MRB_Tag tag : silentedTagIDList) tag.use = true;
-            silentedTagIDList = new ArrayList<>();
-        }
-        if (silentCount < 0) silenceStrategy = -2;
+
         List<MRB_Tag> toSilenteTagList = new ArrayList<>();
         List<MRB_Tag> catchedTagList = new ArrayList<>(catchedTagSet);
         switch (silenceStrategy) {
@@ -1343,6 +1337,11 @@ public class MRB_Reader {
                 break;
             case 0:
                 //随机沉默
+
+                //重置已沉默标签
+                for (MRB_Tag tag : silentedTagIDList) tag.use = true;
+                silentedTagIDList = new ArrayList<>();
+
                 int tagCount = catchedTagList.size();
                 Random random = new Random();
                 //随机选择沉默的标签序号
@@ -1362,6 +1361,10 @@ public class MRB_Reader {
                 CBMs.sort(Comparator.comparing(Map::size));
             case 1:
                 //以CBM为单位沉默
+                //添加已沉默标签
+                silentCount=silentCount-silentedTagIDList.size();
+                if (silentCount<=0)break;
+
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {
                         //将cbm的所有相关标签添加到沉默列表
@@ -1377,6 +1380,10 @@ public class MRB_Reader {
                 break;
             case 3:
                 //精确沉默
+                //添加已沉默标签
+                silentCount=silentCount-silentedTagIDList.size();
+                if (silentCount<=0)break;
+
                 int cbm_index = 0;
                 //循环直到找齐
                 while (silentIDs.size() < silentCount) {
@@ -1468,7 +1475,8 @@ public class MRB_Reader {
         clearCatchedSet();  //重置已捕获的标签记录
         ArrayList<DataRecord> resList = new ArrayList<>(); //记录结果
         int R = 0;//R记录循环轮次
-
+        //重置标签
+        for(MRB_Tag tag : mrb_tags)tag.use=true;
         //第0轮识别
         int totalSilentedCount = 0;
         resu lastFrame = OneFrame(mrb_tags, silenceStrategy);

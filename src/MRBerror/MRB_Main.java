@@ -2,6 +2,7 @@ package MRBerror;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import MRBerror.fileUtil;
 import MRBerror.MRB_Reader.NUM;
 import MRBerror.DataRecord;
@@ -14,7 +15,8 @@ public class MRB_Main {
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
     static int captureError = 0;        // 多标签响应时捕获效应发生概率
     static int thev = 80;                // Fast-Capture-Recapture标签复用率
-    static int silenceStrategy=3;
+    static int silenceStrategy = 3;
+
     public static void main(String[] args) {
 
 
@@ -28,21 +30,41 @@ public class MRB_Main {
         System.out.println(resList);
         */
 
-
-        double avgRes=0;
-        for (int i = 0; i < 10; i++) {
-            List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, 0.00);
-            double p=resTemp.get(resTemp.size()-1).p;
-//            System.out.println(p);
-            avgRes+=p;
-        }
-
-        fileUtil.transferData2Json("log/"+"s"+silenceStrategy+"_t"+thev+"_tag"+tagCount+".json");
+        MutilSessionTest(0);
+        MutilSessionTest(1);
+        MutilSessionTest(2);
+        MutilSessionTest(3);
 
 
-        System.out.println("avg: "+avgRes/10);
 //    NUM res=r.getErrorProbablity(input.MRBTagList,0);
 //    System.out.println(res.p4);
+    }
+
+    static double MutilSessionTest(int silenceStrategy) {
+        System.out.println("strategy" + silenceStrategy);
+
+        MRB_Reader r = new MRB_Reader();
+        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+        /*
+        //ident方法
+        List<NUM> resList=r.ident(input);
+        System.out.println(resList);
+        */
+
+
+        double avgRes = 0;
+        for (int i = 0; i < 1000; i++) {
+            List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, 0.00);
+            double p = resTemp.get(resTemp.size() - 1).p;
+//            System.out.println(p);
+            avgRes += p;
+        }
+
+        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + ".json");
+
+
+        System.out.println("avg: " + avgRes / 10);
+        return avgRes / 10;
     }
 
     static double getAvgErrorProbablity(int silenceStrategy) {
