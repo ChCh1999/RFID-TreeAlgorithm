@@ -64,7 +64,13 @@ public class MRB_Tag {
         if(ASC>=PSC&&ASC<PSC+groupSize)
             slot.msg = ID;
     }
-
+    public void AlertDynamicError(){
+        int num = slot.receive.indexOf("|");
+        PSC = Integer.parseInt(slot.receive.substring(0,num));
+        groupSize = Integer.parseInt(slot.receive.substring(num+1,slot.receive.length()));
+        if(ASC>=PSC&&ASC<PSC+groupSize)
+            MRB_Reader.logger.error("****标签（" + this + "）接收广播时发生错误****");
+    }
     /**
      * 模拟标签与读取器在标签端的通信
      */

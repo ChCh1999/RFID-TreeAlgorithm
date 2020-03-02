@@ -28,7 +28,7 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
-    protected static Logger datalogger = Logger.getLogger("MRB");
+    protected static Logger datalogger = Logger.getLogger("MRBRecord");
     /*
      * 往帧识别的标签集合
      */
@@ -1327,7 +1327,7 @@ public class MRB_Reader {
         List<String> silentIDs = new ArrayList<String>();            //将要沉默的标签的ID集合
 
 
-        if (currentFrameTagList.size() < silentCount && silenceStrategy!=0) {
+        if (currentFrameTagList.size() < silentCount && silenceStrategy != 0) {
             silenceStrategy = -1;//若捕获数不满足最小需求，不更新沉默标签
         } else {
             for (MRB_Tag tag : silentedTagIDList) tag.use = true;
@@ -1361,7 +1361,6 @@ public class MRB_Reader {
                 //从小的CBM沉默
                 CBMs.sort(Comparator.comparing(Map::size));
             case 1:
-
                 //以CBM为单位沉默
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {
@@ -1400,7 +1399,11 @@ public class MRB_Reader {
 
         //沉默相应标签
         for (MRB_Tag tag : l) {
-            if (silentIDs.contains(tag.ID)) {
+            if (!tag.use){
+                toSilenteTagList.add(tag);
+                continue;
+            }
+            if (silentIDs.contains(tag.ID)&&catchedTagSet.contains(tag)) {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenteTagList.add(tag);
@@ -1460,13 +1463,26 @@ public class MRB_Reader {
      * @return 估计结果
      */
     public List<DataRecord> MultiSession(List<MRB_Tag> mrb_tags, int silenceStrategy, double thresholdOfPM) {
-//        double p_true=
+
         double pm = 1;
+        clearCatchedSet();  //重置已捕获的标签记录
         ArrayList<DataRecord> resList = new ArrayList<>(); //记录结果
         int R = 0;//R记录循环轮次
+
+        //第0轮识别
         int totalSilentedCount = 0;
         resu lastFrame = OneFrame(mrb_tags, silenceStrategy);
-        totalSilentedCount = lastFrame.silentedTagList.size();
+        //保存结果
+        DataRecord res = new DataRecord();
+
+
+        //pm
+        res.pm = pm;
+        //总的识别标签数
+        res.countOfCatchedTag = catchedTagSet.size();
+        resList.add(res);
+
+        datalogger.info(",[");
         while (pm > thresholdOfPM && R < 20) {
 
             resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
@@ -1485,38 +1501,27 @@ public class MRB_Reader {
                     //参与本次识别的标签
                 else if (!thisFrame.identifiedTagList.contains(tag)) l++;//本轮未被识别的标签
                     //本轮被识别的标签
-                else if (lastFrame.identifiedTagList.contains(tag)) m++;//两轮均被识别的标签
-                else k2++;//仅本轮被识别的标签
+                else m++;//本轮被识别的标签
             }
-
+            k2 = catchedTagSet.size() - resList.get(resList.size() - 1).countOfCatchedTag;
+            m = m - k2;
 
             //估计结果
             //错误概率p的估计值 p=l/l+m
             double p = (double) l / (l + m);
             //p与之前结果取均值
             for (DataRecord dataRecord : resList) p += dataRecord.p;
-            p = p / (resList.size() + 1);
+            p = p / (resList.size());
             //参与识别的标签数N的估计值
 //            System.out.println(catchedTagSet.size());
             double N = ((double) (k1 + k2 + l + m))
                     / ((double) 1 - Math.pow(p, R + 1));
             //pm的估计值
             pm = 1 - Math.pow(1 - Math.pow(p, R + 1), (int) N);
-            datalogger.info(
-                    "{" +
-                            "\"k1\"：" + k1
-                            + ", \"k2\"：" + k2
-                            + ", \"l\"：" + l
-                            + ", \"m\"：" + m
-                            + ", \"p\"：" + p
-                            + ", \"n\"：" + N
-                            + ", \"pm\"：" + pm
-                            + ", \"catched\"：" + catchedTagSet.size()
-//                            + ", \"silent\"：" + thisFrame.silentedTagList.size()
-                            + "},"
-            );
+
+
             //保存结果
-            DataRecord res = new DataRecord();
+            res = new DataRecord();
             //估计标签数
             res.n = N;
             //更新沉默标签数
@@ -1532,9 +1537,28 @@ public class MRB_Reader {
             resList.add(res);
             R++;
 
+            //写入json格式日志
+            if (R != 1) {
+                datalogger.info(",");
+            }
+            datalogger.info(
+                    "{" +
+                            "\"k1\":" + k1
+                            + ", \"k2\":" + k2
+                            + ", \"l\":" + l
+                            + ", \"m\":" + m
+                            + ", \"p\":" + p
+                            + ", \"n\":" + N
+                            + ", \"pm\":" + pm
+                            + ", \"catched\":" + catchedTagSet.size()
+                            + ", \"slot\":" + thisFrame.countOfSlot
+//                            + ", \"silent\":" + thisFrame.silentedTagList.size()
+                            + "}"
+            );
             //更新帧
             lastFrame = thisFrame;
         }
+        datalogger.info("]");
         return resList;
     }
 
