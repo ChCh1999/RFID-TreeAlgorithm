@@ -1,4 +1,9 @@
+*.png
 *.log
 *.class
 log/*
 out/*
+# 忽略数据文件
+*/res/*
+# 忽略配置文件
+*/__pycache__/*
