@@ -15,7 +15,8 @@ public class MRB_Main {
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
     static int captureError = 0;        // 多标签响应时捕获效应发生概率
     static int thev = 80;                // Fast-Capture-Recapture标签复用率
-    static int silenceStrategy = 3;
+//    static int silenceStrategy = 3;
+    static int roundCount = 1000;
 
     public static void main(String[] args) {
 
@@ -34,6 +35,10 @@ public class MRB_Main {
         MutilSessionTest(1);
         MutilSessionTest(2);
         MutilSessionTest(3);
+        MutilSessionTest(4);
+        MutilSessionTest(5);
+        MutilSessionTest(6);
+
 
 
 //    NUM res=r.getErrorProbablity(input.MRBTagList,0);
@@ -53,7 +58,7 @@ public class MRB_Main {
 
 
         double avgRes = 0;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < roundCount; i++) {
             List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, 0.00);
             double p = resTemp.get(resTemp.size() - 1).p;
 //            System.out.println(p);
@@ -63,7 +68,7 @@ public class MRB_Main {
         fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + ".json");
 
 
-        System.out.println("avg: " + avgRes / 10);
+        System.out.println("avg: " + avgRes / roundCount);
         return avgRes / 10;
     }
 

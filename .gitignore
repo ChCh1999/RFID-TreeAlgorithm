@@ -1,4 +1,4 @@
 *.log
 *.class
-log\*
-out\*
+log/*
+out/*

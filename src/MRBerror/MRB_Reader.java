@@ -1327,7 +1327,6 @@ public class MRB_Reader {
         List<String> silentIDs = new ArrayList<String>();            //将要沉默的标签的ID集合
 
 
-
         List<MRB_Tag> toSilenteTagList = new ArrayList<>();
         List<MRB_Tag> catchedTagList = new ArrayList<>(catchedTagSet);
         switch (silenceStrategy) {
@@ -1362,8 +1361,8 @@ public class MRB_Reader {
             case 1:
                 //以CBM为单位沉默
                 //添加已沉默标签
-                silentCount=silentCount-silentedTagIDList.size();
-                if (silentCount<=0)break;
+                silentCount = silentCount - silentedTagIDList.size();
+                if (silentCount <= 0) break;
 
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {
@@ -1381,10 +1380,10 @@ public class MRB_Reader {
             case 3:
                 //精确沉默
                 //添加已沉默标签
-                silentCount=silentCount-silentedTagIDList.size();
-                if (silentCount<=0)break;
+                silentCount = silentCount - silentedTagIDList.size();
+                if (silentCount <= 0) break;
 
-                int cbm_index = 0;
+                int cbm_index = 1;
                 //循环直到找齐
                 while (silentIDs.size() < silentCount) {
                     //每次取出一个CBM中的第一个
@@ -1402,15 +1401,58 @@ public class MRB_Reader {
                     cbm_index = (cbm_index + 1) % CBMs.size();
                 }
                 break;
+            case 4:
+                //随机沉默-递增方案
+
+                silentCount = silentCount - silentedTagIDList.size();
+                if (silentCount <= 0) break;
+
+
+                tagCount = catchedTagList.size();
+                random = new Random();
+                //随机选择沉默的标签序号
+                for (int silentIndex = 0; silentIndex < silentCount; silentIndex++) {
+                    //随机生成沉默序号
+                    int index = -1;
+                    do {
+                        index = random.nextInt(tagCount);
+                    } while (silentedIndex.contains(index));
+                    silentedIndex.add(index);
+                    //添加index的ID
+                    silentIDs.add(catchedTagList.get(index).ID);
+                }
+                break;
+            case 6:
+                //从小的CBM沉默
+                CBMs.sort(Comparator.comparing(Map::size));
+            case 5:
+                //以CBM为单位沉默
+                //重置已沉默标签
+                for (MRB_Tag tag : silentedTagIDList) tag.use = true;
+                silentedTagIDList = new ArrayList<>();
+
+                for (Map<String, Set<String>> cbm : CBMs) {
+                    if (silentIDs.size() < silentCount) {
+                        //将cbm的所有相关标签添加到沉默列表
+                        for (Set<String> id_list : cbm.values()) {
+                            for (String id : id_list) {
+                                if (!silentIDs.contains(id)) {
+                                    silentIDs.add(id);
+                                }
+                            }
+                        }
+                    }
+                }
+                break;
         }
 
         //沉默相应标签
         for (MRB_Tag tag : l) {
-            if (!tag.use){
+            if (!tag.use) {
                 toSilenteTagList.add(tag);
                 continue;
             }
-            if (silentIDs.contains(tag.ID)&&catchedTagSet.contains(tag)) {
+            if (silentIDs.contains(tag.ID) && catchedTagSet.contains(tag)) {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenteTagList.add(tag);
@@ -1476,7 +1518,7 @@ public class MRB_Reader {
         ArrayList<DataRecord> resList = new ArrayList<>(); //记录结果
         int R = 0;//R记录循环轮次
         //重置标签
-        for(MRB_Tag tag : mrb_tags)tag.use=true;
+        for (MRB_Tag tag : mrb_tags) tag.use = true;
         //第0轮识别
         int totalSilentedCount = 0;
         resu lastFrame = OneFrame(mrb_tags, silenceStrategy);
