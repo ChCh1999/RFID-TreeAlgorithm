@@ -28,7 +28,7 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
-    protected static Logger datalogger = Logger.getLogger("MRBRecord");
+    private fileUtil fileWriter= new fileUtil("log/MRBRecord.txt");
     /*
      * 往帧识别的标签集合
      */
@@ -41,6 +41,7 @@ public class MRB_Reader {
         LastFrameTagList = new ArrayList<>();
         slot = new slot();
         catchedTagSet = new HashSet<>();
+        fileWriter.clearmsg();
     }
 
     public void clearCatchedSet() {
@@ -499,6 +500,7 @@ public class MRB_Reader {
                     CCB.put(CB(s, SN_i), tagsClone);
                 }
             }
+
             printCCBandPCB("CCB", CCB);
 
             for (String s1 : CCB.keySet()) {
@@ -1174,7 +1176,7 @@ public class MRB_Reader {
             }
             logger.info("----------增加标签" + l.get(i).ID + "----------");
             logger.info("i = " + i);
-            logger.info("-----更新CCB-----");
+//            logger.info("-----更新CCB-----");
             boolean hasDumplicate = false;
             CCB.clear();
             for (String s : PCB.keySet()) {
@@ -1187,16 +1189,21 @@ public class MRB_Reader {
                 // 进行判断，如果CCB值重复，也不可以
                 if (CCB.containsKey(CB(s, SN_i))) {
                     hasDumplicate = true;
-                } else {
+                    logger.info("duplicate key in CCB: "+CB(s, SN_i));
+                }else {
                     CCB.put(CB(s, SN_i), tagsClone);
                 }
+
             }
-            printCCBandPCB("CCB", CCB);
+
+
+//            printCCBandPCB("CCB", CCB);
 
             for (String s1 : CCB.keySet()) {
                 for (String s2 : PCB.keySet()) {
                     if (s1.equals(s2)) {
                         hasDumplicate = true;
+                        logger.info("duplicate key in CCB-PCB: "+s1);
                         break;
                     }
                 }
@@ -1205,6 +1212,9 @@ public class MRB_Reader {
             if (hasDumplicate) {
                 slotNum++;
                 logger.info("-----CCB和PCB有重复，不再增加标签-----");
+                printCCBandPCB("CCB", CCB);
+                printCCBandPCB("PCB", PCB);
+                printCUCS(CUCS);
                 int groupSize = CUCS.size();
                 // 加入被跳过的标签，使得响应列表连续
                 groupSize += d;
@@ -1254,20 +1264,20 @@ public class MRB_Reader {
                 // 初始化PCB
                 PCB.put("NS", new HashSet<>());
                 logger.info("-----重置状态-----");
-                printCUCS(CUCS);
-                printCCBandPCB("CCB", CCB);
-                printCCBandPCB("PCB", PCB);
+//                printCUCS(CUCS);
+//                printCCBandPCB("CCB", CCB);
+//                printCCBandPCB("PCB", PCB);
                 logger.info("");
 
             } else {
-                logger.info("-----CCB和PCB没重复，增加标签-----");
+//                logger.info("-----CCB和PCB没重复，增加标签-----");
                 PCB.putAll(CCB);
                 CUCS.add(i);
                 i++;
-                logger.info("-----结束时状态-----");
-                printCUCS(CUCS);
-                printCCBandPCB("CCB", CCB);
-                printCCBandPCB("PCB", PCB);
+//                logger.info("-----结束时状态-----");
+//                printCUCS(CUCS);
+//                printCCBandPCB("CCB", CCB);
+//                printCCBandPCB("PCB", PCB);
             }
 
 
@@ -1532,7 +1542,7 @@ public class MRB_Reader {
         res.countOfCatchedTag = catchedTagSet.size();
         resList.add(res);
 
-        datalogger.info(",[");
+        fileWriter.writemsg(",[\n");
         while (pm > thresholdOfPM && R < 20) {
 
             resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
@@ -1589,9 +1599,9 @@ public class MRB_Reader {
 
             //写入json格式日志
             if (R != 1) {
-                datalogger.info(",");
+                fileWriter.writemsg(",");
             }
-            datalogger.info(
+            fileWriter.writemsg(
                     "{" +
                             "\"k1\":" + k1
                             + ", \"k2\":" + k2
@@ -1603,12 +1613,12 @@ public class MRB_Reader {
                             + ", \"catched\":" + catchedTagSet.size()
                             + ", \"slot\":" + thisFrame.countOfSlot
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
-                            + "}"
+                            + "}\n"
             );
             //更新帧
             lastFrame = thisFrame;
         }
-        datalogger.info("]");
+        fileWriter.writemsg("]\n");
         return resList;
     }
 

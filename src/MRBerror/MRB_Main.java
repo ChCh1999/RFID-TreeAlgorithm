@@ -6,17 +6,22 @@ import java.util.List;
 import MRBerror.fileUtil;
 import MRBerror.MRB_Reader.NUM;
 import MRBerror.DataRecord;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Logger;
 
 public class MRB_Main {
     static int tagIDlength = 10;         // 标签id长度
     static int tagCount = 1000;             //标签数
+
+
     static int staticError = 20;         // 静态错误发生概率(百分制,下同)
     static int rError = 10;              // 动态错误中从读取器到标签信息丢失概率
     static int tError = 10;              // 动态错误中从标签到读取器信息丢失概率
     static int captureError = 0;        // 多标签响应时捕获效应发生概率
     static int thev = 80;                // Fast-Capture-Recapture标签复用率
-//    static int silenceStrategy = 3;
+    //    static int silenceStrategy = 3;
     static int roundCount = 1000;
+    static double thresholdPM = 0.00;
 
     public static void main(String[] args) {
 
@@ -30,15 +35,20 @@ public class MRB_Main {
         List<NUM> resList=r.ident(input);
         System.out.println(resList);
         */
-
+        MRB_Reader.logger.info("随机沉默");
         MutilSessionTest(0);
-        MutilSessionTest(1);
-        MutilSessionTest(2);
-        MutilSessionTest(3);
-        MutilSessionTest(4);
-        MutilSessionTest(5);
-        MutilSessionTest(6);
 
+        MRB_Reader.logger.info("唯一碰撞集沉默");
+        MutilSessionTest(1);
+
+        MRB_Reader.logger.info("最小唯一碰撞集沉默");
+        MutilSessionTest(2);
+
+        MRB_Reader.logger.info("精确沉默");
+        MutilSessionTest(3);
+
+        MRB_Reader.logger.info("递增随机沉默");
+        MutilSessionTest(4);
 
 
 //    NUM res=r.getErrorProbablity(input.MRBTagList,0);
@@ -59,14 +69,13 @@ public class MRB_Main {
 
         double avgRes = 0;
         for (int i = 0; i < roundCount; i++) {
-            List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, 0.00);
+            List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, thresholdPM);
             double p = resTemp.get(resTemp.size() - 1).p;
 //            System.out.println(p);
             avgRes += p;
         }
 
-        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + ".json");
-
+        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + ".json");
 
         System.out.println("avg: " + avgRes / roundCount);
         return avgRes / 10;
@@ -75,7 +84,7 @@ public class MRB_Main {
     static double getAvgErrorProbablity(int silenceStrategy) {
         MRB_Reader r = new MRB_Reader();
         MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
-        ArrayList<Double> errorData = new ArrayList<Double>();
+        ArrayList<Double> errorData = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             errorData.add(r.getErrorProbablity(input.MRBTagList, silenceStrategy).p4);
         }
