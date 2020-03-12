@@ -28,7 +28,7 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
-    private fileUtil fileWriter= new fileUtil("log/MRBRecord.txt");
+    private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
     /*
      * 往帧识别的标签集合
      */
@@ -1136,7 +1136,8 @@ public class MRB_Reader {
             int a = new Random().nextInt(100);
             if (a >= staticError) {
                 TheTrueTag.add(t);
-            }
+            } else
+                logger.info("****标签:" + t + "发生静态错误****");
         }
 
 /*        // 此处的标签ID长度即为论文中SN长度
@@ -1189,8 +1190,8 @@ public class MRB_Reader {
                 // 进行判断，如果CCB值重复，也不可以
                 if (CCB.containsKey(CB(s, SN_i))) {
                     hasDumplicate = true;
-                    logger.info("duplicate key in CCB: "+CB(s, SN_i));
-                }else {
+                    logger.info("duplicate key in CCB: " + CB(s, SN_i));
+                } else {
                     CCB.put(CB(s, SN_i), tagsClone);
                 }
 
@@ -1203,7 +1204,7 @@ public class MRB_Reader {
                 for (String s2 : PCB.keySet()) {
                     if (s1.equals(s2)) {
                         hasDumplicate = true;
-                        logger.info("duplicate key in CCB-PCB: "+s1);
+                        logger.info("duplicate key in CCB-PCB: " + s1);
                         break;
                     }
                 }
@@ -1219,8 +1220,8 @@ public class MRB_Reader {
                 // 加入被跳过的标签，使得响应列表连续
                 groupSize += d;
                 d = 0;
-                Map<String, Set<String>> CCBcopy = new HashMap<>(CCB);
-                CBMs.add(CCBcopy);
+                Map<String, Set<String>> PCBcopy = new HashMap<>(PCB);
+                CBMs.add(PCBcopy);
                 CUCS.clear();
                 CCB.clear();
                 // 在PCB被重置之前根据PCB完成操作
@@ -1287,8 +1288,8 @@ public class MRB_Reader {
         int groupSize = CUCS.size();
         groupSize += d;
         //拷贝CCB到列表
-        Map<String, Set<String>> CCBcopy = new HashMap<>(CCB);
-        CBMs.add(CCBcopy);
+        Map<String, Set<String>> PCBcopy = new HashMap<>(PCB);
+        CBMs.add(PCBcopy);
         logger.info("-----广播" + (i - groupSize) + "和" + groupSize + "-----");
         logger.info("----------------标签的ASC在[" + (i - groupSize) + "和" + i + ") 之间的标签发送ID------------------");
 
@@ -1331,8 +1332,8 @@ public class MRB_Reader {
 
 
         //根据参数对标签进行沉默
-        int countOfCatchedTag = currentFrameTagList.size();         //捕获的标签数
-        int silentCount = (100 - thev) * catchedTagSet.size() / 100;            //至少需要沉默的标签数
+        int toSilentCount = (100 - thev) * catchedTagSet.size() / 100;            //至少需要沉默的标签数
+        int silentCount = toSilentCount;           //至少需要沉默的标签数
         List<Integer> silentedIndex = new ArrayList<Integer>();        //沉默的序号，在currentFrameTagList中定位
         List<String> silentIDs = new ArrayList<String>();            //将要沉默的标签的ID集合
 
@@ -1462,7 +1463,7 @@ public class MRB_Reader {
                 toSilenteTagList.add(tag);
                 continue;
             }
-            if (silentIDs.contains(tag.ID) && catchedTagSet.contains(tag)) {
+            if (toSilenteTagList.size() < toSilentCount && silentIDs.contains(tag.ID) && catchedTagSet.contains(tag)) {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenteTagList.add(tag);

@@ -10,6 +10,8 @@ import seaborn as sns
 from data_util import *
 from plot_util import *
 
+accurate = 0.3519999
+
 
 def formator_slot(raw_data: list, save_path='out/img/slot'):
     """
@@ -115,7 +117,7 @@ def MBR_formator(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
     data = get_data_in_dir(dir_path)
     data_p_r = data["p"]
-    data_p = sub_a_num(data_p_r, 0.351999999)
+    data_p = sub_a_num(data_p_r, accurate)
 
     data_distribution(data_p, dir_path)
 
@@ -197,7 +199,7 @@ def p_scatter(dir_path: str):
         labels[2]: get_data(path_2, 'p'),
         labels[3]: get_data(path_3, 'p')
     }
-    datas_p = sub_a_num(datas_p_r, 0.351999999)
+    datas_p = sub_a_num(datas_p_r, accurate)
     for k, v in datas_p.items():
         y_labels = [list(range(len(v[0])))] * len(v)
         plt.scatter(y_labels, v)
@@ -206,7 +208,10 @@ def p_scatter(dir_path: str):
 
 if __name__ == '__main__':
     # variance in estimate p
-    MBR_formator('res/20_10_10_3519_2')
+    accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
+    MBR_formator('res/20_10_10_3519_1000')
+    MBR_formator('res/20_10_10_3519_1000_2')
+    MBR_formator('res/20_10_10_3519_1000_3')
     # MBR_formator('res/20_10_10_3519_100')
     # MBR_formator('res/20_10_10_3519_1000')
     # data_distribution('res/20_10_10_3519_1000')

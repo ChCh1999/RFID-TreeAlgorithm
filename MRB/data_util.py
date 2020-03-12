@@ -110,8 +110,8 @@ def get_data_rm_out_point(data: dict):
         Q1 = np.percentile(v, 25, axis=0)
         IQR = np.subtract(Q3, Q1)
         IQR = np.multiply(IQR, 1.5)
-        max_limit = np.add(Q3, IQR)
-        min_limit = np.subtract(Q3, IQR)
+        max_limit = np.add(mid, IQR)
+        min_limit = np.subtract(mid, IQR)
 
         for round in v:
             for session_index in range(len(round)):
