@@ -109,6 +109,9 @@ def data_distribution(data_p: dir, dir_path: str):
         # bins=20 表示等分为20份的效果，同样有label等等参数
         sns.kdeplot(data_1, shade=False, color='r')  # shade表示线下颜色为阴影,color表示颜色是红色
         # sns.rugplot(data_1)  # 在下方画出频率情况
+        save_path = dir_path + "/out"
+        if not os.path.exists(save_path):
+            os.mkdir(save_path)
         plt.savefig(dir_path + "/out/distribution_" + k)
         plt.show()
 
@@ -209,9 +212,12 @@ def p_scatter(dir_path: str):
 if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
-    MBR_formator('res/20_10_10_3519_1000')
-    MBR_formator('res/20_10_10_3519_1000_2')
-    MBR_formator('res/20_10_10_3519_1000_3')
+    # MBR_formator('res/20_10_10_3519_1000')
+    # MBR_formator('res/20_10_10_3519_1000_2')
+    # MBR_formator('res/20_10_10_3519_1000_3')
+
+    MBR_formator('res/20_10_10_1000/0312_1')
+
     # MBR_formator('res/20_10_10_3519_100')
     # MBR_formator('res/20_10_10_3519_1000')
     # data_distribution('res/20_10_10_3519_1000')
