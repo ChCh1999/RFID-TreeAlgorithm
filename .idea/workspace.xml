@@ -3,10 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/data_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/data_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader$slot.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/MRBerror/MRB_Reader.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/log4j.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/log4j.properties" afterDir="false" />
     </list>
@@ -52,8 +53,8 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunManager" selected="Application.MRB_Main">
     <configuration name="MBI_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -275,6 +276,16 @@
       <workItem from="1583242414023" duration="2586000" />
       <workItem from="1583307614037" duration="1212000" />
       <workItem from="1583321330425" duration="26000" />
+      <workItem from="1583566404043" duration="5367000" />
+      <workItem from="1583652364810" duration="1169000" />
+      <workItem from="1583653568759" duration="2021000" />
+      <workItem from="1583656527514" duration="5522000" />
+      <workItem from="1583678242515" duration="7735000" />
+      <workItem from="1583836364071" duration="7907000" />
+      <workItem from="1583908622948" duration="598000" />
+      <workItem from="1583936395396" duration="654000" />
+      <workItem from="1583981023978" duration="1200000" />
+      <workItem from="1583993031696" duration="1219000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -297,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583145749575</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="调整日志输出方式与数据输出方式">
+      <created>1583678378992</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1583678378992</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView">
@@ -316,13 +334,18 @@
     <MESSAGE value="随机沉默待测试" />
     <MESSAGE value="实现四种沉默方式（效果待检验）" />
     <MESSAGE value="确定四种沉默方式，修改日志输出，增加文件工具将日志格式化为json文件便于处理。" />
-    <option name="LAST_COMMIT_MESSAGE" value="确定四种沉默方式，修改日志输出，增加文件工具将日志格式化为json文件便于处理。" />
+    <MESSAGE value="调整日志输出方式与数据输出方式" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整日志输出方式与数据输出方式" />
   </component>
   <component name="WindowStateProjectService">
     <state x="361" y="108" key="#HTTP_Proxy" timestamp="1582789355075">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="361" y="108" key="#HTTP_Proxy/0.0.1536.864@0.0.1536.864" timestamp="1582789355075" />
+    <state x="451" y="112" key="#Inspections" timestamp="1583658344685">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="451" y="112" key="#Inspections/0.0.1920.1080@0.0.1920.1080" timestamp="1583658344685" />
     <state x="361" y="91" key="#Project_Structure" timestamp="1578555709313">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -335,50 +358,60 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="537" y="235" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog/0.0.1536.864@0.0.1536.864" timestamp="1582193532657" />
-    <state x="341" y="0" key="CommitChangelistDialog2" timestamp="1583145746560">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state x="426" y="0" key="CommitChangelistDialog2" timestamp="1583678374462">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="341" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1583145746560" />
+    <state x="426" y="0" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583678374462" />
     <state x="549" y="173" key="FileChooserDialogImpl" timestamp="1583321359242">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1583321359242" />
-    <state width="1493" height="185" key="GridCell.Tab.0.bottom" timestamp="1583299016013">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="237" key="GridCell.Tab.0.bottom" timestamp="1583890371562">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="185" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1583299016013" />
-    <state width="1493" height="185" key="GridCell.Tab.0.center" timestamp="1583299016013">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371562" />
+    <state width="1866" height="237" key="GridCell.Tab.0.center" timestamp="1583890371561">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="185" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1583299016013" />
-    <state width="1493" height="185" key="GridCell.Tab.0.left" timestamp="1583299016013">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371561" />
+    <state width="1866" height="237" key="GridCell.Tab.0.left" timestamp="1583890371561">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="185" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1583299016013" />
-    <state width="1493" height="185" key="GridCell.Tab.0.right" timestamp="1583299016013">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371561" />
+    <state width="1866" height="237" key="GridCell.Tab.0.right" timestamp="1583890371561">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="185" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1583299016013" />
-    <state width="1493" height="331" key="GridCell.Tab.1.bottom" timestamp="1583220926528">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371561" />
+    <state width="1866" height="434" key="GridCell.Tab.1.bottom" timestamp="1583890371557">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="331" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1583220926528" />
-    <state width="1493" height="331" key="GridCell.Tab.1.center" timestamp="1583220926528">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="434" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
+    <state width="1866" height="434" key="GridCell.Tab.1.center" timestamp="1583890371557">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="331" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1583220926528" />
-    <state width="1493" height="331" key="GridCell.Tab.1.left" timestamp="1583220926527">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="434" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
+    <state width="1866" height="434" key="GridCell.Tab.1.left" timestamp="1583890371557">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="331" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1583220926527" />
-    <state width="1493" height="331" key="GridCell.Tab.1.right" timestamp="1583220926528">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="434" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
+    <state width="1866" height="434" key="GridCell.Tab.1.right" timestamp="1583890371557">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1493" height="331" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1583220926528" />
-    <state x="499" y="76" width="996" height="707" key="SettingsEditor" timestamp="1581678398723">
-      <screen x="0" y="0" width="1536" height="864" />
+    <state width="1866" height="434" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
+    <state x="624" y="95" width="1245" height="922" key="SettingsEditor" timestamp="1583653539785">
+      <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="499" y="76" width="996" height="707" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1581678398723" />
+    <state x="624" y="95" width="1245" height="922" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1583653539785" />
     <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog" timestamp="1582789185625">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -404,6 +437,7 @@
     <watches-manager>
       <configuration name="Application">
         <watch expression="res.identifiedTagList" language="JAVA" />
+        <watch expression="file.delete()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>

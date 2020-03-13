@@ -5,8 +5,12 @@
 5  # @Author: Ch
 6  # @Date  : 2020/2/24
 
-from MRB.data_util import *
-from MRB.plot_util import *
+import seaborn as sns
+
+from data_util import *
+from plot_util import *
+
+accurate = 0.3519999
 
 
 def formator_slot(raw_data: list, save_path='out/img/slot'):
@@ -98,11 +102,25 @@ def draw_plots():
     print()
 
 
+def data_distribution(data_p: dir, dir_path: str):
+    for k, v in data_p.items():
+        data_1 = np.reshape(v, -1)
+        sns.distplot(data_1, hist=True, kde=True, rug=True)  # 前两个默认就是True,rug是在最下方显示出频率情况，默认为False
+        # bins=20 表示等分为20份的效果，同样有label等等参数
+        sns.kdeplot(data_1, shade=False, color='r')  # shade表示线下颜色为阴影,color表示颜色是红色
+        # sns.rugplot(data_1)  # 在下方画出频率情况
+        plt.savefig(dir_path + "/out/distribution_" + k)
+        plt.show()
+
+
 def MBR_formator(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
     data = get_data_in_dir(dir_path)
     data_p_r = data["p"]
-    data_p = sub_a_num(data_p_r, 0.351999999)
+    data_p = sub_a_num(data_p_r, accurate)
+
+    data_distribution(data_p, dir_path)
+
     data_pm = data['pm']
     data_slot_r = data["slot"]
     data_slot = get_sum(data_slot_r)
@@ -112,42 +130,42 @@ def MBR_formator(dir_path: str):
     data_pm_mean = get_data_avg(data_pm)
     data_slot_mean = get_data_avg(data_slot)
 
-    draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p_mean")
-    draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm_mean")
-    draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot_mean")
+    draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean")
+    draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
+    draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
 
     data_p_mean_abs_softer = get_convolved(data_p_mean_abs, 5)
-    draw_plot(data_p_mean_abs_softer, 'variance in estimate p', dir_path + "/out/p_softer")
+    draw_plot(data_p_mean_abs_softer, 'variance in estimate p', dir_path + "/out/p/p_softer")
     data_p_mean_bias = get_bias(data_p_mean)
-    data_p_mean_bias_2=get_bias(data_p_mean,4)
+    data_p_mean_bias_2 = get_bias(data_p_mean, 4)
     data_pm_mean_bias = get_bias(data_pm_mean)
     data_slot_mean_bias = get_bias(get_data_avg(data_slot))
 
-    draw_plot(data_p_mean_bias, 'variance in estimate p compare with random', dir_path + "/out/p_mean_bias")
-    draw_plot(data_p_mean_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p_mean_bias_2")
-    draw_plot(data_pm_mean_bias, 'pm compare with random', dir_path + "/out/pm_mean_bias")
+    draw_plot(data_p_mean_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mean_bias")
+    draw_plot(data_p_mean_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_mean_bias_2")
+    draw_plot(data_pm_mean_bias, 'pm compare with random', dir_path + "/out/pm/pm_mean_bias")
     draw_plot(data_slot_mean_bias, 'slots used by MBR compare with random',
-              dir_path + "/out/slot_mean_bias")
+              dir_path + "/out/slot/slot_mean_bias")
 
     data_p_rm = get_data_rm_out_point(data_p)
     data_p_rm_abs = get_abs(data_p_rm)
     data_pm_rm = get_data_rm_out_point(data_pm)
     data_slot_rm = get_data_rm_out_point(data_slot)
 
-    draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p_rm")
-    draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm_rm")
-    draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot_rm")
+    draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm")
+    draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm/pm_rm")
+    draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_rm")
 
     data_p_rm_bias = get_bias(data_p_rm)
-    data_p_rm_bias_2 = get_bias(data_p_rm,4)
+    data_p_rm_bias_2 = get_bias(data_p_rm, 4)
     data_pm_rm_bias = get_bias(data_pm_rm)
     data_slot_rm_bias = get_bias(get_data_avg(data_slot))
 
-    draw_plot(data_p_rm_bias, 'variance in estimate p compare with random', dir_path + "/out/p_rm_bias")
-    draw_plot(data_p_rm_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p_rm_bias_2")
-    draw_plot(data_pm_rm_bias, 'pm compare with random', dir_path + "/out/pm_rm_bias")
+    draw_plot(data_p_rm_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_rm_bias")
+    draw_plot(data_p_rm_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_rm_bias_2")
+    draw_plot(data_pm_rm_bias, 'pm compare with random', dir_path + "/out/pm/pm_rm_bias")
     draw_plot(data_slot_rm_bias, 'slots used by MBR compare with random',
-              dir_path + "/out/slot_rm_bias")
+              dir_path + "/out/slot/slot_rm_bias")
 
     # 中位数
     # data_p_mid = get_data_mid(data_p)
@@ -181,7 +199,7 @@ def p_scatter(dir_path: str):
         labels[2]: get_data(path_2, 'p'),
         labels[3]: get_data(path_3, 'p')
     }
-    datas_p = sub_a_num(datas_p_r, 0.351999999)
+    datas_p = sub_a_num(datas_p_r, accurate)
     for k, v in datas_p.items():
         y_labels = [list(range(len(v[0])))] * len(v)
         plt.scatter(y_labels, v)
@@ -190,18 +208,11 @@ def p_scatter(dir_path: str):
 
 if __name__ == '__main__':
     # variance in estimate p
-    MBR_formator('res/20_10_10_3519_2')
+    accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
+    MBR_formator('res/20_10_10_3519_1000')
+    MBR_formator('res/20_10_10_3519_1000_2')
+    MBR_formator('res/20_10_10_3519_1000_3')
+    # MBR_formator('res/20_10_10_3519_100')
+    # MBR_formator('res/20_10_10_3519_1000')
+    # data_distribution('res/20_10_10_3519_1000')
     # MBR_formator('res/20_10_10_3519_1')
-
-    dir_path = "res/20_10_10_3519"
-    labels = ["random", "CBM", "CBM_min", "accurate"]
-    path_0 = dir_path + '/s0_t80_tag1000.json'
-    path_1 = dir_path + '/s1_t80_tag1000.json'
-    path_2 = dir_path + '/s2_t80_tag1000.json'
-    path_3 = dir_path + '/s3_t80_tag1000.json'
-    datas_p_r = {
-        labels[0]: get_data(path_0, 'p'),
-        labels[1]: get_data(path_1, 'p'),
-        labels[2]: get_data(path_2, 'p'),
-        labels[3]: get_data(path_3, 'p')
-    }
