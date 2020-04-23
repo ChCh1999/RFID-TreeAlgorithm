@@ -34,7 +34,7 @@ public class fileUtil {
             inputStream.close();
             outputStream.close();
             File file = new File("log/MRBRecord.log");
-            boolean result=file.delete();
+            boolean result = file.delete();
             if (!result) {
                 System.gc();    //回收资源
                 file.delete();
@@ -50,8 +50,10 @@ public class fileUtil {
 
     private FileOutputStream fo;
     private FileOutputStream foclear;
+
     public fileUtil(String filePath) {
-        File target = new File(filePath);//"res\\filetest.txt"
+        File target = new File(filePath);
+        //"res\\filetest.txt"
 
         try {
             File parent = target.getParentFile();
@@ -60,22 +62,23 @@ public class fileUtil {
             }
             this.foclear = new FileOutputStream(target);
             this.fo = new FileOutputStream(target, true);
-//            fo.write("hello".getBytes());
-//            System.out.println();
+
 //            System.out.println("init file writer for " + target.getAbsolutePath() + "successfully");
 
         } catch (FileNotFoundException fnfe) {
             System.out.println("error in init file util");
         }
     }
-    public void clearmsg(){
+
+    public void clearmsg() {
         try {
             this.foclear.write("".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    public boolean writemsg(String msg){
+
+    public boolean writemsg(String msg) {
         try {
             this.fo.write((msg).getBytes());
             return true;
@@ -84,10 +87,12 @@ public class fileUtil {
             return false;
         }
     }
+
     @Override
-    public void finalize() throws Throwable {
+    protected void finalize() throws Throwable {
         this.fo.close();
     }
+
     public static void main(String[] args) {
         transferData2Json("log/c.json");
     }
