@@ -1227,16 +1227,28 @@ public class MRB_Reader {
         return resList;
     }
 
-    // 将两个字符串进行碰撞，如果字符不一样，设为X，如果有NS，返回另一个字符串
+
+    /**
+     * 将两个字符串进行碰撞，如果字符不一样，设为X，如果有NS，返回另一个字符串
+     * @param s1 参与碰撞的字符串
+     * @param s2 参与碰撞的字符串
+     * @return 碰撞结果。如果字符不一样，结果相应位置设为X；如果字符串有任一个为NS，返回另一个字符串
+     */
     private String CB(String s1, String s2) {
-        if (s1.equals("NS")) return s2;
-        if (s2.equals("NS")) return s1;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < s1.length(); i++) {
-            if (s1.charAt(i) == s2.charAt(i)) sb.append(s1.charAt(i));
-            else sb.append('X');
+        String result;
+        if (s1.equals("NS")) {
+            result = s2;
+        } else if (s2.equals("NS")) {
+            result = s1;
+        } else {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < s1.length(); i++) {
+                if (s1.charAt(i) == s2.charAt(i)) sb.append(s1.charAt(i));
+                else sb.append('X');
+            }
+            result = sb.toString();
         }
-        return sb.toString();
+        return result;
     }
 
     // 打印CCB和PCB
