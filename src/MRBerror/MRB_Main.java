@@ -31,7 +31,7 @@ public class MRB_Main {
     /**
      * Fast-Capture-Recapture标签复用率
      */
-    static int thev = 80;
+    static int thev = 10;
     /**
      * 执行模拟的轮次
      */
