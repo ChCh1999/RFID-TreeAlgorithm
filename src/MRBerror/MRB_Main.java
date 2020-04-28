@@ -14,7 +14,7 @@ public class MRB_Main {
     /**
      * 标签数
      */
-    static int tagCount = 1000;
+    static int tagCount = 100;
 
     /**
      * 静态错误发生概率(百分制,下同)
@@ -39,22 +39,22 @@ public class MRB_Main {
     /**
      * 执行模拟的轮次
      */
-    static int roundCount = 1000;
+    static int roundCount = 1;
     /**
      * pm收敛的阈值
      */
-    static double thresholdPM = 0.000;
+    static double thresholdPM = 0.001;
 
     public static void main(String[] args) {
 
 
         System.out.println("exactly: " + getExactlyErrorProbability());
         int tag = 0;
-        while (true) {
-            System.out.println("round" + tag);
-            getData(String.valueOf(tag));
-            tag++;
-        }
+//        while (true) {
+        System.out.println("round" + tag);
+        getData(String.valueOf(tag));
+        tag++;
+//        }
     }
 
     /**
@@ -83,24 +83,16 @@ public class MRB_Main {
         System.out.println("strategy" + silenceStrategy);
 
         MRB_Reader r = new MRB_Reader();
-        //标签重用
-//        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
-//        double avgRes = 0;
-//        for (int i = 0; i < roundCount; i++) {
-//            List<DataRecord> resTemp = r.MultiSession(input.MRBTagList, silenceStrategy, thresholdPM);
-//            double p = resTemp.get(resTemp.size() - 1).p;
-////            System.out.println(p);
-//            avgRes += p;
-//        }
 
         double avgRes = 0;
+        //MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
         for (int i = 0; i < roundCount; i++) {
             List<DataRecord> resTemp = r.MultiSession(Objects.requireNonNull(MRB_TagGenerator.generateTag(tagIDlength, tagCount)), silenceStrategy, thresholdPM);
             double p = resTemp.get(resTemp.size() - 1).p;
             avgRes += p;
         }
 
-        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount +"_"+ destTag + ".json");
+        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + "_" + destTag + ".json");
 
         System.out.println("avg: " + avgRes / roundCount);
         return avgRes / 10;

@@ -959,11 +959,15 @@ public class MRB_Reader {
         //已捕获的标签的列表 主要用于随机访问
         List<MRB_Tag> caughtTagList = new ArrayList<>(caughtTagSet);
 
+        //若采取递增式沉默且识别标签不足，则沉默本轮识别的所有标签
+        if (toSilentCount > currentFrameTagList.size() && silenceStrategy != 0 && silenceStrategy != 5 && silenceStrategy != 6) {
+            silenceStrategy = -1;
+        }
         //根据沉默标签进行沉默选择
         switch (silenceStrategy) {
             default:
             case -1:
-//                silentIDs.addAll(currentFrameTagList);
+                silentIDs.addAll(currentFrameTagList);
                 break;
             case 0:
                 //随机沉默
@@ -995,7 +999,9 @@ public class MRB_Reader {
                 //以CBM为单位沉默
                 //添加已沉默标签
                 silentCount = silentCount - silencedTagIdList.size();
-                if (silentCount <= 0) break;
+                if (silentCount <= 0) {
+                    break;
+                }
 
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {
@@ -1018,20 +1024,14 @@ public class MRB_Reader {
                     break;
                 }
 
-                int cbm_index = 1;
+                int cbm_index = 0;
                 //循环直到找齐
                 while (silentIDs.size() < silentCount) {
                     //每次取出一个CBM中的第一个
-                    for (Set<String> id_list : CBMs.get(cbm_index).values()) {
-                        boolean find = false;
-                        for (String id : id_list) {
-                            if (!silentIDs.contains(id)) {
-                                silentIDs.add(id);
-                                find = true;
-                                break;
-                            }
-                        }
-                        if (find) {
+                    List<MRB_Tag> CBMTagListTemp = CBMTagList.get(cbm_index);
+                    for (MRB_Tag tag : CBMTagListTemp) {
+                        if (tag.use && caughtTagList.contains(tag)) {
+                            silentIDs.add(tag.ID);
                             break;
                         }
                     }
@@ -1042,13 +1042,16 @@ public class MRB_Reader {
                 //随机沉默-递增方案
 
                 silentCount = silentCount - silencedTagIdList.size();
-                if (silentCount <= 0) break;
+                if (silentCount <= 0) {
+                    break;
+                }
 
 
                 tagCount = caughtTagList.size();
                 random = new Random();
                 //随机选择沉默的标签序号
-                for (int silentIndex = 0; silentIndex < silentCount; silentIndex++) {
+                int addCount = 0;
+                while (addCount < silentCount) {
                     //随机生成沉默序号
                     int index = -1;
                     do {
@@ -1057,6 +1060,7 @@ public class MRB_Reader {
                     silentedIndex.add(index);
                     //添加index的ID
                     silentIDs.add(caughtTagList.get(index).ID);
+                    addCount++;
                 }
                 break;
             case 6:
@@ -1066,8 +1070,8 @@ public class MRB_Reader {
                 //以CBM为单位沉默
 
                 //重置已沉默标签
-                silentedTagIDList.forEach(tag -> tag.use = true);
-                silentedTagIDList = new ArrayList<>();
+                toSilenceTagList.forEach(tag -> tag.use = true);
+                toSilenceTagList = new ArrayList<>();
 
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {
@@ -1206,7 +1210,9 @@ public class MRB_Reader {
             //错误概率p的估计值 p=l/l+m
             double p = (double) l / (l + m);
             //p与之前结果取均值
-            for (DataRecord dataRecord : resList) p += dataRecord.p;
+            for (DataRecord dataRecord : resList) {
+                p = p + dataRecord.p;
+            }
             p = p / (resList.size());
             //参与识别的标签数N的估计值
 //            System.out.println(catchedTagSet.size());
@@ -1261,6 +1267,7 @@ public class MRB_Reader {
 
     /**
      * 将两个字符串进行碰撞，如果字符不一样，设为X，如果有NS，返回另一个字符串
+     *
      * @param s1 参与碰撞的字符串
      * @param s2 参与碰撞的字符串
      * @return 碰撞结果。如果字符不一样，结果相应位置设为X；如果字符串有任一个为NS，返回另一个字符串
