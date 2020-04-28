@@ -1064,9 +1064,10 @@ public class MRB_Reader {
                 CBMs.sort(Comparator.comparing(Map::size));
             case 5:
                 //以CBM为单位沉默
+
                 //重置已沉默标签
-                for (MRB_Tag tag : silencedTagIdList) tag.use = true;
-                silencedTagIdList = new ArrayList<>();
+                silentedTagIDList.forEach(tag -> tag.use = true);
+                silentedTagIDList = new ArrayList<>();
 
                 for (Map<String, Set<String>> cbm : CBMs) {
                     if (silentIDs.size() < silentCount) {

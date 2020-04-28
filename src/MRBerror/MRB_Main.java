@@ -2,6 +2,10 @@ package MRBerror;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class MRB_Main {
     /**
      * 标签id长度
@@ -44,10 +48,10 @@ public class MRB_Main {
     public static void main(String[] args) {
 
 
-        System.out.println("exactly: " + getExactlyErrorProbablity());
+        System.out.println("exactly: " + getExactlyErrorProbability());
         int tag = 0;
         while (true) {
-            System.out.println("round"+tag);
+            System.out.println("round" + tag);
             getData(String.valueOf(tag));
             tag++;
         }
@@ -55,6 +59,7 @@ public class MRB_Main {
 
     /**
      * 获取一组模拟数据
+     *
      * @param tag：添加在日志文件尾部的标签
      */
     static void getData(String tag) {
@@ -90,7 +95,7 @@ public class MRB_Main {
 
         double avgRes = 0;
         for (int i = 0; i < roundCount; i++) {
-            List<DataRecord> resTemp = r.MultiSession(MRB_TagGenerator.generateTag(tagIDlength, tagCount), silenceStrategy, thresholdPM);
+            List<DataRecord> resTemp = r.MultiSession(Objects.requireNonNull(MRB_TagGenerator.generateTag(tagIDlength, tagCount)), silenceStrategy, thresholdPM);
             double p = resTemp.get(resTemp.size() - 1).p;
             avgRes += p;
         }
@@ -101,23 +106,20 @@ public class MRB_Main {
         return avgRes / 10;
     }
 
-    static double getAvgErrorProbablity(int silenceStrategy) {
+    static double getAvgErrorProbability(int silenceStrategy) {
         MRB_Reader r = new MRB_Reader();
         MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
-        ArrayList<Double> errorData = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            errorData.add(r.getErrorProbablity(input.MRBTagList, silenceStrategy).p4);
-        }
+        ArrayList<Double> errorData = IntStream.range(0, 10).mapToObj(i -> r.getErrorProbablity(input.MRBTagList, silenceStrategy).p4).collect(Collectors.toCollection(ArrayList::new));
         double sum = errorData.stream().mapToDouble(d -> d).sum();
         double avg = sum / errorData.size();
         System.out.println("沉默策略" + silenceStrategy + ",平均错误概率：" + avg);
         return avg;
     }
 
-    static double getExactlyErrorProbablity() {
-        double staticError_d = (double) staticError / 100;
-        double rError_d = (double) rError / 100;
-        double tError_d = (double) tError / 100;
-        return 1 - (1 - staticError_d) * (1 - rError_d) * (1 - tError_d);
+    static double getExactlyErrorProbability() {
+        double staticErrorD = (double) staticError / 100;
+        double rErrorD = (double) rError / 100;
+        double tErrorD = (double) tError / 100;
+        return 1 - (1 - staticErrorD) * (1 - rErrorD) * (1 - tErrorD);
     }
 }
