@@ -31,11 +31,11 @@ public class MRB_Main {
     /**
      * Fast-Capture-Recapture标签复用率
      */
-    static int thev = 80;
+    static int thev = 10;
     /**
      * 执行模拟的轮次
      */
-    static int roundCount = 1000;
+    static int roundCount = 20;
     /**
      * pm收敛的阈值
      */
@@ -46,7 +46,7 @@ public class MRB_Main {
 
         System.out.println("exactly: " + getExactlyErrorProbablity());
         int tag = 0;
-        while (true) {
+        while (true && tag<1) {
             System.out.println("round"+tag);
             getData(String.valueOf(tag));
             tag++;
@@ -60,6 +60,8 @@ public class MRB_Main {
     static void getData(String tag) {
         MRB_Reader.logger.info("随机沉默");
         mutilSessionTest(0, tag);
+
+//        System.exit(0);
 
         MRB_Reader.logger.info("唯一碰撞集沉默");
         mutilSessionTest(1, tag);
@@ -93,6 +95,15 @@ public class MRB_Main {
             List<DataRecord> resTemp = r.MultiSession(MRB_TagGenerator.generateTag(tagIDlength, tagCount), silenceStrategy, thresholdPM);
             double p = resTemp.get(resTemp.size() - 1).p;
             avgRes += p;
+
+            if (i % 100 == 0) System.out.println((i+silenceStrategy*roundCount)*100/(5*roundCount));
+
+        }
+
+        try {
+            r.fileWriterFeng.finalize();
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
 
         fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + destTag + ".json");

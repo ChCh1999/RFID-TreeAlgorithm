@@ -70,6 +70,35 @@ public class fileUtil {
         }
     }
 
+    /**
+     * 原构造函数似乎有无法最近信息的bug.
+     * foclear创建FileOutputStream会导致文件中原来的信息被覆盖.
+     * Feng Wenhan添加于2020.4.27
+     * @param filePath 目标地址
+     * @param append 是否将输出追加到文件尾
+     */
+    public fileUtil(String filePath,boolean append) {
+
+        File target = new File(filePath);
+        //"res\\filetest.txt"
+
+        try {
+            File parent = target.getParentFile();
+            if (parent != null) {
+                parent.mkdirs();
+            }
+            if (!append) {
+                this.foclear = new FileOutputStream(target);
+            }
+            this.fo = new FileOutputStream(target, true);
+
+//            System.out.println("init file writer for " + target.getAbsolutePath() + "successfully");
+
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("error in init file util");
+        }
+    }
+
     public void clearmsg() {
         try {
             this.foclear.write("".getBytes());
