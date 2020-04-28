@@ -95,7 +95,7 @@ public class MRB_Main {
             avgRes += p;
         }
 
-        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + destTag + ".json");
+        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount +"_"+ destTag + ".json");
 
         System.out.println("avg: " + avgRes / roundCount);
         return avgRes / 10;

@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Tag.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Tag.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,15 +338,6 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
@@ -381,6 +373,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="537" y="235" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog/0.0.1536.864@0.0.1536.864" timestamp="1582193532657" />
+    <state x="499" y="179" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1588081958664">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="499" y="179" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1536.864@0.0.1536.864" timestamp="1588081958664" />
     <state x="426" y="0" key="CommitChangelistDialog2" timestamp="1583678374462">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

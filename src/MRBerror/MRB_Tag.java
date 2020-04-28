@@ -54,6 +54,25 @@ public class MRB_Tag {
         return this.ID + ", " + this.ASC;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        MRB_Tag tag = (MRB_Tag) o;
+
+        return ID.equals(tag.ID);
+    }
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
     public int PSC=0;
     public int groupSize=0;
     // 标签接收读取器广播并向信道输入信息
