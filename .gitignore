@@ -1,10 +1,12 @@
 *.png
 *.log
 *.class
+*.xml
 log/*
 out/*
+*/out/*
 # 忽略数据文件
 */res/*
 # 忽略配置文件
 */__pycache__/*
-out/MRBerror/DataRecord.class
+*.xml

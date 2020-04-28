@@ -49,5 +49,6 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     plt.xlim(xmin=2)
     plt.xlabel("Number of reader sessions")
     plt.xticks(range(0, 20, 2))
-    plt.savefig(save_path,dpi=200, bbox_inches='tight')
-    plt.show()
+    plt.savefig(save_path, dpi=200, bbox_inches='tight')
+    # plt.show()
+    plt.clf()

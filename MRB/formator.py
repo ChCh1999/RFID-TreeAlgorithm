@@ -102,27 +102,33 @@ def draw_plots():
     print()
 
 
-def data_distribution(data_p: dir, dir_path: str):
+def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
     for k, v in data_p.items():
         data_1 = np.reshape(v, -1)
-        sns.distplot(data_1, hist=True, kde=True, rug=True)  # 前两个默认就是True,rug是在最下方显示出频率情况，默认为False
-        # bins=20 表示等分为20份的效果，同样有label等等参数
-        sns.kdeplot(data_1, shade=False, color='r')  # shade表示线下颜色为阴影,color表示颜色是红色
+        # 前两个默认就是True,rug是在最下方显示出频率情况，默认为False
+        sns.distplot(data_1, hist=True, kde=True, rug=True)
+        # 表示等分为20份的效果，同样有label等等参数
+        # bins = 20
+        # shade表示线下颜色为阴影,color表示颜色是红色
+        sns.kdeplot(data_1, shade=False, color='r')
         # sns.rugplot(data_1)  # 在下方画出频率情况
-        save_path = dir_path + "/out"
+        save_path = dir_path
         if not os.path.exists(save_path):
-            os.mkdir(save_path)
-        plt.savefig(dir_path + "/out/distribution_" + k)
-        plt.show()
+            os.makedirs(save_path)
+        plt.xlabel(x_label)
+        plt.ylabel(y_label)
+        plt.savefig(save_path + "/distribution_" + k)
+        plt.clf()
+        # plt.show()
 
 
-def MBR_formator(dir_path: str):
+def MBR_formator_20(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
     data = get_data_in_dir(dir_path)
     data_p_r = data["p"]
     data_p = sub_a_num(data_p_r, accurate)
 
-    data_distribution(data_p, dir_path)
+    data_distribution(data_p, dir_path + "/data", "variance in estimate p", 'session count')
 
     data_pm = data['pm']
     data_slot_r = data["slot"]
@@ -131,14 +137,17 @@ def MBR_formator(dir_path: str):
     data_p_mean = get_data_avg(data_p)
     data_p_mean_abs = get_abs(data_p_mean)
     data_pm_mean = get_data_avg(data_pm)
+    data_pm_log = get_log(data_pm_mean)
     data_slot_mean = get_data_avg(data_slot)
 
-    draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean")
+    draw_plot(data_p_mean, 'variance in estimate p', dir_path + "/out/p/p_mean_raw")
+    draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean_abs")
     draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
+    draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
     draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
 
-    data_p_mean_abs_softer = get_convolved(data_p_mean_abs, 5)
-    draw_plot(data_p_mean_abs_softer, 'variance in estimate p', dir_path + "/out/p/p_softer")
+    # data_p_mean_abs_softer = get_convolved(data_p_mean_abs, 5)
+    # draw_plot(data_p_mean_abs_softer, 'variance in estimate p', dir_path + "/out/p/p_softer")
     data_p_mean_bias = get_bias(data_p_mean)
     data_p_mean_bias_2 = get_bias(data_p_mean, 4)
     data_pm_mean_bias = get_bias(data_pm_mean)
@@ -150,12 +159,16 @@ def MBR_formator(dir_path: str):
     draw_plot(data_slot_mean_bias, 'slots used by MBR compare with random',
               dir_path + "/out/slot/slot_mean_bias")
 
-    data_p_rm = get_data_rm_out_point(data_p)
+    # IQR去除离群点
+    data_p_rm = get_data_rm_out_point(data_p, 1.5)
+
+    data_distribution(data_p_rm, dir_path + "/data/rm", "variance in estimate p", 'session count')
     data_p_rm_abs = get_abs(data_p_rm)
     data_pm_rm = get_data_rm_out_point(data_pm)
     data_slot_rm = get_data_rm_out_point(data_slot)
 
-    draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm")
+    draw_plot(data_p_rm, 'variance in estimate p', dir_path + "/out/p/p_rm_raw")
+    draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm_abs")
     draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm/pm_rm")
     draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_rm")
 
@@ -171,54 +184,121 @@ def MBR_formator(dir_path: str):
               dir_path + "/out/slot/slot_rm_bias")
 
     # 中位数
-    # data_p_mid = get_data_mid(data_p)
-    # data_p_mid_abs = get_abs(data_p_mid)
-    # data_pm_mid = get_data_mid(data_pm)
-    # data_slot_mid = get_data_mid(data_slot)
-    #
-    # draw_plot(data_p_mid_abs, 'variance in estimate p', dir_path + "/out/p_mid")
-    # draw_plot(data_pm_mid, 'pm', dir_path + "/out/pm_mid")
-    # draw_plot(data_slot_mid, 'average cumulative number of slots used by MBR', dir_path + "/out/slot_mid")
-    #
-    # data_p_mid_bias = get_bias(data_p_mid)
-    # data_pm_mid_bias = get_bias(data_pm_mid)
-    # data_slot_mid_bias = get_bias(get_data_avg(data_slot_r))
-    #
-    # draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p_mid_bias")
-    # draw_plot(data_pm_mid_bias, 'pm compare with random', dir_path + "/out/pm_mid_bias")
-    # draw_plot(data_slot_mid_bias, 'average cumulative number of slots used by MBR compare with random',
-    #           dir_path + "/out/slot_mid_bias")
+    data_p_mid = get_data_mid(data_p)
+    draw_plot(data_p_mid, 'variance in estimate p', dir_path + "/out/p/p_mid_raw")
+    data_p_mid_abs = get_abs(data_p_mid)
+
+    draw_plot(data_p_mid_abs, 'variance in estimate p', dir_path + "/out/p/p_mid_abs")
+
+    data_p_mid_bias = get_bias(data_p_mid)
+
+    draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
 
 
-def p_scatter(dir_path: str):
-    labels = ["random", "CBM", "CBM_min", "accurate"]
-    path_0 = dir_path + '/s0_t80_tag1000.json'
-    path_1 = dir_path + '/s1_t80_tag1000.json'
-    path_2 = dir_path + '/s2_t80_tag1000.json'
-    path_3 = dir_path + '/s3_t80_tag1000.json'
-    datas_p_r = {
-        labels[0]: get_data(path_0, 'p'),
-        labels[1]: get_data(path_1, 'p'),
-        labels[2]: get_data(path_2, 'p'),
-        labels[3]: get_data(path_3, 'p')
-    }
-    datas_p = sub_a_num(datas_p_r, accurate)
-    for k, v in datas_p.items():
-        y_labels = [list(range(len(v[0])))] * len(v)
-        plt.scatter(y_labels, v)
-        plt.show()
+def p_session(dir_path: str, session=0, out_dir_path=""):
+    """
+    获取某个session的p分布
+    @param dir_path:
+    @param session:
+    @return:
+    """
+    labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
+    data = get_data_in_dir(dir_path)
+    data_p_r = data["p"]
+    data_p = sub_a_num(data_p_r, accurate)
+    data_p_2 = {}
+    for strategy, v in data_p.items():
+        data_p_2[strategy] = []
+        for round in v:
+            data_p_2[strategy].append(round[session])
+    if out_dir_path == "":
+        out_dir_path = dir_path
+    data_distribution(data_p_2, out_dir_path + "/s" + str(session), "variance in estimate p", 'session count')
+
+
+from sklearn.cluster import KMeans
+
+
+def p_kmean(dirpath: str):
+    data_p_raw = get_p_in_dir(dirpath)
+    data_p_subaccurate = sub_a_num(data_p_raw, accurate)
+    kmeans = KMeans(n_clusters=3)
+    result = {}
+    for s, data in data_p_subaccurate.items():
+        result[s] = []
+        ye = kmeans.fit(data)
+        counts = [sum(ye.labels_ == i) for i in range(ye.n_clusters)]
+        max_index = counts.index(max(counts))
+        for index in range(len(data)):
+            if ye.labels_[index] == max_index:
+                result[s].append(data[index])
+        result[s] = [np.mean(result[s], axis=0)]
+    result = get_abs(data=result)
+    draw_plot(data=result, y_label="p")
+    return result
+
+
+def MRB_best(dir_path: str, out_path: str):
+    """
+    数据估计结果的p分布
+    @param dir_path:
+    @param out_path:
+    @return:
+    """
+    data_p_raw = get_p_in_dir(dir_path)
+    data_p_sub_accurate = sub_a_num(data_p_raw, accurate)
+    for k, v in data_p_sub_accurate.items():
+        data = [i[-1] for i in v]
+        session_count = [len(i) for i in v]
+        sns.distplot(data, hist=True, kde=True, rug=True)
+
+        # 绘制p计数
+        sns.kdeplot(data, shade=False, color='r')
+        # sns.rugplot(data_1)  # 在下方画出频率情况
+        save_path = out_path
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        plt.xlabel("estimation error of p")
+        plt.ylabel("round count")
+        plt.savefig(save_path + "/distribution_esti_p_" + k)
+        # plt.show()
+        plt.clf()
+
+
+
+        # 绘制会话计数
+        sns.distplot(session_count, hist=True, kde=True, rug=True)
+        sns.kdeplot(session_count, shade=False, color='r')
+        save_path = out_path
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        plt.xlabel("count of session")
+        plt.ylabel("round count")
+        plt.savefig(save_path + "/distribution_session_count_" + k)
+        # plt.show()
+        plt.clf()
+        print(k, np.mean(data), len(data), np.mean(session_count))
 
 
 if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
-    # MBR_formator('res/20_10_10_3519_1000')
-    # MBR_formator('res/20_10_10_3519_1000_2')
-    # MBR_formator('res/20_10_10_3519_1000_3')
 
-    MBR_formator('res/20_10_10_1000/0312_1')
-
-    # MBR_formator('res/20_10_10_3519_100')
-    # MBR_formator('res/20_10_10_3519_1000')
-    # data_distribution('res/20_10_10_3519_1000')
-    # MBR_formator('res/20_10_10_3519_1')
+    MBR_formator_20('res/20_10_10_1000')
+    # MBR_formator_20('res/20_10_10_1000/0414')
+    # MBR_formator_20('res/20_10_10_1000/0414/0_6')
+    # MBR_formator_20('res/20_10_10_1000/0414/7')
+    # MBR_formator_20('res/20_10_10_1000/0414/8')
+    # MBR_formator_20('res/20_10_10_1000/0414/9')
+    # in_dir = 'res/20_10_10_1000/0414'
+    # MRB_best(in_dir, in_dir + '/out')
+    # in_dir = 'res/20_10_10_1000/0417-0.001'
+    # MRB_best(in_dir, in_dir + '/out')
+    # in_dir = 'res/20_10_10_1000/0417-0.001/0_5'
+    # MRB_best(in_dir, in_dir + '/out')
+    # in_dir = 'res/20_10_10_1000/0417-0.001/6_11'
+    # MRB_best(in_dir, in_dir + '/out')
+    # in_dir = 'res/20_10_10_1000/0417-0.001/12_17'
+    # MRB_best(in_dir, in_dir + '/out')
+    # in_dir = 'res/20_10_10_1000/0417-0.001/18_22'
+    # MRB_best(in_dir, in_dir + '/out')
