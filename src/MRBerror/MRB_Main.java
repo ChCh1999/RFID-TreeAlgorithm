@@ -50,7 +50,7 @@ public class MRB_Main {
 
         System.out.println("exactly: " + getExactlyErrorProbability());
         int tag = 0;
-        while (tag < 1) {
+        while (tag < 10) {
             System.out.println("round"+tag);
             getData(String.valueOf(tag));
             tag++;

@@ -124,7 +124,7 @@ def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
 
 def MBR_formator_20(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
-    data = get_data_in_dir(dir_path, ['p', 'pm', 'slot',"CBMCount","CBMOfSameCollisionBitsCount"])
+    data = get_data_in_dir(dir_path, ['p', 'pm', 'slot',"CBMCount","sameCBMCount"])
     data_p_r = data["p"]
     data_p = sub_a_num(data_p_r, accurate)
 
@@ -293,7 +293,7 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/FWH_10_1000_1000')
+    MBR_formator_20('res/20_10_10_1000_10/0429_1')
     # MBR_formator_20('res/20_10_10_1000/0414')
     # MBR_formator_20('res/20_10_10_1000/0414/0_6')
     # MBR_formator_20('res/20_10_10_1000/0414/7')

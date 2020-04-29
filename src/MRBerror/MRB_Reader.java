@@ -962,7 +962,7 @@ public class MRB_Reader {
         List<MRB_Tag> caughtTagList = new ArrayList<>(caughtTagSet);
 
         //若采取递增式沉默且识别标签不足，则沉默本轮识别的所有标签
-        if (toSilentCount > currentFrameTagList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
+        if (toSilentCount > currentFrameTagList.size()+silencedTagIdList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
             silenceStrategy = -1;
         }
         //根据沉默标签进行沉默选择
