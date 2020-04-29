@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
     </list>
@@ -44,10 +45,14 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
     <property name="GenerateAntBuildDialog.backupFiles" value="true" />
     <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="rfid-treealgorithm" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -307,7 +312,7 @@
       <workItem from="1587955430045" duration="390000" />
       <workItem from="1587968197176" duration="4746000" />
       <workItem from="1588079661279" duration="344000" />
-      <workItem from="1588118448603" duration="3723000" />
+      <workItem from="1588118448603" duration="5831000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -388,25 +393,25 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587955820543" />
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1588087029947">
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1588123969123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588087029947" />
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588123969123" />
     <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1588087029947">
+    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1588123969123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588087029947" />
+    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588123969123" />
     <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1588087029947">
+    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1588123969123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588087029947" />
+    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588123969123" />
     <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1588087029947">
+    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1588123969123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588087029947" />
+    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588123969123" />
     <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
     <state width="1866" height="434" key="GridCell.Tab.1.bottom" timestamp="1583890371557">
       <screen x="0" y="0" width="1920" height="1080" />
@@ -437,6 +442,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1582789185625" />
+    <state x="485" y="320" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588123220456">
+      <screen x="0" y="0" width="1536" height="864" />
+    </state>
+    <state x="485" y="320" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1536.864@0.0.1536.864" timestamp="1588123220456" />
     <state x="441" y="10" width="662" height="843" key="find.popup" timestamp="1586777725726">
       <screen x="0" y="0" width="1536" height="864" />
     </state>

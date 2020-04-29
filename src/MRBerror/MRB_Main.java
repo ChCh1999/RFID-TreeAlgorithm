@@ -50,7 +50,7 @@ public class MRB_Main {
 
         System.out.println("exactly: " + getExactlyErrorProbability());
         int tag = 0;
-        while (true && tag<1) {
+        while (tag < 1) {
             System.out.println("round"+tag);
             getData(String.valueOf(tag));
             tag++;
@@ -93,7 +93,9 @@ public class MRB_Main {
             double p = resTemp.get(resTemp.size() - 1).p;
             avgRes += p;
 
-            if (i % 100 == 0) System.out.println((i+silenceStrategy*roundCount)*100/(5*roundCount));
+//            if (i % 100 == 0) {
+//                System.out.println((i+silenceStrategy*roundCount)*100/(5*roundCount));
+//            }
 
         }
 

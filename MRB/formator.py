@@ -197,10 +197,11 @@ def MBR_formator_20(dir_path: str):
 
     data_CBMCount = data['CBMCount']
     data_CBMCount_mean = get_data_avg(data_CBMCount)
-    draw_plot(data_CBMCount_mean, 'variance in estimate CBMCount', dir_path + "/out/CBMCount/CBMCount_mean_raw")
-    data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
+    draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
+    # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
+    data_CBMOfSameCollisionBitsCount = data['sameCBMCount']
     data_CBMOfSameCollisionBitsCount_mean = get_data_avg(data_CBMOfSameCollisionBitsCount)
-    draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'variance in estimate CBMOfSameCollisionBitsCount', dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
+    draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'Count of CBM that occur in last frame', dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
 
 
 def p_session(dir_path: str, session=0, out_dir_path=""):

@@ -33,7 +33,7 @@ public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
     private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
 
-    public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt",true);
+    public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt", true);
     /*
      * 往帧识别的标签集合
      */
@@ -426,7 +426,7 @@ public class MRB_Reader {
     }
 
 
-    // 仲裁层入口
+    // 仲裁层入口 弃置
     public resu OneFrame(List<MRB_Tag> l) {
         // 这一帧已识别标签ID集合
         List<String> currentFrameTagList = new ArrayList<>();
@@ -725,7 +725,7 @@ public class MRB_Reader {
      *
      * @param l               标签集合
      * @param silenceStrategy 沉默策略序号 1.随机沉默
-     * @return resu(包括识别的标签 、 沉默的标签 、 识别用的时隙数)
+     * @return resu (包括识别的标签 、 沉默的标签 、 识别用的时隙数等数据)
      */
     public resu OneFrame(List<MRB_Tag> l, int silenceStrategy) {
         // 这一帧已识别标签ID集合
@@ -807,8 +807,6 @@ public class MRB_Reader {
                 }
 
             }
-
-
 //            printCCBandPCB("CCB", CCB);
 
             for (String s1 : CCB.keySet()) {
@@ -1000,7 +998,6 @@ public class MRB_Reader {
             case 2:
                 //从小的CBM沉默
                 CBMTagList.sort(Comparator.comparing(List::size));
-//                CBMs.sort(Comparator.comparing(Map::size));
             case 1:
                 //以CBM为单位沉默
                 //添加已沉默标签
@@ -1022,7 +1019,6 @@ public class MRB_Reader {
                         }
                         if (catchAll) {
                             CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
-                            CBMTagList.remove(CBMTags);
                             addCount += CBMTags.size();
                         }
                     }
@@ -1031,9 +1027,13 @@ public class MRB_Reader {
                 int point = 0;
                 while (addCount < silentCount) {
                     List<MRB_Tag> CBMTags = CBMTagList.get(point);
-                    CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
-                    CBMTagList.remove(CBMTags);
-                    addCount += CBMTags.size();
+                    //将未沉默的部分加入到沉默标签集
+                    if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
+                        CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
+                        CBMTagList.remove(CBMTags);
+                        addCount += CBMTags.size();
+                    }
+                    point++;
                 }
                 break;
             case 3:
@@ -1048,8 +1048,8 @@ public class MRB_Reader {
                 //循环直到找齐
                 while (toSilenceTagIds.size() < silentCount) {
                     //每次取出一个CBM中的第一个
-                    List<MRB_Tag> CBMTagListTemp = CBMTagList.get(cbm_index);
-                    for (MRB_Tag tag : CBMTagListTemp) {
+                    List<MRB_Tag> CBMTagsTemp = CBMTagList.get(cbm_index);
+                    for (MRB_Tag tag : CBMTagsTemp) {
                         if (tag.use && caughtTagList.contains(tag)) {
                             toSilenceTagIds.add(tag.ID);
                             break;
@@ -1183,7 +1183,7 @@ public class MRB_Reader {
     public List<DataRecord> MultiSession(List<MRB_Tag> mrb_tags, int silenceStrategy, double thresholdOfPM) {
 
         fileWriterFeng.writemsg("\n---------------------------new MultiSession------------------------------");
-        fileWriterFeng.writemsg("\nsilenceStrategy:"+silenceStrategy+"\n");
+        fileWriterFeng.writemsg("\nsilenceStrategy:" + silenceStrategy + "\n");
 
         double pm = 1;
         //重置已捕获的标签记录
@@ -1257,14 +1257,14 @@ public class MRB_Reader {
             pm = 1 - Math.pow(1 - Math.pow(p, R + 1), (int) N);
 
             fileWriterFeng.writemsg(""
-                    +"lastFrameCBMsSize:"+lastFrame.CBMs.size()
-                    +",thisFrameCBMsSize:"+thisFrame.CBMs.size()
-                    +"\n"
+                    + "lastFrameCBMsSize:" + lastFrame.CBMs.size()
+                    + ",thisFrameCBMsSize:" + thisFrame.CBMs.size()
+                    + "\n"
             );
 
 
             int CBMCount = thisFrame.CBMs.size();
-            int sameCBMCount = figureSameCBMCount(thisFrame.CBMs,lastFrame.CBMs);
+            int sameCBMCount = figureSameCBMCount(thisFrame.CBMs, lastFrame.CBMs);
 
 //            if (sameCBMCount[0] != sameCBMCount[1]){
 //                System.out.println("there is!"+" key:"+sameCBMCount[0]+" all:"+sameCBMCount[1]);
@@ -1304,8 +1304,8 @@ public class MRB_Reader {
                             + ", \"pm\":" + pm
                             + ", \"caught\":" + caughtTagSet.size()
                             + ", \"slot\":" + thisFrame.countOfSlot
-                            + ", \"CBMCount\":"+ CBMCount
-                            + ", \"CBMOfSameCollisionBitsCount\":"+ sameCBMCount
+                            + ", \"CBMCount\":" + CBMCount
+                            + ", \"sameCBMCount\":" + sameCBMCount
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                             + "}\n"
             );
@@ -1315,24 +1315,23 @@ public class MRB_Reader {
         fileWriter.writemsg("]\n");
 
 
-
         return resList;
     }
 
 
-    
     /**
      * 计算两个帧的CBMs中相同的唯一碰撞集的个数
+     *
      * @param CBMs1 当前帧的CBMs
      * @param CBMs2 上一帧的CBMs
      * @return 两个帧的唯一碰撞集相等的个数
      */
-    private int figureSameCBMCount(List<Map<String, Set<String>>> CBMs1,List<Map<String, Set<String>>> CBMs2){
+    private int figureSameCBMCount(List<Map<String, Set<String>>> CBMs1, List<Map<String, Set<String>>> CBMs2) {
         int r = 0;
         Set<Set<String>> s1 = new HashSet<>();
-        for (Map<String, Set<String>> m1: CBMs1){
+        for (Map<String, Set<String>> m1 : CBMs1) {
             Set<String> s = new HashSet<>();
-            for (Set<String> ss:m1.values()){
+            for (Set<String> ss : m1.values()) {
                 s.addAll(ss);
             }
             s1.add(s);
@@ -1343,9 +1342,9 @@ public class MRB_Reader {
 //        }
 //        fileWriterFeng.writemsg("]\n");
         Set<Set<String>> s2 = new HashSet<>();
-        for (Map<String, Set<String>> m: CBMs2){
+        for (Map<String, Set<String>> m : CBMs2) {
             Set<String> s = new HashSet<>();
-            for (Set<String> ss:m.values()){
+            for (Set<String> ss : m.values()) {
                 s.addAll(ss);
             }
             s2.add(s);
@@ -1362,7 +1361,7 @@ public class MRB_Reader {
 //            fileWriterFeng.writemsg(""+ss+"\n");
 //        }
 //        fileWriterFeng.writemsg("]\n");
-        fileWriterFeng.writemsg("theSameCount:"+r+"\n");
+        fileWriterFeng.writemsg("theSameCount:" + r + "\n");
         return r;
 
 //        int[] r = new int[]{0,0};
