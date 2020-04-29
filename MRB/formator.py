@@ -124,7 +124,7 @@ def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
 
 def MBR_formator_20(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
-    data = get_data_in_dir(dir_path)
+    data = get_data_in_dir(dir_path, ['p', 'pm', 'slot',"CBMCount","CBMOfSameCollisionBitsCount"])
     data_p_r = data["p"]
     data_p = sub_a_num(data_p_r, accurate)
 
@@ -193,6 +193,14 @@ def MBR_formator_20(dir_path: str):
     data_p_mid_bias = get_bias(data_p_mid)
 
     draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
+
+
+    data_CBMCount = data['CBMCount']
+    data_CBMCount_mean = get_data_avg(data_CBMCount)
+    draw_plot(data_CBMCount_mean, 'variance in estimate CBMCount', dir_path + "/out/CBMCount/CBMCount_mean_raw")
+    data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
+    data_CBMOfSameCollisionBitsCount_mean = get_data_avg(data_CBMOfSameCollisionBitsCount)
+    draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'variance in estimate CBMOfSameCollisionBitsCount', dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
 
 
 def p_session(dir_path: str, session=0, out_dir_path=""):
@@ -284,7 +292,7 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/20_10_10_1000')
+    MBR_formator_20('res/FWH_10_1000_1000')
     # MBR_formator_20('res/20_10_10_1000/0414')
     # MBR_formator_20('res/20_10_10_1000/0414/0_6')
     # MBR_formator_20('res/20_10_10_1000/0414/7')

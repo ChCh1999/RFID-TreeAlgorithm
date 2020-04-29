@@ -32,6 +32,8 @@ class DataRecord {
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
     private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
+
+    public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt",true);
     /*
      * 往帧识别的标签集合
      */
@@ -83,11 +85,13 @@ public class MRB_Reader {
     static public class resu {
         List<MRB_Tag> identifiedTagList;
         List<MRB_Tag> silentedTagList;
+        List<Map<String, Set<String>>> CBMs;
         int countOfSlot;
 
         public resu() {
             identifiedTagList = null;
             silentedTagList = null;
+            CBMs = null;
             countOfSlot = 0;
         }
 
@@ -97,6 +101,7 @@ public class MRB_Reader {
                     "identifiedTagList=" + identifiedTagList +
                     ", silentedTagList=" + silentedTagList +
                     ", countOfSlot=" + countOfSlot +
+                    ", CBMs=" + CBMs +
                     '}';
         }
     }
@@ -1129,6 +1134,7 @@ public class MRB_Reader {
         res.identifiedTagList = result;
         res.silentedTagList = toSilenceTagList;
         res.countOfSlot = slotNum;
+        res.CBMs = CBMs;
         return res;
     }
 
@@ -1175,6 +1181,9 @@ public class MRB_Reader {
      * @return 估计结果
      */
     public List<DataRecord> MultiSession(List<MRB_Tag> mrb_tags, int silenceStrategy, double thresholdOfPM) {
+
+        fileWriterFeng.writemsg("\n---------------------------new MultiSession------------------------------");
+        fileWriterFeng.writemsg("\nsilenceStrategy:"+silenceStrategy+"\n");
 
         double pm = 1;
         //重置已捕获的标签记录
@@ -1247,6 +1256,21 @@ public class MRB_Reader {
             //pm的估计值
             pm = 1 - Math.pow(1 - Math.pow(p, R + 1), (int) N);
 
+            fileWriterFeng.writemsg(""
+                    +"lastFrameCBMsSize:"+lastFrame.CBMs.size()
+                    +",thisFrameCBMsSize:"+thisFrame.CBMs.size()
+                    +"\n"
+            );
+
+
+            int CBMCount = thisFrame.CBMs.size();
+            int sameCBMCount = figureSameCBMCount(thisFrame.CBMs,lastFrame.CBMs);
+
+//            if (sameCBMCount[0] != sameCBMCount[1]){
+//                System.out.println("there is!"+" key:"+sameCBMCount[0]+" all:"+sameCBMCount[1]);
+////                System.exit(0);
+//            }
+
 
             //保存结果
             res = new DataRecord();
@@ -1280,6 +1304,8 @@ public class MRB_Reader {
                             + ", \"pm\":" + pm
                             + ", \"caught\":" + caughtTagSet.size()
                             + ", \"slot\":" + thisFrame.countOfSlot
+                            + ", \"CBMCount\":"+ CBMCount
+                            + ", \"CBMOfSameCollisionBitsCount\":"+ sameCBMCount
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                             + "}\n"
             );
@@ -1287,7 +1313,92 @@ public class MRB_Reader {
             lastFrame = thisFrame;
         }
         fileWriter.writemsg("]\n");
+
+
+
         return resList;
+    }
+
+
+    
+    /**
+     * 计算两个帧的CBMs中相同的唯一碰撞集的个数
+     * @param CBMs1 当前帧的CBMs
+     * @param CBMs2 上一帧的CBMs
+     * @return 两个帧的唯一碰撞集相等的个数
+     */
+    private int figureSameCBMCount(List<Map<String, Set<String>>> CBMs1,List<Map<String, Set<String>>> CBMs2){
+        int r = 0;
+        Set<Set<String>> s1 = new HashSet<>();
+        for (Map<String, Set<String>> m1: CBMs1){
+            Set<String> s = new HashSet<>();
+            for (Set<String> ss:m1.values()){
+                s.addAll(ss);
+            }
+            s1.add(s);
+        }
+//        fileWriterFeng.writemsg("thisFrame:[\n");
+//        for (Set<String> ss: s1){
+//            fileWriterFeng.writemsg(""+ss+"\n");
+//        }
+//        fileWriterFeng.writemsg("]\n");
+        Set<Set<String>> s2 = new HashSet<>();
+        for (Map<String, Set<String>> m: CBMs2){
+            Set<String> s = new HashSet<>();
+            for (Set<String> ss:m.values()){
+                s.addAll(ss);
+            }
+            s2.add(s);
+        }
+//        fileWriterFeng.writemsg("lastFrame:[\n");
+//        for (Set<String> ss: s2){
+//            fileWriterFeng.writemsg(""+ss+"\n");
+//        }
+//        fileWriterFeng.writemsg("]\n");
+        s1.retainAll(s2);
+        r = s1.size();
+//        fileWriterFeng.writemsg("theSame:[\n");
+//        for (Set<String> ss: s1){
+//            fileWriterFeng.writemsg(""+ss+"\n");
+//        }
+//        fileWriterFeng.writemsg("]\n");
+        fileWriterFeng.writemsg("theSameCount:"+r+"\n");
+        return r;
+
+//        int[] r = new int[]{0,0};
+//        fileWriterFeng.writemsg("thisFrame:[\n");
+//        for (Map<String, Set<String>> cbm1: CBMs1){
+//            fileWriterFeng.writemsg(","+cbm1+"\n");
+//        }
+//        fileWriterFeng.writemsg("]\n");
+//        fileWriterFeng.writemsg("lastFrame:[\n");
+//        for (Map<String, Set<String>> cbm2: CBMs2){
+//            fileWriterFeng.writemsg(","+cbm2+"\n");
+//        }
+//        fileWriterFeng.writemsg("]\n");
+//        fileWriterFeng.writemsg("thesame:[\n");
+//        for (Map<String, Set<String>> cbm1: CBMs1){
+//            for (Map<String, Set<String>> cbm2: CBMs2){
+//                Set<String> collisionBits1 = cbm1.keySet();
+//                Set<String> collisionBits2 = cbm2.keySet();
+//                if (collisionBits1 != null && collisionBits1.equals(collisionBits2)){
+//                    r[0]++;
+//                    fileWriterFeng.writemsg(""+cbm1+"\n");
+//                    boolean f = true;
+//                    for (String s: collisionBits1){
+//                        if (!cbm1.get(s).equals(cbm2.get(s))) {
+//                            f = false;
+//                            break;
+//                        }
+//                    }
+//                    if (f) r[1]++;
+//                }
+//            }
+//        }
+//        fileWriterFeng.writemsg("]\n");
+//        fileWriterFeng.writemsg("theSameTotal:"+r[0]+"\n");
+//        return r;
+
     }
 
 

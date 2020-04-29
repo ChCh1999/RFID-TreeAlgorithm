@@ -144,9 +144,10 @@ def get_data_rm_out_point(data: dict, iqrlimit=1.5):
     return res
 
 
-def get_data_in_dir(dir_path: str):
+def get_data_in_dir(dir_path: str, data_keys: list):
     """
     获取文件夹中json数据
+    @param data_keys: 要获取的数据的键，比如[p,pm]
     @param dir_path:
     @return: {value_key：{strategy_name:[round[session]]}}
         sample: {'p':{'random':[[0.3*20],[0.31*20]}}
@@ -166,7 +167,7 @@ def get_data_in_dir(dir_path: str):
                         data_raw[labels[strategy_index]].extend(json.load(res))
                     else:
                         data_raw[labels[strategy_index]] = json.load(res)
-    data_keys = ['p', 'pm', 'slot']
+    # data_keys = ['p', 'pm', 'slot',"CBMCount","CBMOfSameCollisionBitsCount"]
     data = {}
     for key in data_keys:
         data[key] = {}
