@@ -10,11 +10,11 @@ public class MRB_Main {
     /**
      * 标签id长度
      */
-    static int tagIDlength = 10;
+    static int tagIDlength = 12;
     /**
      * 标签数
      */
-    static int tagCount = 100;
+    static int tagCount = 1000;
 
     /**
      * 静态错误发生概率(百分制,下同)
@@ -39,11 +39,11 @@ public class MRB_Main {
     /**
      * 执行模拟的轮次
      */
-    static int roundCount = 1;
+    static int roundCount = 1000;
     /**
      * pm收敛的阈值
      */
-    static double thresholdPM = 0.001;
+    static double thresholdPM = 0.000;
 
     public static void main(String[] args) {
 
