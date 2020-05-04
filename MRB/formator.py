@@ -13,17 +13,18 @@ from plot_util import *
 accurate = 0.3519999
 
 
-def formator_slot(raw_data: list, save_path='out/img/slot'):
+def formator_slot(raw_data: list, save_path='out/img/slot', do_sum=True):
     """
     比较沉默方式使用的时隙数
     @param save_path:结果图片存储路径
     @param raw_data: [随机沉默[{"slot":},]，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     """
-    labels = ["random", "CBM", "CBM_min", "accurate"]
+    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for strategy_data in raw_data:
         slot_record = [session["slot"] for session in strategy_data]
-        for index in range(1, len(slot_record)):
-            slot_record[index] += slot_record[index - 1]
+        if do_sum:
+            for index in range(1, len(slot_record)):
+                slot_record[index] += slot_record[index - 1]
         plt.plot(slot_record, label=labels[raw_data.index(strategy_data)])
     plt.legend()
     plt.ylabel("average cumulative number of slots used by MBR")
@@ -42,7 +43,7 @@ def formator_p(raw_data: list, accurate_p, save_path='out/img/pm'):
     @param raw_data: [随机沉默，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     """
 
-    labels = ["random", "CBM", "CBM_min", "accurate"]
+    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     data = {}
     for strategy_data in raw_data:
         p_record = [session["p"] for session in strategy_data]
@@ -58,7 +59,7 @@ def formator_pm(raw_data: list, save_path='out/img/pm'):
     @param raw_data: [随机沉默，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     @param save_path:结果图片存储路径
     """
-    labels = ["random", "CBM", "CBM_min", "accurate"]
+    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for strategy_data in raw_data:
         pm_record = [session["pm"] for session in strategy_data]
         plt.plot(pm_record, label=labels[raw_data.index(strategy_data)])
@@ -124,40 +125,52 @@ def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
 
 def MBR_formator_20(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
-    data = get_data_in_dir(dir_path, ['p', 'pm', 'slot',"CBMCount","sameCBMCount"])
-    data_p_r = data["p"]
-    data_p = sub_a_num(data_p_r, accurate)
+    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'slot', "CBMCount", "sameCBMCount"])
 
-    data_distribution(data_p, dir_path + "/data", "variance in estimate p", 'session count')
+    # 获取p
+    data_p_raw = raw_datas["p"]
+    data_p = sub_a_num(data_p_raw, accurate)
 
-    data_pm = data['pm']
-    data_slot_r = data["slot"]
-    data_slot = get_sum(data_slot_r)
+    # pm
+    data_pm = raw_datas['pm']
 
+    # slot
+    data_slot_raw = raw_datas["slot"]
+    data_slot = get_sum(data_slot_raw)
+
+    # p的分布情况
+    # data_distribution(data_p, dir_path + "/data", "variance in estimate p", 'session count')
+
+    # 取均值
     data_p_mean = get_data_avg(data_p)
     data_p_mean_abs = get_abs(data_p_mean)
     data_pm_mean = get_data_avg(data_pm)
     data_pm_log = get_log(data_pm_mean)
     data_slot_mean = get_data_avg(data_slot)
+    data_slot_raw_mean = get_data_avg(data_slot_raw)
 
+    # 绘制均值图
     draw_plot(data_p_mean, 'variance in estimate p', dir_path + "/out/p/p_mean_raw")
     draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean_abs")
     draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
     draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
     draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
+    draw_plot(data_slot_raw_mean, 'number of slots used by MBR in each session'
+              , dir_path + "/out/slot/slot_mean_raw")
 
-    # data_p_mean_abs_softer = get_convolved(data_p_mean_abs, 5)
-    # draw_plot(data_p_mean_abs_softer, 'variance in estimate p', dir_path + "/out/p/p_softer")
     data_p_mean_bias = get_bias(data_p_mean)
     data_p_mean_bias_2 = get_bias(data_p_mean, 4)
     data_pm_mean_bias = get_bias(data_pm_mean)
     data_slot_mean_bias = get_bias(get_data_avg(data_slot))
+    data_slot_raw_mean_bias = get_bias(data_slot_raw_mean)
 
     draw_plot(data_p_mean_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mean_bias")
     draw_plot(data_p_mean_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_mean_bias_2")
     draw_plot(data_pm_mean_bias, 'pm compare with random', dir_path + "/out/pm/pm_mean_bias")
     draw_plot(data_slot_mean_bias, 'slots used by MBR compare with random',
               dir_path + "/out/slot/slot_mean_bias")
+    draw_plot(data_slot_raw_mean_bias, 'slots used by MBR in each session compare with random',
+              dir_path + "/out/slot/slot_mean_raw_bias")
 
     # IQR去除离群点
     data_p_rm = get_data_rm_out_point(data_p, 1.5)
@@ -183,25 +196,25 @@ def MBR_formator_20(dir_path: str):
     draw_plot(data_slot_rm_bias, 'slots used by MBR compare with random',
               dir_path + "/out/slot/slot_rm_bias")
 
-    # 中位数
-    data_p_mid = get_data_mid(data_p)
-    draw_plot(data_p_mid, 'variance in estimate p', dir_path + "/out/p/p_mid_raw")
-    data_p_mid_abs = get_abs(data_p_mid)
-
-    draw_plot(data_p_mid_abs, 'variance in estimate p', dir_path + "/out/p/p_mid_abs")
-
-    data_p_mid_bias = get_bias(data_p_mid)
-
-    draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
-
-
-    data_CBMCount = data['CBMCount']
-    data_CBMCount_mean = get_data_avg(data_CBMCount)
-    draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
-    # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
-    data_CBMOfSameCollisionBitsCount = data['sameCBMCount']
-    data_CBMOfSameCollisionBitsCount_mean = get_data_avg(data_CBMOfSameCollisionBitsCount)
-    draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'Count of CBM that occur in last frame', dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
+    # # 中位数
+    # data_p_mid = get_data_mid(data_p)
+    # draw_plot(data_p_mid, 'variance in estimate p', dir_path + "/out/p/p_mid_raw")
+    # data_p_mid_abs = get_abs(data_p_mid)
+    #
+    # draw_plot(data_p_mid_abs, 'variance in estimate p', dir_path + "/out/p/p_mid_abs")
+    #
+    # data_p_mid_bias = get_bias(data_p_mid)
+    #
+    # draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
+    #
+    # data_CBMCount = data['CBMCount']
+    # data_CBMCount_mean = get_data_avg(data_CBMCount)
+    # draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
+    # # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
+    # data_CBMOfSameCollisionBitsCount = data['sameCBMCount']
+    # data_CBMOfSameCollisionBitsCount_mean = get_data_avg(data_CBMOfSameCollisionBitsCount)
+    # draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'Count of CBM that occur in last frame',
+    #           dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
 
 
 def p_session(dir_path: str, session=0, out_dir_path=""):
@@ -272,8 +285,6 @@ def MRB_best(dir_path: str, out_path: str):
         plt.savefig(save_path + "/distribution_esti_p_" + k)
         # plt.show()
         plt.clf()
-
-
 
         # 绘制会话计数
         sns.distplot(session_count, hist=True, kde=True, rug=True)

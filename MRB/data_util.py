@@ -20,10 +20,12 @@ def get_sum(data: dict):
     """
     res = {}
     for k, v in data.items():
-        res[k] = v
-        for round_data in res[k]:
+        res[k] = []
+        for round_data in v:
+            sum_list = [round_data[0]]
             for index in range(1, len(round_data)):
-                round_data[index] += round_data[index - 1]
+                sum_list.append(round_data[index] + sum_list[index - 1])
+            res[k].append(sum_list)
     return res
 
 

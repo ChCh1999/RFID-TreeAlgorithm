@@ -8,6 +8,8 @@ import os
 
 import matplotlib.pyplot as plt
 
+from conf import Config
+
 
 def draw_variance_p(data: dict, save_path="out/img/default"):
     """
@@ -35,6 +37,7 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     @param save_path: 图片保存路径
     @return:
     """
+    markers = ['+', 'o', '*', 's', ',', '.', '1', '2', '3', '4']
     slash_index = save_path.rfind('/')
     if slash_index != -1:
         dir = save_path[:save_path.rfind('/')]
@@ -43,7 +46,7 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     if not os.path.isdir(dir):
         os.makedirs(dir)
     for k, v in data.items():
-        plt.plot(v[0], label=k)
+        plt.plot(v[0], label=k, marker=markers[Config.labels.index(k)])
     plt.legend()
     plt.ylabel(y_label)
     plt.xlim(xmin=2)

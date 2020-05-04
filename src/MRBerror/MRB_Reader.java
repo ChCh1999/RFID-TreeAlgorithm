@@ -1145,7 +1145,7 @@ public class MRB_Reader {
      * @param silenceStrategy
      * @return
      */
-    public NUM getErrorProbablity(List<MRB_Tag> l, int silenceStrategy) {
+    public NUM getErrorProbability(List<MRB_Tag> l, int silenceStrategy) {
         NUM result = new NUM();
         MRB_Reader.resu res = OneFrame(l, silenceStrategy);
         MRB_Reader.resu res2 = OneFrame(l, silenceStrategy);
