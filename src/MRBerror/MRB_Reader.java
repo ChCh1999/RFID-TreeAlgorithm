@@ -737,7 +737,7 @@ public class MRB_Reader {
         //存储唯一碰撞集中的标签
         List<List<MRB_Tag>> CBMTagList = new ArrayList<>();
         //被沉默的标签
-        List<MRB_Tag> silencedTagIdList = new ArrayList<>();
+        List<MRB_Tag> silencedTagList = new ArrayList<>();
 
 
         // 生成0-100的随机数,当大于等于20时存入NowTag，模拟20%概率在本次读写器周期内丢失标签（静态错误）
@@ -781,7 +781,7 @@ public class MRB_Reader {
             // 如果遇到被沉默（未被复用的标签），则分析时跳过该标签
             // 注意到通信时依然会发消息给包含该标签的集合，此时该标签不接受响应
             if (!l.get(i).use) {
-                silencedTagIdList.add(l.get(i));
+                silencedTagList.add(l.get(i));
                 i++;
                 d++;
                 continue;
@@ -874,7 +874,6 @@ public class MRB_Reader {
                 String currentID = l.get(i).ID;
                 Set<String> CurrCCBValue = new HashSet<>();
                 tagInCCB = new ArrayList<>();
-                tagInCCB.add(l.get(i));
                 CCB.put(currentID, CurrCCBValue);
 
                 // 初始化PCB
@@ -962,7 +961,7 @@ public class MRB_Reader {
         List<MRB_Tag> caughtTagList = new ArrayList<>(caughtTagSet);
 
         //若采取递增式沉默且识别标签不足，则沉默本轮识别的所有标签
-        if (toSilentCount > currentFrameTagList.size()+silencedTagIdList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
+        if (toSilentCount > currentFrameTagList.size()+silencedTagList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
             silenceStrategy = -1;
         }
         //根据沉默标签进行沉默选择
@@ -975,12 +974,12 @@ public class MRB_Reader {
                 //随机沉默
 
                 //重置已沉默标签
-                for (MRB_Tag tag : silencedTagIdList) {
+                for (MRB_Tag tag : silencedTagList) {
                     tag.use = true;
                 }
                 //沉默的序号，在caughtTagList中定位
                 List<Integer> toSilenceIndex = new ArrayList<Integer>();
-                silencedTagIdList = new ArrayList<>();
+                silencedTagList = new ArrayList<>();
                 int tagCount = caughtTagList.size();
                 Random random = new Random();
                 //随机选择沉默的标签序号
@@ -1001,7 +1000,7 @@ public class MRB_Reader {
             case 1:
                 //以CBM为单位沉默
                 //添加已沉默标签
-                silentCount = silentCount - silencedTagIdList.size();
+                silentCount = silentCount - silencedTagList.size();
                 if (silentCount <= 0) {
                     break;
                 }
@@ -1029,9 +1028,13 @@ public class MRB_Reader {
                     List<MRB_Tag> CBMTags = CBMTagList.get(point);
                     //将未沉默的部分加入到沉默标签集
                     if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
-                        CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
-                        CBMTagList.remove(CBMTags);
-                        addCount += CBMTags.size();
+                        for (MRB_Tag tag : CBMTags) {
+                            if(caughtTagSet.contains(tag)) {
+                                toSilenceTagIds.add(tag.ID);
+                                addCount +=1;
+                            }
+                        }
+
                     }
                     point++;
                 }
@@ -1039,7 +1042,7 @@ public class MRB_Reader {
             case 3:
                 //精确沉默
                 //添加已沉默标签
-                silentCount = silentCount - silencedTagIdList.size();
+                silentCount = silentCount - silencedTagList.size();
                 if (silentCount <= 0) {
                     break;
                 }
@@ -1060,8 +1063,7 @@ public class MRB_Reader {
                 break;
             case 4:
                 //随机沉默-递增方案
-
-                silentCount = silentCount - silencedTagIdList.size();
+                silentCount = silentCount - silencedTagList.size();
                 if (silentCount <= 0) {
                     break;
                 }
@@ -1083,32 +1085,10 @@ public class MRB_Reader {
                     addCount++;
                 }
                 break;
-//            case 6:
-//                //从小的CBM沉默
-//                CBMs.sort(Comparator.comparing(Map::size));
-//            case 5:
-//                //以CBM为单位沉默
-//
-//                //重置已沉默标签
-//                toSilenceTagList.forEach(tag -> tag.use = true);
-//                toSilenceTagList = new ArrayList<>();
-//
-//                for (Map<String, Set<String>> cbm : CBMs) {
-//                    if (toSilenceTagIds.size() < silentCount) {
-//                        //将cbm的所有相关标签添加到沉默列表
-//                        for (Set<String> id_list : cbm.values()) {
-//                            for (String id : id_list) {
-//                                if (!toSilenceTagIds.contains(id)) {
-//                                    toSilenceTagIds.add(id);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                break;
         }
 
         //沉默相应标签
+        int failCount=0;
         for (MRB_Tag tag : l) {
             if (!tag.use) {
                 toSilenceTagList.add(tag);
@@ -1118,6 +1098,11 @@ public class MRB_Reader {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenceTagList.add(tag);
+            }
+            if(toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)){
+                if(!caughtTagSet.contains(tag)){
+                    failCount++;
+                }
             }
         }
 

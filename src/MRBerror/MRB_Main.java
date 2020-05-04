@@ -10,7 +10,7 @@ public class MRB_Main {
     /**
      * 标签id长度
      */
-    static int tagIDlength = 12;
+    static int tagIDLength = 12;
     /**
      * 标签数
      */
@@ -87,16 +87,12 @@ public class MRB_Main {
         MRB_Reader r = new MRB_Reader();
 
         double avgRes = 0;
-        //MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+/*//        统一的标签集
+        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));*/
         for (int i = 0; i < roundCount; i++) {
-            List<DataRecord> resTemp = r.MultiSession(Objects.requireNonNull(MRB_TagGenerator.generateTag(tagIDlength, tagCount)), silenceStrategy, thresholdPM);
+            List<DataRecord> resTemp = r.MultiSession(Objects.requireNonNull(MRB_TagGenerator.generateTag(tagIDLength, tagCount)), silenceStrategy, thresholdPM);
             double p = resTemp.get(resTemp.size() - 1).p;
             avgRes += p;
-
-//            if (i % 100 == 0) {
-//                System.out.println((i+silenceStrategy*roundCount)*100/(5*roundCount));
-//            }
-
         }
 
         try {
@@ -113,7 +109,7 @@ public class MRB_Main {
 
     static double getAvgErrorProbability(int silenceStrategy) {
         MRB_Reader r = new MRB_Reader();
-        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
+        MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDLength, tagCount));
         ArrayList<Double> errorData = IntStream.range(0, 10).mapToObj(i -> r.getErrorProbability(input.MRBTagList, silenceStrategy).p4).collect(Collectors.toCollection(ArrayList::new));
         double sum = errorData.stream().mapToDouble(d -> d).sum();
         double avg = sum / errorData.size();
