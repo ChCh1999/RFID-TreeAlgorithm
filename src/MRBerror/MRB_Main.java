@@ -114,7 +114,7 @@ public class MRB_Main {
     static double getAvgErrorProbability(int silenceStrategy) {
         MRB_Reader r = new MRB_Reader();
         MRB_Input input = new MRB_Input(MRB_TagGenerator.generateTag(tagIDlength, tagCount));
-        ArrayList<Double> errorData = IntStream.range(0, 10).mapToObj(i -> r.getErrorProbablity(input.MRBTagList, silenceStrategy).p4).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<Double> errorData = IntStream.range(0, 10).mapToObj(i -> r.getErrorProbability(input.MRBTagList, silenceStrategy).p4).collect(Collectors.toCollection(ArrayList::new));
         double sum = errorData.stream().mapToDouble(d -> d).sum();
         double avg = sum / errorData.size();
         System.out.println("沉默策略" + silenceStrategy + ",平均错误概率：" + avg);
