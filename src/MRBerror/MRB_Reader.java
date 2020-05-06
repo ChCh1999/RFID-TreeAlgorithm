@@ -1054,8 +1054,10 @@ public class MRB_Reader {
                     List<MRB_Tag> CBMTagsTemp = CBMTagList.get(cbm_index);
                     for (MRB_Tag tag : CBMTagsTemp) {
                         if (tag.use && caughtTagList.contains(tag)) {
-                            toSilenceTagIds.add(tag.ID);
-                            break;
+                            if(!toSilenceTagIds.contains(tag.ID)) {
+                                toSilenceTagIds.add(tag.ID);
+                                break;
+                            }
                         }
                     }
                     cbm_index = (cbm_index + 1) % CBMs.size();

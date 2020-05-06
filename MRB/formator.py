@@ -5,12 +5,29 @@
 5  # @Author: Ch
 6  # @Date  : 2020/2/24
 
+import numpy as np
 import seaborn as sns
 
 from data_util import *
 from plot_util import *
 
 accurate = 0.3519999
+
+
+class NumpyEncoder(json.JSONEncoder):
+    """ Special json encoder for numpy types """
+
+    def default(self, obj):
+        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
+                            np.int16, np.int32, np.int64, np.uint8,
+                            np.uint16, np.uint32, np.uint64)):
+            return int(obj)
+        elif isinstance(obj, (np.float_, np.float16, np.float32,
+                              np.float64)):
+            return float(obj)
+        elif isinstance(obj, (np.ndarray,)):  #### This is the fix
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
 
 
 def formator_slot(raw_data: list, save_path='out/img/slot', do_sum=True):
@@ -155,6 +172,8 @@ def MBR_formator_20(dir_path: str):
     draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
     draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
     draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
+    with open(dir_path + "/out/slot/data_slot_mean.json", 'w') as wf:
+        json.dump(data_slot_raw_mean, wf, cls=NumpyEncoder,indent=4)
     draw_plot(data_slot_raw_mean, 'number of slots used by MBR in each session'
               , dir_path + "/out/slot/slot_mean_raw")
 
@@ -304,7 +323,7 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/20_10_10_1000_10/0429_1')
+    MBR_formator_20('res/20_10_10_1000_10/0504')
     # MBR_formator_20('res/20_10_10_1000/0414')
     # MBR_formator_20('res/20_10_10_1000/0414/0_6')
     # MBR_formator_20('res/20_10_10_1000/0414/7')

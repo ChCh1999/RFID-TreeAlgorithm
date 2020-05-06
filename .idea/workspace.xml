@@ -7,9 +7,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/RFID-TreeAlgorithm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/RFID-TreeAlgorithm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -65,26 +66,13 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="JUnit.MRB_MainTest.testS2">
+  <component name="RunManager" selected="JUnit.MRB_MainTest.testS3">
     <configuration name="MRB_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_Main" />
       <module name="RFID-TreeAlgorithm" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="MRBerror.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="QT.Main" />
-      <module name="RFID-TreeAlgorithm" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="QT.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,13 +122,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="MRB_MainTest.testS3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="RFID-TreeAlgorithm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="MRBerror.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="MRBerror" />
+      <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_MainTest" />
+      <option name="METHOD_NAME" value="testS3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MRB_MainTest.testS3" />
         <item itemvalue="JUnit.MRB_MainTest.testS2" />
         <item itemvalue="Application.MRB_Main" />
         <item itemvalue="Application.fileUtil" />
         <item itemvalue="Application.test" />
-        <item itemvalue="Application.Main (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -318,6 +322,8 @@
       <workItem from="1588118448603" duration="7715000" />
       <workItem from="1588142875470" duration="939000" />
       <workItem from="1588565731883" duration="2472000" />
+      <workItem from="1588579919716" duration="92000" />
+      <workItem from="1588749692302" duration="1340000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -398,45 +404,45 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587955820543" />
-    <state width="1493" height="309" key="GridCell.Tab.0.bottom" timestamp="1588568360806">
+    <state width="1493" height="258" key="GridCell.Tab.0.bottom" timestamp="1588750486125">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588568360806" />
+    <state width="1493" height="258" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588750486125" />
     <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="309" key="GridCell.Tab.0.center" timestamp="1588568360806">
+    <state width="1493" height="258" key="GridCell.Tab.0.center" timestamp="1588750486123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588568360806" />
+    <state width="1493" height="258" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588750486123" />
     <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="309" key="GridCell.Tab.0.left" timestamp="1588568360805">
+    <state width="1493" height="258" key="GridCell.Tab.0.left" timestamp="1588750486123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588568360805" />
+    <state width="1493" height="258" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588750486123" />
     <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="309" key="GridCell.Tab.0.right" timestamp="1588568360806">
+    <state width="1493" height="258" key="GridCell.Tab.0.right" timestamp="1588750486123">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588568360806" />
+    <state width="1493" height="258" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588750486123" />
     <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="309" key="GridCell.Tab.1.bottom" timestamp="1588568361682">
+    <state width="1493" height="258" key="GridCell.Tab.1.bottom" timestamp="1588750486125">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588568361682" />
+    <state width="1493" height="258" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588750486125" />
     <state width="1866" height="434" key="GridCell.Tab.1.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
-    <state width="1493" height="309" key="GridCell.Tab.1.center" timestamp="1588568361682">
+    <state width="1493" height="258" key="GridCell.Tab.1.center" timestamp="1588750486125">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1588568361682" />
+    <state width="1493" height="258" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1588750486125" />
     <state width="1866" height="434" key="GridCell.Tab.1.center/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
-    <state width="1493" height="309" key="GridCell.Tab.1.left" timestamp="1588568361682">
+    <state width="1493" height="258" key="GridCell.Tab.1.left" timestamp="1588750486125">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1588568361682" />
+    <state width="1493" height="258" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1588750486125" />
     <state width="1866" height="434" key="GridCell.Tab.1.left/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
-    <state width="1493" height="309" key="GridCell.Tab.1.right" timestamp="1588568361682">
+    <state width="1493" height="258" key="GridCell.Tab.1.right" timestamp="1588750486125">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="309" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1588568361682" />
+    <state width="1493" height="258" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1588750486125" />
     <state width="1866" height="434" key="GridCell.Tab.1.right/0.0.1920.1080@0.0.1920.1080" timestamp="1583890371557" />
     <state x="499" y="76" width="1245" height="922" key="SettingsEditor" timestamp="1586779724771">
       <screen x="0" y="0" width="1536" height="864" />
@@ -478,8 +484,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
-          <line>1107</line>
-          <option name="timeStamp" value="10" />
+          <line>1088</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
