@@ -37,7 +37,7 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     @param save_path: 图片保存路径
     @return:
     """
-    markers = ['+', 'o', '*', 's', ',', '.', '1', '2', '3', '4']
+    markers = ['+', 'o', '*', 's', '^', '1', '2', '3', '4', '.']
     slash_index = save_path.rfind('/')
     if slash_index != -1:
         dir = save_path[:save_path.rfind('/')]

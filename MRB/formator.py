@@ -5,7 +5,6 @@
 5  # @Author: Ch
 6  # @Date  : 2020/2/24
 
-import numpy as np
 import seaborn as sns
 
 from data_util import *
@@ -173,7 +172,7 @@ def MBR_formator_20(dir_path: str):
     draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
     draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
     with open(dir_path + "/out/slot/data_slot_mean.json", 'w') as wf:
-        json.dump(data_slot_raw_mean, wf, cls=NumpyEncoder,indent=4)
+        json.dump(data_slot_raw_mean, wf, cls=NumpyEncoder, indent=4)
     draw_plot(data_slot_raw_mean, 'number of slots used by MBR in each session'
               , dir_path + "/out/slot/slot_mean_raw")
 
@@ -226,17 +225,17 @@ def MBR_formator_20(dir_path: str):
     #
     # draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
     #
-    # data_CBMCount = data['CBMCount']
-    # data_CBMCount_mean = get_data_avg(data_CBMCount)
-    # draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
-    # # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
-    # data_CBMOfSameCollisionBitsCount = data['sameCBMCount']
-    # data_CBMOfSameCollisionBitsCount_mean = get_data_avg(data_CBMOfSameCollisionBitsCount)
-    # draw_plot(data_CBMOfSameCollisionBitsCount_mean, 'Count of CBM that occur in last frame',
-    #           dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
+    data_CBMCount = raw_datas['CBMCount']
+    data_CBMCount_mean = get_data_avg(data_CBMCount)
+    draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
+    # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
+    data_of_same_cbm_count = raw_datas['sameCBMCount']
+    data_of_same_cbm_count_mean = get_data_avg(data_of_same_cbm_count)
+    draw_plot(data_of_same_cbm_count_mean, 'Count of CBM that occur in last frame',
+              dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
 
 
-def p_session(dir_path: str, session=0, out_dir_path=""):
+def p_session(dir_path: str, session=0, out_dir_path = ""):
     """
     获取某个session的p分布
     @param dir_path:
@@ -323,7 +322,7 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/20_10_10_1000_10/0504')
+    MBR_formator_20('res/20_10_10_1000_10/0506')
     # MBR_formator_20('res/20_10_10_1000/0414')
     # MBR_formator_20('res/20_10_10_1000/0414/0_6')
     # MBR_formator_20('res/20_10_10_1000/0414/7')
