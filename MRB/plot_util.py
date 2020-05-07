@@ -55,3 +55,34 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     plt.savefig(save_path, dpi=200, bbox_inches='tight')
     # plt.show()
     plt.clf()
+
+
+def draw_plot_two_axis(x_data:dict, x_label:str, y_data:dict, y_label:str, save_path="out/img/default"):
+    """
+    绘图，需要填入两个轴的完整数据，x-data和y_data的大小必须相同
+    @param x_data: x轴数据
+    @param x_label: x轴标签
+    @param y_data: y轴数据
+    @param y_label: y轴标签
+    @param save_path: 存储路径
+    @return:
+    """
+    markers = ['+', 'o', '*', 's', '^', '1', '2', '3', '4', '.']
+    slash_index = save_path.rfind('/')
+    if slash_index != -1:
+        dir = save_path[:save_path.rfind('/')]
+    else:
+        dir = ''
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
+    for k, v in x_data.items():
+        # plt.plot(v[0], label=k, marker=markers[Config.labels.index(k)])
+        plt.plot(x_data[k][0], y_data[k][0], label=k, marker=markers[Config.labels.index(k)])
+    plt.legend()
+    plt.ylabel(y_label)
+    # plt.xlim(xmin=2)
+    plt.xlabel(x_label)
+    # plt.xticks(range(0, 20, 2))
+    plt.savefig(save_path, dpi=200, bbox_inches='tight')
+    # plt.show()
+    plt.clf()
