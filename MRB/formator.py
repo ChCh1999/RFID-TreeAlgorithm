@@ -141,7 +141,7 @@ def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
 
 def MBR_formator_20(dir_path: str):
     labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
-    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'slot', "CBMCount", "sameCBMCount"])
+    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'pm_t', 'slot', "CBMCount", "sameCBMCount"])
 
     # 获取p
     data_p_raw = raw_datas["p"]
@@ -149,6 +149,9 @@ def MBR_formator_20(dir_path: str):
 
     # pm
     data_pm = raw_datas['pm']
+
+    # pm_t
+    data_pm_t = raw_datas['pm_t']
 
     # slot
     data_slot_raw = raw_datas["slot"]
@@ -162,6 +165,7 @@ def MBR_formator_20(dir_path: str):
     data_p_mean_abs = get_abs(data_p_mean)
     data_pm_mean = get_data_avg(data_pm)
     data_pm_log = get_log(data_pm_mean)
+    data_pm_t_mean = get_data_avg(data_pm_t)
     data_slot_mean = get_data_avg(data_slot)
     data_slot_raw_mean = get_data_avg(data_slot_raw)
 
@@ -170,6 +174,7 @@ def MBR_formator_20(dir_path: str):
     draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean_abs")
     draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
     draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
+    draw_plot(data_pm_t_mean, 'pm_t', dir_path + "/out/pm_t/pm_t_mean")
     draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
     with open(dir_path + "/out/slot/data_slot_mean.json", 'w') as wf:
         json.dump(data_slot_raw_mean, wf, cls=NumpyEncoder, indent=4)
@@ -179,12 +184,14 @@ def MBR_formator_20(dir_path: str):
     data_p_mean_bias = get_bias(data_p_mean)
     data_p_mean_bias_2 = get_bias(data_p_mean, 4)
     data_pm_mean_bias = get_bias(data_pm_mean)
+    data_pm_t_mean_bias = get_bias(data_pm_t_mean)
     data_slot_mean_bias = get_bias(get_data_avg(data_slot))
     data_slot_raw_mean_bias = get_bias(data_slot_raw_mean)
 
     draw_plot(data_p_mean_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mean_bias")
     draw_plot(data_p_mean_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_mean_bias_2")
     draw_plot(data_pm_mean_bias, 'pm compare with random', dir_path + "/out/pm/pm_mean_bias")
+    draw_plot(data_pm_t_mean_bias, 'pm_t compare with random', dir_path + "/out/pm_t/pm_t_mean_bias")
     draw_plot(data_slot_mean_bias, 'slots used by MBR compare with random',
               dir_path + "/out/slot/slot_mean_bias")
     draw_plot(data_slot_raw_mean_bias, 'slots used by MBR in each session compare with random',
@@ -196,21 +203,25 @@ def MBR_formator_20(dir_path: str):
     data_distribution(data_p_rm, dir_path + "/data/rm", "variance in estimate p", 'session count')
     data_p_rm_abs = get_abs(data_p_rm)
     data_pm_rm = get_data_rm_out_point(data_pm)
+    data_pm_t_rm = get_data_rm_out_point(data_pm_t)
     data_slot_rm = get_data_rm_out_point(data_slot)
 
     draw_plot(data_p_rm, 'variance in estimate p', dir_path + "/out/p/p_rm_raw")
     draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm_abs")
     draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm/pm_rm")
+    draw_plot(data_pm_t_rm, 'pm_t', dir_path + "/out/pm_t/pm_t_rm")
     draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_rm")
 
     data_p_rm_bias = get_bias(data_p_rm)
     data_p_rm_bias_2 = get_bias(data_p_rm, 4)
     data_pm_rm_bias = get_bias(data_pm_rm)
+    data_pm_t_rm_bias = get_bias(data_pm_t_rm)
     data_slot_rm_bias = get_bias(get_data_avg(data_slot))
 
     draw_plot(data_p_rm_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_rm_bias")
     draw_plot(data_p_rm_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_rm_bias_2")
     draw_plot(data_pm_rm_bias, 'pm compare with random', dir_path + "/out/pm/pm_rm_bias")
+    draw_plot(data_pm_t_rm_bias, 'pm_t compare with random', dir_path + "/out/pm_t/pm_t_rm_bias")
     draw_plot(data_slot_rm_bias, 'slots used by MBR compare with random',
               dir_path + "/out/slot/slot_rm_bias")
 
@@ -228,12 +239,15 @@ def MBR_formator_20(dir_path: str):
     data_CBMCount = raw_datas['CBMCount']
     data_CBMCount_mean = get_data_avg(data_CBMCount)
     draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
-    # data_CBMOfSameCollisionBitsCount = data['CBMOfSameCollisionBitsCount']
     data_of_same_cbm_count = raw_datas['sameCBMCount']
     data_of_same_cbm_count_mean = get_data_avg(data_of_same_cbm_count)
     draw_plot(data_of_same_cbm_count_mean, 'Count of CBM that occur in last frame',
               dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
 
+    # slot与pm的关系
+    # draw_plot_two_axis(data_pm_mean, "pm", data_slot_mean, "slot", dir_path + "/out/slotAndPm/slotAndPm_mean_raw")
+    draw_plot_two_axis(data_slot_mean, "slot", data_pm_mean, "pm", dir_path + "/out/slotAndPm/pmAndSlot_mean_raw")
+    draw_plot_two_axis(data_slot_mean, "slot", data_pm_t_mean, "pm_t", dir_path + "/out/slotAndPm/pm_tAndSlot_mean_raw")
 
 def p_session(dir_path: str, session=0, out_dir_path = ""):
     """
@@ -322,7 +336,7 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/20_10_10_1000_10/0506')
+    MBR_formator_20('res/20_10_10_1000_10/0507')
     # MBR_formator_20('res/20_10_10_1000/0414')
     # MBR_formator_20('res/20_10_10_1000/0414/0_6')
     # MBR_formator_20('res/20_10_10_1000/0414/7')
