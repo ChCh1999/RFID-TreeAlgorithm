@@ -13,6 +13,8 @@ class DataRecord {
     double n = 0;
     //丢失任一个标签的概率
     double pm = 0;
+    //实际丢失标签比例
+    double pm_t = 0;
     //本轮使用的时隙数
     int slotCount = 0;
     int countOfCaughtTag = 0;
@@ -961,7 +963,7 @@ public class MRB_Reader {
         List<MRB_Tag> caughtTagList = new ArrayList<>(caughtTagSet);
 
         //若采取递增式沉默且识别标签不足，则沉默本轮识别的所有标签
-        if (toSilentCount > currentFrameTagList.size()+silencedTagList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
+        if (toSilentCount > currentFrameTagList.size() + silencedTagList.size() && silenceStrategy > 0 && silenceStrategy <= 4) {
             silenceStrategy = -1;
         }
         //根据沉默标签进行沉默选择
@@ -1029,9 +1031,9 @@ public class MRB_Reader {
                     //将未沉默的部分加入到沉默标签集
                     if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
                         for (MRB_Tag tag : CBMTags) {
-                            if(caughtTagSet.contains(tag)) {
+                            if (caughtTagSet.contains(tag)) {
                                 toSilenceTagIds.add(tag.ID);
-                                addCount +=1;
+                                addCount += 1;
                             }
                         }
 
@@ -1054,7 +1056,7 @@ public class MRB_Reader {
                     List<MRB_Tag> CBMTagsTemp = CBMTagList.get(cbm_index);
                     for (MRB_Tag tag : CBMTagsTemp) {
                         if (tag.use && caughtTagList.contains(tag)) {
-                            if(!toSilenceTagIds.contains(tag.ID)) {
+                            if (!toSilenceTagIds.contains(tag.ID)) {
                                 toSilenceTagIds.add(tag.ID);
                                 break;
                             }
@@ -1090,7 +1092,7 @@ public class MRB_Reader {
         }
 
         //沉默相应标签
-        int failCount=0;
+        int failCount = 0;
         for (MRB_Tag tag : l) {
             if (!tag.use) {
                 toSilenceTagList.add(tag);
@@ -1101,8 +1103,8 @@ public class MRB_Reader {
                 logger.info("沉默标签" + tag.ID);
                 toSilenceTagList.add(tag);
             }
-            if(toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)){
-                if(!caughtTagSet.contains(tag)){
+            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)) {
+                if (!caughtTagSet.contains(tag)) {
                     failCount++;
                 }
             }
@@ -1197,6 +1199,23 @@ public class MRB_Reader {
         resList.add(res);
 
         fileWriter.writemsg(",[\n");
+        fileWriter.writemsg(
+                "{" +
+                        "\"k1\":" + lastFrame.silentedTagList.size()
+                        + ", \"k2\":" + caughtTagSet.size()
+                        + ", \"l\":" + 0
+                        + ", \"m\":" + 0
+                        + ", \"p\":" + 0
+                        + ", \"n\":" + 0
+                        + ", \"pm\":" + pm
+                        + ", \"pm_t\":" + res.pm_t
+                        + ", \"caught\":" + caughtTagSet.size()
+                        + ", \"slot\":" + lastFrame.countOfSlot
+                        + ", \"CBMCount\":" + lastFrame.countOfSlot
+                        + ", \"sameCBMCount\":" + 0
+//                            + ", \"silent\":" + thisFrame.silentedTagList.size()
+                        + "}\n"
+        );
         while (pm > thresholdOfPM && R < 20) {
 
             resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
@@ -1271,17 +1290,15 @@ public class MRB_Reader {
             res.slotCount = thisFrame.countOfSlot;
             //pm
             res.pm = pm;
+            res.pm_t = (double) (mrb_tags.size() - caughtTagSet.size()) / mrb_tags.size();
             //总的识别标签数
             res.countOfCaughtTag = caughtTagSet.size();
             resList.add(res);
             R++;
 
-            //写入json格式日志
-            if (R != 1) {
-                fileWriter.writemsg(",");
-            }
+
             fileWriter.writemsg(
-                    "{" +
+                    ",{" +
                             "\"k1\":" + k1
                             + ", \"k2\":" + k2
                             + ", \"l\":" + l
@@ -1289,6 +1306,7 @@ public class MRB_Reader {
                             + ", \"p\":" + p
                             + ", \"n\":" + N
                             + ", \"pm\":" + pm
+                            + ", \"pm_t\":" + res.pm_t
                             + ", \"caught\":" + caughtTagSet.size()
                             + ", \"slot\":" + thisFrame.countOfSlot
                             + ", \"CBMCount\":" + CBMCount

@@ -8,6 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,6 +321,8 @@
       <workItem from="1588565731883" duration="2472000" />
       <workItem from="1588579919716" duration="92000" />
       <workItem from="1588749692302" duration="1340000" />
+      <workItem from="1588834688563" duration="2093000" />
+      <workItem from="1588857442632" duration="891000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -400,25 +403,25 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587955820543" />
-    <state width="1493" height="438" key="GridCell.Tab.0.bottom" timestamp="1588761010279">
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1588858295483">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
     <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="438" key="GridCell.Tab.0.center" timestamp="1588761010279">
+    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1588858295483">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
+    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
     <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="438" key="GridCell.Tab.0.left" timestamp="1588761010279">
+    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1588858295482">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
+    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588858295482" />
     <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="438" key="GridCell.Tab.0.right" timestamp="1588761010279">
+    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1588858295483">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
+    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
     <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
     <state width="1493" height="438" key="GridCell.Tab.1.bottom" timestamp="1588761010279">
       <screen x="0" y="0" width="1536" height="864" />
@@ -480,7 +483,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
-          <line>1088</line>
+          <line>1090</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
