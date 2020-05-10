@@ -1194,6 +1194,7 @@ public class MRB_Reader {
 
         //pm
         res.pm = pm;
+        res.pm_t= (double) (mrb_tags.size() - caughtTagSet.size()) / mrb_tags.size();
         //总的识别标签数
         res.countOfCaughtTag = caughtTagSet.size();
         resList.add(res);

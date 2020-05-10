@@ -8,13 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MRB/plot_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/plot_util.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/utils/Constant.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <ignored path="/test/RFID-TreeAlgorithm/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,58 +17,6 @@
   </component>
   <component name="CoverageViewManager">
     <option name="myElementSize" value="209" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="434728488">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.34" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="java" value="3" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="JAVA" value="3" />
-        </counts>
-      </usages-collector>
-    </session>
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-229">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="76">
-              <caret line="1038" column="28" selection-start-line="1038" selection-start-column="28" selection-end-line="1038" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_Main.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="247">
-              <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -90,63 +33,8 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/MRB/venv/Lib/site-packages/matplotlib/backends/web_backend/jquery-ui-1.12.1/package.json" />
-    </packageJsonPaths>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="15" />
-    <option name="y" value="30" />
-    <option name="width" value="1890" />
-    <option name="height" value="930" />
-  </component>
   <component name="ProjectId" id="1PoOxEAy3IGI1Vje2Zb6FL7D2hP" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="RFID-TreeAlgorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RFID-TreeAlgorithm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RFID-TreeAlgorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RFID-TreeAlgorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RFID-TreeAlgorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RFID-TreeAlgorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="MRBerror" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="RFID-TreeAlgorithm" type="b2602c69:ProjectViewProjectNode" />
-              <item name="RFID-TreeAlgorithm" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="MRBerror" type="462c0819:PsiDirectoryNode" />
-              <item name="MRB_Reader.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-    </panes>
-  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -172,18 +60,6 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="JUnit.MRB_MainTest.testS3">
     <configuration name="MRB_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -451,6 +327,9 @@
       <workItem from="1588579919716" duration="92000" />
       <workItem from="1588749692302" duration="1340000" />
       <workItem from="1588840176192" duration="2993000" />
+      <workItem from="1588861159252" duration="54000" />
+      <workItem from="1588896606070" duration="618000" />
+      <workItem from="1588991522944" duration="579000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -483,46 +362,8 @@
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2993000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <layout>
-      <window_info id="设计器" />
-      <window_info id="Capture Tool" />
-      <window_info id="UI Designer" />
-      <window_info id="Image Layers" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2497979" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="调色板" />
-      <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="随机沉默待测试" />
@@ -627,10 +468,10 @@
     </state>
     <state x="441" y="10" width="662" height="843" key="find.popup/0.0.1536.864@0.0.1536.864" timestamp="1586777725726" />
     <state x="551" y="13" width="818" height="1053" key="find.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1584429224439" />
-    <state x="178" y="11" key="new project wizard" timestamp="1582789359407">
+    <state x="178" y="0" key="new project wizard" timestamp="1588992107552">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="178" y="11" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1582789359407" />
+    <state x="178" y="0" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1588992107552" />
     <state x="425" y="197" key="run.anything.popup" timestamp="1582532611385">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -650,7 +491,6 @@
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
           <line>1089</line>
-          <properties />
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
@@ -669,28 +509,5 @@
     <SUITE FILE_PATH="coverage/RFID_TreeAlgorithm$MRB_Main.ic" NAME="MRB_Main Coverage Results" MODIFIED="1583148934639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>MRBerror.*</FILTER>
     </SUITE>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-229">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="1038" column="28" selection-start-line="1038" selection-start-column="28" selection-end-line="1038" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>
