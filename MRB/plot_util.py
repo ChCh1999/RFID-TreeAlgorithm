@@ -57,7 +57,7 @@ def draw_plot(data: dict, y_label: str, save_path="out/img/default"):
     plt.clf()
 
 
-def draw_plot_two_axis(x_data:dict, x_label:str, y_data:dict, y_label:str, save_path="out/img/default"):
+def draw_plot_two_axis(x_data: dict, x_label: str, y_data: dict, y_label: str, save_path="out/img/default"):
     """
     绘图，需要填入两个轴的完整数据，x-data和y_data的大小必须相同
     @param x_data: x轴数据

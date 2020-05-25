@@ -183,6 +183,23 @@ def get_data_in_dir(dir_path: str, data_keys: list):
     return data
 
 
+def get_slot_pm_threshold(slot_data: dict, pm_data: dict, threshold: float):
+    slot_res = {}
+    pm_res = {}
+    for k, _ in slot_data.items():
+        slot_res[k] = []
+        pm_res[k] = []
+        for round_index in range(len(slot_data[k])):
+            slot_res[k].append([])
+            pm_res[k].append([])
+            for index in range(len(pm_data[k][round_index])):
+                if pm_data[k][round_index][index] <= threshold:
+                    pm_res[k][round_index].append(pm_data[k][round_index][index])
+                    slot_res[k][round_index].append(slot_data[k][round_index][index])
+
+    return slot_res, pm_res
+
+
 def get_p_in_dir(dir_path: str):
     """
 

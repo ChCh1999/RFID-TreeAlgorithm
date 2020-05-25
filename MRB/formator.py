@@ -198,32 +198,32 @@ def MBR_formator_20(dir_path: str):
               dir_path + "/out/slot/slot_mean_raw_bias")
 
     # IQR去除离群点
-    data_p_rm = get_data_rm_out_point(data_p, 1.5)
-
-    data_distribution(data_p_rm, dir_path + "/data/rm", "variance in estimate p", 'session count')
-    data_p_rm_abs = get_abs(data_p_rm)
-    data_pm_rm = get_data_rm_out_point(data_pm)
-    data_pm_t_rm = get_data_rm_out_point(data_pm_t)
-    data_slot_rm = get_data_rm_out_point(data_slot)
-
-    draw_plot(data_p_rm, 'variance in estimate p', dir_path + "/out/p/p_rm_raw")
-    draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm_abs")
-    draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm/pm_rm")
-    draw_plot(data_pm_t_rm, 'pm_t', dir_path + "/out/pm_t/pm_t_rm")
-    draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_rm")
-
-    data_p_rm_bias = get_bias(data_p_rm)
-    data_p_rm_bias_2 = get_bias(data_p_rm, 4)
-    data_pm_rm_bias = get_bias(data_pm_rm)
-    data_pm_t_rm_bias = get_bias(data_pm_t_rm)
-    data_slot_rm_bias = get_bias(get_data_avg(data_slot))
-
-    draw_plot(data_p_rm_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_rm_bias")
-    draw_plot(data_p_rm_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_rm_bias_2")
-    draw_plot(data_pm_rm_bias, 'pm compare with random', dir_path + "/out/pm/pm_rm_bias")
-    draw_plot(data_pm_t_rm_bias, 'pm_t compare with random', dir_path + "/out/pm_t/pm_t_rm_bias")
-    draw_plot(data_slot_rm_bias, 'slots used by MBR compare with random',
-              dir_path + "/out/slot/slot_rm_bias")
+    # data_p_rm = get_data_rm_out_point(data_p, 1.5)
+    #
+    # data_distribution(data_p_rm, dir_path + "/data/rm", "variance in estimate p", 'session count')
+    # data_p_rm_abs = get_abs(data_p_rm)
+    # data_pm_rm = get_data_rm_out_point(data_pm)
+    # data_pm_t_rm = get_data_rm_out_point(data_pm_t)
+    # data_slot_rm = get_data_rm_out_point(data_slot)
+    #
+    # draw_plot(data_p_rm, 'variance in estimate p', dir_path + "/out/p/p_rm_raw")
+    # draw_plot(data_p_rm_abs, 'variance in estimate p', dir_path + "/out/p/p_rm_abs")
+    # draw_plot(data_pm_rm, 'pm', dir_path + "/out/pm/pm_rm")
+    # draw_plot(data_pm_t_rm, 'pm_t', dir_path + "/out/pm_t/pm_t_rm")
+    # draw_plot(data_slot_rm, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_rm")
+    #
+    # data_p_rm_bias = get_bias(data_p_rm)
+    # data_p_rm_bias_2 = get_bias(data_p_rm, 4)
+    # data_pm_rm_bias = get_bias(data_pm_rm)
+    # data_pm_t_rm_bias = get_bias(data_pm_t_rm)
+    # data_slot_rm_bias = get_bias(get_data_avg(data_slot))
+    #
+    # draw_plot(data_p_rm_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_rm_bias")
+    # draw_plot(data_p_rm_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_rm_bias_2")
+    # draw_plot(data_pm_rm_bias, 'pm compare with random', dir_path + "/out/pm/pm_rm_bias")
+    # draw_plot(data_pm_t_rm_bias, 'pm_t compare with random', dir_path + "/out/pm_t/pm_t_rm_bias")
+    # draw_plot(data_slot_rm_bias, 'slots used by MBR compare with random',
+    #           dir_path + "/out/slot/slot_rm_bias")
 
     # # 中位数
     # data_p_mid = get_data_mid(data_p)
@@ -235,7 +235,7 @@ def MBR_formator_20(dir_path: str):
     # data_p_mid_bias = get_bias(data_p_mid)
     #
     # draw_plot(data_p_mid_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mid_bias")
-    #
+
     data_CBMCount = raw_datas['CBMCount']
     data_CBMCount_mean = get_data_avg(data_CBMCount)
     draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
@@ -246,10 +246,20 @@ def MBR_formator_20(dir_path: str):
 
     # slot与pm的关系
     # draw_plot_two_axis(data_pm_mean, "pm", data_slot_mean, "slot", dir_path + "/out/slotAndPm/slotAndPm_mean_raw")
-    draw_plot_two_axis(data_slot_mean, "slot", data_pm_mean, "pm", dir_path + "/out/slotAndPm/pmAndSlot_mean_raw")
-    draw_plot_two_axis(data_slot_mean, "slot", data_pm_t_mean, "pm_t", dir_path + "/out/slotAndPm/pm_tAndSlot_mean_raw")
 
-def p_session(dir_path: str, session=0, out_dir_path = ""):
+    draw_plot_two_axis(data_slot_mean, "slot", data_pm_mean, "pm", dir_path + "/out/slotAndPm"
+                                                                              "/pmAndSlot_mean_raw")
+    data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(data_slot_mean, data_pm_mean, 0.01)
+    draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
+                       dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold")
+    data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(data_slot_mean, data_pm_mean, 0.001)
+    draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
+                       dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold_001")
+    # draw_plot_two_axis(data_slot_mean, "slot", data_pm_t_mean, "pm_t", dir_path +
+    # "/out/slotAndPm/pm_tAndSlot_mean_raw")
+
+
+def p_session(dir_path: str, session=0, out_dir_path=""):
     """
     获取某个session的p分布
     @param dir_path:
@@ -337,20 +347,3 @@ if __name__ == '__main__':
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
     MBR_formator_20('res/20_10_10_1000_10/0507')
-    # MBR_formator_20('res/20_10_10_1000/0414')
-    # MBR_formator_20('res/20_10_10_1000/0414/0_6')
-    # MBR_formator_20('res/20_10_10_1000/0414/7')
-    # MBR_formator_20('res/20_10_10_1000/0414/8')
-    # MBR_formator_20('res/20_10_10_1000/0414/9')
-    # in_dir = 'res/20_10_10_1000/0414'
-    # MRB_best(in_dir, in_dir + '/out')
-    # in_dir = 'res/20_10_10_1000/0417-0.001'
-    # MRB_best(in_dir, in_dir + '/out')
-    # in_dir = 'res/20_10_10_1000/0417-0.001/0_5'
-    # MRB_best(in_dir, in_dir + '/out')
-    # in_dir = 'res/20_10_10_1000/0417-0.001/6_11'
-    # MRB_best(in_dir, in_dir + '/out')
-    # in_dir = 'res/20_10_10_1000/0417-0.001/12_17'
-    # MRB_best(in_dir, in_dir + '/out')
-    # in_dir = 'res/20_10_10_1000/0417-0.001/18_22'
-    # MRB_best(in_dir, in_dir + '/out')
