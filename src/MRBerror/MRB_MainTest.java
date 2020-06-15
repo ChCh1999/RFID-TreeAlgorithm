@@ -4,7 +4,9 @@ import MRBerror.MRB_Main;
 import MRBerror.MRB_Reader;
 import org.junit.Test;
 import org.junit.Before; 
-import org.junit.After; 
+import org.junit.After;
+
+import java.io.File;
 
 /** 
 * MRB_Main Tester. 
@@ -31,7 +33,7 @@ public void after() throws Exception {
 @Test
 public void testS2() throws Exception {
     MRB_Reader.logger.info("最小唯一碰撞集沉默");
-    MRB_Main.mutilSessionTest(2, "test");
+    MRB_Main.mutilSessionTest(2, "test","log/");
 } 
 /**
 *
@@ -41,8 +43,11 @@ public void testS2() throws Exception {
 @Test
 public void testS3() throws Exception {
     MRB_Reader.logger.info("精确沉默");
-    MRB_Main.mutilSessionTest(3, "test");
+    MRB_Main.mutilSessionTest(3, "test","log"+ File.separator);
 }
 
-
+@Test
+public  void testInfinty() {
+//    System.out.println(1.0/0);
+}
 } 

@@ -49,11 +49,27 @@ public class MRB_Main {
 
 
         System.out.println("exactly: " + getExactlyErrorProbability());
-        int tag = 0;
-        while (tag < 40) {
-            System.out.println("round" + tag);
-            getData(String.valueOf(tag));
-            tag++;
+//        int tag = 0;
+//        while (tag < 40) {
+//            System.out.println("round" + tag);
+//            getData(String.valueOf(tag), "log/");
+//            tag++;
+//        }
+        getThresholdSlot();
+    }
+
+    /**
+     * 获取pm到指定收敛阈值的结果
+     * 第n轮阈值：0.2/2^n（n=o~9）
+     */
+    public static void getThresholdSlot() {
+        double threshold = 0.2;
+        for (int i = 0; i < 10; i++) {
+            thresholdPM = threshold;
+            for (int j = 0; j <10 ; j++) {
+                getData(String.valueOf(i), "log/" + i + '/');
+            }
+            threshold = threshold / 2;
         }
     }
 
@@ -62,26 +78,26 @@ public class MRB_Main {
      *
      * @param tag：添加在日志文件尾部的标签
      */
-    static void getData(String tag) {
+    static void getData(String tag, String destPath) {
         MRB_Reader.logger.info("随机沉默");
-        mutilSessionTest(0, tag);
+        mutilSessionTest(0, tag, destPath);
 
 //        System.exit(0);
 
         MRB_Reader.logger.info("唯一碰撞集沉默");
-        mutilSessionTest(1, tag);
+        mutilSessionTest(1, tag, destPath);
 
         MRB_Reader.logger.info("最小唯一碰撞集沉默");
-        mutilSessionTest(2, tag);
+        mutilSessionTest(2, tag, destPath);
 
         MRB_Reader.logger.info("精确沉默");
-        mutilSessionTest(3, tag);
+        mutilSessionTest(3, tag, destPath);
 
         MRB_Reader.logger.info("递增随机沉默");
-        mutilSessionTest(4, tag);
+        mutilSessionTest(4, tag, destPath);
     }
 
-    static double mutilSessionTest(int silenceStrategy, String destTag) {
+    static double mutilSessionTest(int silenceStrategy, String destTag, String destPath) {
         System.out.println("strategy" + silenceStrategy);
 
         MRB_Reader r = new MRB_Reader();
@@ -101,7 +117,7 @@ public class MRB_Main {
             throwable.printStackTrace();
         }
 
-        fileUtil.transferData2Json("log/" + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + "_" + destTag + ".json");
+        fileUtil.transferData2Json(destPath + "s" + silenceStrategy + "_t" + thev + "_tag" + tagCount + "_r" + roundCount + "_pm" + thresholdPM + "_" + destTag + ".json");
 
         System.out.println("avg: " + avgRes / roundCount);
         return avgRes / 10;

@@ -3,8 +3,6 @@ package MRBerror;
 
 import java.io.*;
 import java.io.FileInputStream;
-import java.nio.Buffer;
-import java.nio.channels.FileChannel;
 
 public class fileUtil {
     public static boolean transferData2Json(String dest) {
@@ -13,6 +11,14 @@ public class fileUtil {
 
         try {
             inputStream = new BufferedInputStream(new FileInputStream(new File("log/MRBRecord.txt")));
+
+            File target = new File(dest);
+            //"res\\filetest.txt"
+            File parent = target.getParentFile();
+            if (parent != null) {
+                parent.mkdirs();
+            }
+
             outputStream = new BufferedOutputStream(new FileOutputStream(new File(dest)));
             outputStream.write('[');
             outputStream.write('\n');
@@ -49,7 +55,7 @@ public class fileUtil {
     }
 
     private FileOutputStream fo;
-    private FileOutputStream foclear;
+    private FileOutputStream foClear;
 
     public fileUtil(String filePath) {
         File target = new File(filePath);
@@ -60,7 +66,7 @@ public class fileUtil {
             if (parent != null) {
                 parent.mkdirs();
             }
-            this.foclear = new FileOutputStream(target);
+            this.foClear = new FileOutputStream(target);
             this.fo = new FileOutputStream(target, true);
 
 //            System.out.println("init file writer for " + target.getAbsolutePath() + "successfully");
@@ -74,10 +80,11 @@ public class fileUtil {
      * 原构造函数似乎有无法最近信息的bug.
      * foclear创建FileOutputStream会导致文件中原来的信息被覆盖.
      * Feng Wenhan添加于2020.4.27
+     *
      * @param filePath 目标地址
-     * @param append 是否将输出追加到文件尾
+     * @param append   是否将输出追加到文件尾
      */
-    public fileUtil(String filePath,boolean append) {
+    public fileUtil(String filePath, boolean append) {
 
         File target = new File(filePath);
         //"res\\filetest.txt"
@@ -88,7 +95,7 @@ public class fileUtil {
                 parent.mkdirs();
             }
             if (!append) {
-                this.foclear = new FileOutputStream(target);
+                this.foClear = new FileOutputStream(target);
             }
             this.fo = new FileOutputStream(target, true);
 
@@ -101,7 +108,7 @@ public class fileUtil {
 
     public void clearmsg() {
         try {
-            this.foclear.write("".getBytes());
+            this.foClear.write("".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }

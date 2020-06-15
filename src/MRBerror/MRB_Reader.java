@@ -33,6 +33,7 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
+    int maxSessionCount=20;
     private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
 
     public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt", true);
@@ -1194,7 +1195,7 @@ public class MRB_Reader {
 
         //pm
         res.pm = pm;
-        res.pm_t= (double) (mrb_tags.size() - caughtTagSet.size()) / mrb_tags.size();
+        res.pm_t = (double) (mrb_tags.size() - caughtTagSet.size()) / mrb_tags.size();
         //总的识别标签数
         res.countOfCaughtTag = caughtTagSet.size();
         resList.add(res);
@@ -1217,8 +1218,8 @@ public class MRB_Reader {
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                         + "}\n"
         );
-        while (pm > thresholdOfPM && R < 20) {
-
+        while (pm > thresholdOfPM && R < maxSessionCount) {
+            //未收敛或者未到20次会话
             resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
 
             //统计数据
@@ -1282,7 +1283,11 @@ public class MRB_Reader {
             //保存结果
             res = new DataRecord();
             //估计标签数
-            res.n = N;
+            if(Double.isInfinite(N)||Double.isNaN(N)){
+                res.n=-1;
+            }else {
+                res.n=N;
+            }
             //更新沉默标签数
             totalSilentedCount = thisFrame.silentedTagList.size();
             //估计丢失标签概率
@@ -1305,7 +1310,7 @@ public class MRB_Reader {
                             + ", \"l\":" + l
                             + ", \"m\":" + m
                             + ", \"p\":" + p
-                            + ", \"n\":" + N
+                            + ", \"n\":" + res.n
                             + ", \"pm\":" + pm
                             + ", \"pm_t\":" + res.pm_t
                             + ", \"caught\":" + caughtTagSet.size()

@@ -11,6 +11,8 @@ import os
 import numpy as np
 import re
 
+labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
+
 
 def get_sum(data: dict):
     """
@@ -198,6 +200,41 @@ def get_slot_pm_threshold(slot_data: dict, pm_data: dict, threshold: float):
                     slot_res[k][round_index].append(slot_data[k][round_index][index])
 
     return slot_res, pm_res
+
+
+def get_slot_pm_threshold_2n(dir_path: str):
+    """
+    获取一组以0.2/i^n为阈值的slot数据，第i存放在dir_path/i文件夹内
+    @param dir_path: 文件夹目标
+    @return:res_slot, res_threshold_pm
+    """
+    res_slot = {}
+    res_threshold_pm = {}
+
+    for k in labels:
+        res_slot[k] = []
+        res_slot[k].append([])
+
+    for i in range(10):
+        data_temp = get_data_in_dir(dir_path + "/" + str(i), ["slot"])["slot"]
+        data_temp = get_sum(data_temp)
+        for k, v in data_temp.items():
+            for index in range(len(v)):
+                v[index] = [v[index][-1]]
+        data_temp = get_data_avg(data_temp)
+        for k in labels:
+            res_slot[k][0].append(data_temp[k][0][-1])
+
+    list_threshold = []
+    threshold = 0.2
+    for i in range(10):
+        list_threshold.append(threshold)
+        threshold = threshold / 2
+    for k in labels:
+        res_threshold_pm[k] = []
+        res_threshold_pm[k].append(list_threshold.copy())
+
+    return res_slot, res_threshold_pm
 
 
 def get_p_in_dir(dir_path: str):

@@ -8,7 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/data_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/data_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/fileUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/fileUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +66,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="JUnit.MRB_MainTest.testS3">
+  <component name="RunManager" selected="Application.MRB_Main">
     <configuration name="MRB_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_Main" />
       <module name="RFID-TreeAlgorithm" />
@@ -88,8 +93,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MRBerror.test" />
+    <configuration name="MRB_MainTest.testInfinty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RFID-TreeAlgorithm" />
       <extension name="coverage">
         <pattern>
@@ -97,6 +101,10 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="MRBerror" />
+      <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_MainTest" />
+      <option name="METHOD_NAME" value="testInfinty" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -136,17 +144,17 @@
     <list>
       <item itemvalue="Application.MRB_Main" />
       <item itemvalue="Application.fileUtil" />
-      <item itemvalue="Application.test" />
       <item itemvalue="JUnit.MRB_MainTest.testS2" />
       <item itemvalue="JUnit.MRB_MainTest.testS3" />
+      <item itemvalue="JUnit.MRB_MainTest.testInfinty" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MRB_Main" />
+        <item itemvalue="JUnit.MRB_MainTest.testInfinty" />
         <item itemvalue="JUnit.MRB_MainTest.testS3" />
         <item itemvalue="JUnit.MRB_MainTest.testS2" />
-        <item itemvalue="Application.MRB_Main" />
         <item itemvalue="Application.fileUtil" />
-        <item itemvalue="Application.test" />
       </list>
     </recent_temporary>
   </component>
@@ -330,6 +338,7 @@
       <workItem from="1588861159252" duration="54000" />
       <workItem from="1588896606070" duration="618000" />
       <workItem from="1588991522944" duration="579000" />
+      <workItem from="1592206229331" duration="3804000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -373,10 +382,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="调整日志输出方式与数据输出方式" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="108" key="#HTTP_Proxy" timestamp="1582789355075">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="361" y="108" key="#HTTP_Proxy/0.0.1536.864@0.0.1536.864" timestamp="1582789355075" />
     <state x="451" y="112" key="#Inspections" timestamp="1584067808181">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -385,18 +390,10 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="361" y="91" key="#Project_Structure/0.0.1536.864@0.0.1536.864" timestamp="1586779196101" />
-    <state x="516" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1582531287475">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="516" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.864@0.0.1536.864" timestamp="1582531287475" />
     <state x="909" y="293" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1584453887489">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="909" y="293" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1584453887489" />
-    <state x="537" y="235" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog" timestamp="1582193532657">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="537" y="235" key="#com.intellij.refactoring.move.moveInstanceMethod.MoveInstanceMethodDialog/0.0.1536.864@0.0.1536.864" timestamp="1582193532657" />
     <state x="499" y="179" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1588081958664">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -404,31 +401,30 @@
     <state x="426" y="0" key="CommitChangelistDialog2" timestamp="1583678374462">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="341" y="0" key="CommitChangelistDialog2/0.0.1536.864@0.0.1536.864" timestamp="1583145746560" />
     <state x="426" y="0" key="CommitChangelistDialog2/0.0.1920.1080@0.0.1920.1080" timestamp="1583678374462" />
     <state x="549" y="173" key="FileChooserDialogImpl" timestamp="1587955820543">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587955820543" />
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1588858295483">
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1592209354212">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592209354212" />
     <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1588858295483">
+    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1592209354212">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
+    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1592209354212" />
     <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1588858295482">
+    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1592209354211">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1588858295482" />
+    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1592209354211" />
     <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1588858295483">
+    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1592209354212">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1588858295483" />
+    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1592209354212" />
     <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
     <state width="1493" height="438" key="GridCell.Tab.1.bottom" timestamp="1588761010279">
       <screen x="0" y="0" width="1536" height="864" />
@@ -455,10 +451,6 @@
     </state>
     <state x="499" y="76" width="996" height="707" key="SettingsEditor/0.0.1536.864@0.0.1536.864" timestamp="1586779724771" />
     <state x="624" y="95" width="1245" height="922" key="SettingsEditor/0.0.1920.1080@0.0.1920.1080" timestamp="1584453901062" />
-    <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog" timestamp="1582789185625">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="430" y="256" width="674" height="351" key="com.intellij.ide.util.TipDialog/0.0.1536.864@0.0.1536.864" timestamp="1582789185625" />
     <state x="485" y="320" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1588566228065">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -472,25 +464,17 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="178" y="0" key="new project wizard/0.0.1536.864@0.0.1536.864" timestamp="1588992107552" />
-    <state x="425" y="197" key="run.anything.popup" timestamp="1582532611385">
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1592209037085">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state x="425" y="197" key="run.anything.popup/0.0.1536.864@0.0.1536.864" timestamp="1582532611385" />
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1586776884598">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1586776884598" />
-    <state x="491" y="337" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1581572057489">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="491" y="337" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1536.864@0.0.1536.864" timestamp="1581572057489" />
+    <state x="431" y="181" width="672" height="678" key="search.everywhere.popup/0.0.1536.864@0.0.1536.864" timestamp="1592209037085" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
-          <line>1089</line>
+          <line>1090</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>

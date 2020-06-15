@@ -259,6 +259,12 @@ def MBR_formator_20(dir_path: str):
     # "/out/slotAndPm/pm_tAndSlot_mean_raw")
 
 
+def draw_slot_threshold_pm_2n(dir_path: str):
+    data_slot_threshold, data_pm_threshold = get_slot_pm_threshold_2n(dir_path)
+    draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
+                       dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold_001")
+
+
 def p_session(dir_path: str, session=0, out_dir_path=""):
     """
     获取某个session的p分布
@@ -346,4 +352,5 @@ if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
-    MBR_formator_20('res/20_10_10_1000_10/0507')
+    # MBR_formator_20('res/20_10_10_1000_10/0507')
+    draw_slot_threshold_pm_2n("res/2n/0615")
