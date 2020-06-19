@@ -5,5 +5,6 @@
 5  # @Author: Ch
 6  # @Date  : 2020/3/4
 import numpy as np
+import  data_util
 
-print(np.sum([[1, 2], [3, 5, 1]], 0) / 2)
+data_util.get_slot_pm_threshold("res/continuous/test")

@@ -237,6 +237,47 @@ def get_slot_pm_threshold_2n(dir_path: str):
     return res_slot, res_threshold_pm
 
 
+def get_slot_pm_threshold(dir_path: str):
+    """
+    获取以阈值为标签的文件夹数据
+    @param dir_path: 总文件夹目录，字目录均为阈值
+    @return: 时隙数据、阈值数据
+    """
+    res_slot = {}
+    res_threshold_pm = {}
+
+    for k in labels:
+        res_slot[k] = []
+        res_slot[k].append([])
+
+    threshold_dir_list = os.listdir(dir_path)
+    list_threshold = []
+    num_match=re.compile(r'^([0-1].\d*)|0$')
+    for i in range(len(threshold_dir_list)):
+        if not num_match.match(threshold_dir_list[i]):
+            continue
+        else:
+            threshold = float(threshold_dir_list[i])
+            if threshold < 0 or threshold > 1:
+                continue
+        list_threshold.append(threshold)
+        print(os.path.join(dir_path, threshold_dir_list[i]))
+        data_temp = get_data_in_dir(os.path.join(dir_path, threshold_dir_list[i]), ["slot"])["slot"]
+        data_temp = get_sum(data_temp)
+        for k, v in data_temp.items():
+            for index in range(len(v)):
+                v[index] = [v[index][-1]]
+        data_temp = get_data_avg(data_temp)
+        for k in labels:
+            res_slot[k][0].append(data_temp[k][0][-1])
+
+    for k in labels:
+        res_threshold_pm[k] = []
+        res_threshold_pm[k].append(list_threshold.copy())
+
+    return res_slot, res_threshold_pm
+
+
 def get_p_in_dir(dir_path: str):
     """
 

@@ -10,7 +10,7 @@ public class MRB_Main {
     /**
      * 标签id长度
      */
-    static int tagIDLength = 12;
+    static int tagIDLength = 10;
     /**
      * 标签数
      */
@@ -23,11 +23,11 @@ public class MRB_Main {
     /**
      * 动态错误中从读取器到标签信息丢失概率
      */
-    static int rError = 10;
+    static int rError = 20;
     /**
      * 动态错误中从标签到读取器信息丢失概率
      */
-    static int tError = 10;
+    static int tError = 20;
     /**
      * 多标签响应时捕获效应发生概率
      */
@@ -55,7 +55,7 @@ public class MRB_Main {
 //            getData(String.valueOf(tag), "log/");
 //            tag++;
 //        }
-        getThresholdSlot();
+        getThresholdSlot_1();
     }
 
     /**
@@ -67,9 +67,23 @@ public class MRB_Main {
         for (int i = 0; i < 10; i++) {
             thresholdPM = threshold;
             for (int j = 0; j <10 ; j++) {
-                getData(String.valueOf(i), "log/" + i + '/');
+                getData(String.valueOf(j), "log/" + i + '/');
             }
             threshold = threshold / 2;
+        }
+    }
+    /**
+     * 获取pm到指定收敛阈值的结果
+     * 第n轮阈值：0.1-0.001*n（n=o~9）
+     */
+    public static void getThresholdSlot_1() {
+        double threshold = 0.01;
+        for (int i = 0; i < 10; i++) {
+            thresholdPM = threshold;
+            for (int j = 0; j <10 ; j++) {
+                getData(String.valueOf(j), "log/" + threshold + '/');
+            }
+            threshold = threshold -0.001;
         }
     }
 
