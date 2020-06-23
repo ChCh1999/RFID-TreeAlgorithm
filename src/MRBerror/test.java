@@ -11,10 +11,7 @@ public class test {
 //        }
 //        System.out.println(count);
         MRB_Reader r = new MRB_Reader();
-        r.fileWriterFeng.writemsg("111");
-        r.fileWriterFeng.writemsg("222");
-        r = new MRB_Reader();
-        r.fileWriterFeng.writemsg("333");
+        MRB_Main.mutilSessionTest(4,"t","log/test");
     }
 
 }

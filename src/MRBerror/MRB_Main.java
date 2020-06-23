@@ -109,6 +109,12 @@ public class MRB_Main {
 
         MRB_Reader.logger.info("递增随机沉默");
         mutilSessionTest(4, tag, destPath);
+
+        MRB_Reader.logger.info("唯一碰撞集沉默-非优先");
+        mutilSessionTest(5, tag, destPath);
+
+        MRB_Reader.logger.info("最小唯一碰撞集沉默-非优先");
+        mutilSessionTest(6, tag, destPath);
     }
 
     static double mutilSessionTest(int silenceStrategy, String destTag, String destPath) {

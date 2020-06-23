@@ -33,7 +33,7 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
-    int maxSessionCount=20;
+    int maxSessionCount = 20;
     private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
 
     public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt", true);
@@ -1090,6 +1090,31 @@ public class MRB_Reader {
                     addCount++;
                 }
                 break;
+            case 6:
+                //从小的CBM沉默
+                CBMTagList.sort(Comparator.comparing(List::size));
+            case 5:
+                //以CBM为单位沉默
+                //添加已沉默标签
+                silentCount = silentCount - silencedTagList.size();
+                if (silentCount <= 0) {
+                    break;
+                }
+                //记录筛选出的待沉默标签数
+                addCount = 0;
+                for (List<MRB_Tag> CBMTags : CBMTagList) {
+                    if (addCount < silentCount) {
+                        for (MRB_Tag tag : CBMTags) {
+                            if (addCount < silentCount) {
+                                toSilenceTagIds.add(tag.ID);
+                                addCount++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+                break;
         }
 
         //沉默相应标签
@@ -1112,7 +1137,9 @@ public class MRB_Reader {
         }
 
         slotNum++;
-
+        if (failCount > 0) {
+            logger.info("*****沉默失败标签数 " + failCount + " 个*****");
+        }
         logger.info("---------这轮识别结束，共消耗" + slotNum + "个时隙");
         logger.info("---------已识别标签列表如下：");
         for (String s : currentFrameTagList) {
@@ -1187,7 +1214,6 @@ public class MRB_Reader {
             tag.use = true;
         }
         //第0轮识别
-        int totalSilentedCount = 0;
         resu lastFrame = OneFrame(mrb_tags, silenceStrategy);
         //保存结果
         DataRecord res = new DataRecord();
@@ -1283,13 +1309,12 @@ public class MRB_Reader {
             //保存结果
             res = new DataRecord();
             //估计标签数
-            if(Double.isInfinite(N)||Double.isNaN(N)){
-                res.n=-1;
-            }else {
-                res.n=N;
+            if (Double.isInfinite(N) || Double.isNaN(N)) {
+                res.n = -1;
+            } else {
+                res.n = N;
             }
             //更新沉默标签数
-            totalSilentedCount = thisFrame.silentedTagList.size();
             //估计丢失标签概率
             res.p = p;
             //时隙数
