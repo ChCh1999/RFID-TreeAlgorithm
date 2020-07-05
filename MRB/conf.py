@@ -7,4 +7,4 @@
 
 
 class Config:
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
+    labels=["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_no", "CBM_min_no"]

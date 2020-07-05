@@ -83,6 +83,7 @@ def draw_plot_two_axis(x_data: dict, x_label: str, y_data: dict, y_label: str, s
     # plt.xlim(xmin=2)
     plt.xlabel(x_label)
     # plt.xticks(range(0, 20, 2))
+    plt.grid()
     plt.savefig(save_path, dpi=200, bbox_inches='tight')
     # plt.show()
     plt.clf()

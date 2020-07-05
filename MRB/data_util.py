@@ -10,8 +10,9 @@ import json
 import os
 import numpy as np
 import re
+import conf
 
-labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
+labels = conf.Config.labels
 
 
 def get_sum(data: dict):
@@ -157,8 +158,6 @@ def get_data_in_dir(dir_path: str, data_keys: list):
         sample: {'p':{'random':[[0.3*20],[0.31*20]}}
     """
     data_raw = {}
-    # labels = ["random", "CBM", "CBM_min", "accurate", "random_a", 'CBM_r', 'CBM_min_r']
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for root, dirs, files in os.walk(dir_path):
         for file in files:
             index = re.search(r's\d', file)
@@ -246,13 +245,12 @@ def get_slot_pm_threshold(dir_path: str):
     res_slot = {}
     res_threshold_pm = {}
 
-    for k in labels:
-        res_slot[k] = []
-        res_slot[k].append([])
-
+    # for k in labels:
+    #     res_slot[k] = []
+    #     res_slot[k].append([])
     threshold_dir_list = os.listdir(dir_path)
     list_threshold = []
-    num_match=re.compile(r'^([0-1].\d*)|0$')
+    num_match = re.compile(r'^([0-1].\d*)|0$')
     for i in range(len(threshold_dir_list)):
         if not num_match.match(threshold_dir_list[i]):
             continue
@@ -268,12 +266,18 @@ def get_slot_pm_threshold(dir_path: str):
             for index in range(len(v)):
                 v[index] = [v[index][-1]]
         data_temp = get_data_avg(data_temp)
-        for k in labels:
-            res_slot[k][0].append(data_temp[k][0][-1])
+        for k in data_temp.keys():
+            if k in res_slot.keys():
+                res_slot[k][0].append(data_temp[k][0][-1])
+            else:
+                res_slot[k] = []
+                res_slot[k].append([])
+                res_slot[k][0].append(data_temp[k][0][-1])
 
     for k in labels:
-        res_threshold_pm[k] = []
-        res_threshold_pm[k].append(list_threshold.copy())
+        if k in res_slot.keys():
+            res_threshold_pm[k] = []
+            res_threshold_pm[k].append(list_threshold.copy())
 
     return res_slot, res_threshold_pm
 
@@ -285,8 +289,6 @@ def get_p_in_dir(dir_path: str):
     @return:{"st":[[...sessiondata]..rounds]}
     """
     data_raw = {}
-    # labels = ["random", "CBM", "CBM_min", "accurate", "random_a", 'CBM_r', 'CBM_min_r']
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for root, dirs, files in os.walk(dir_path):
         for file in files:
             index = re.search(r's\d', file)

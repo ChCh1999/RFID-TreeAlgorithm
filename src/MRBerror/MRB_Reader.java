@@ -1077,6 +1077,7 @@ public class MRB_Reader {
                 tagCount = currentFrameTagList.size();
                 random = new Random();
                 //随机选择沉默的标签序号
+                //添加沉默标签的数目
                 addCount = 0;
                 while (addCount < silentCount) {
                     //随机生成沉默序号
@@ -1103,14 +1104,14 @@ public class MRB_Reader {
                 //记录筛选出的待沉默标签数
                 addCount = 0;
                 for (List<MRB_Tag> CBMTags : CBMTagList) {
-                    if (addCount < silentCount) {
-                        for (MRB_Tag tag : CBMTags) {
-                            if (addCount < silentCount) {
+                    for (MRB_Tag tag : CBMTags) {
+                        if (addCount < silentCount) {
+                            if (currentFrameTagList.contains(tag.ID)) {
                                 toSilenceTagIds.add(tag.ID);
                                 addCount++;
-                            } else {
-                                break;
                             }
+                        } else {
+                            break;
                         }
                     }
                 }
@@ -1128,6 +1129,7 @@ public class MRB_Reader {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenceTagList.add(tag);
+                continue;
             }
             if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)) {
                 if (!caughtTagSet.contains(tag)) {
@@ -1229,7 +1231,7 @@ public class MRB_Reader {
         fileWriter.writemsg(",[\n");
         fileWriter.writemsg(
                 "{" +
-                        "\"k1\":" + lastFrame.silentedTagList.size()
+                        "\"k1\":" + 0
                         + ", \"k2\":" + caughtTagSet.size()
                         + ", \"l\":" + 0
                         + ", \"m\":" + 0

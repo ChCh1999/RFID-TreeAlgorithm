@@ -1,5 +1,6 @@
 package MRBerror;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,10 +79,11 @@ public class MRB_Main {
      */
     public static void getThresholdSlot_1() {
         double threshold = 0.01;
+        DecimalFormat dformat=new DecimalFormat("0.0000");
         for (int i = 0; i < 10; i++) {
             thresholdPM = threshold;
             for (int j = 0; j <10 ; j++) {
-                getData(String.valueOf(j), "log/" + threshold + '/');
+                getData(String.valueOf(j), "log/" + dformat.format(threshold) + '/');
             }
             threshold = threshold -0.001;
         }

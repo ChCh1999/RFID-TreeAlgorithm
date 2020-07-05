@@ -11,6 +11,7 @@ from data_util import *
 from plot_util import *
 
 accurate = 0.3519999
+labels = Config.labels
 
 
 class NumpyEncoder(json.JSONEncoder):
@@ -35,7 +36,6 @@ def formator_slot(raw_data: list, save_path='out/img/slot', do_sum=True):
     @param save_path:结果图片存储路径
     @param raw_data: [随机沉默[{"slot":},]，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     """
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for strategy_data in raw_data:
         slot_record = [session["slot"] for session in strategy_data]
         if do_sum:
@@ -59,7 +59,6 @@ def formator_p(raw_data: list, accurate_p, save_path='out/img/pm'):
     @param raw_data: [随机沉默，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     """
 
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     data = {}
     for strategy_data in raw_data:
         p_record = [session["p"] for session in strategy_data]
@@ -75,7 +74,6 @@ def formator_pm(raw_data: list, save_path='out/img/pm'):
     @param raw_data: [随机沉默，唯一碰撞集沉默，最小唯一碰撞集沉默，精确沉默]
     @param save_path:结果图片存储路径
     """
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a"]
     for strategy_data in raw_data:
         pm_record = [session["pm"] for session in strategy_data]
         plt.plot(pm_record, label=labels[raw_data.index(strategy_data)])
@@ -140,7 +138,6 @@ def data_distribution(data_p: dir, dir_path: str, x_label: str, y_label: str):
 
 
 def MBR_formator_20(dir_path: str):
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
     raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'pm_t', 'slot', "CBMCount", "sameCBMCount"])
 
     # 获取p
@@ -264,6 +261,7 @@ def draw_slot_threshold_pm_2n(dir_path: str):
     draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
                        dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold_001")
 
+
 def draw_slot_threshold_pm(dir_path: str):
     data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(dir_path)
     draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
@@ -277,7 +275,7 @@ def p_session(dir_path: str, session=0, out_dir_path=""):
     @param session:
     @return:
     """
-    labels = ["random", "CBM", "CBM_min", "accurate", "random_a", "CBM_r", "CBM_min_r"]
+
     data = get_data_in_dir(dir_path)
     data_p_r = data["p"]
     data_p = sub_a_num(data_p_r, accurate)
@@ -358,4 +356,5 @@ if __name__ == '__main__':
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
     # MBR_formator_20('res/20_10_10_1000_10/0507')
-    draw_slot_threshold_pm("res/continuous/0619")
+    draw_slot_threshold_pm("res/continuous/0623_1")
+    #draw_slot_threshold_pm("res/continuous/0619")

@@ -8,11 +8,15 @@
   <component name="ChangeListManager">
     <list default="true" id="4eeb4843-4423-444b-9513-728f1ccefd9b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/conf.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/conf.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/data_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/data_util.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MRB/formator.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/formator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/log4j.properties" beforeDir="false" afterPath="$PROJECT_DIR$/out/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/plot_util.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/plot_util.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MRB/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/MRB/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/log/MRB.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_MainTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/MRB_Reader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MRBerror/test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MRBerror/test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +69,7 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
-  <component name="RunManager" selected="Application.test">
+  <component name="RunManager" selected="JUnit.MRB_MainTest.testS4">
     <configuration name="MRB_Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_Main" />
       <module name="RFID-TreeAlgorithm" />
@@ -92,7 +96,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MRB_MainTest.testInfinty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MRB_MainTest.testFloat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RFID-TreeAlgorithm" />
       <extension name="coverage">
         <pattern>
@@ -102,13 +106,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="MRBerror" />
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_MainTest" />
-      <option name="METHOD_NAME" value="testInfinty" />
+      <option name="METHOD_NAME" value="testFloat" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MRB_MainTest.testS2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MRB_MainTest.testS4" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RFID-TreeAlgorithm" />
       <extension name="coverage">
         <pattern>
@@ -118,13 +122,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="MRBerror" />
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_MainTest" />
-      <option name="METHOD_NAME" value="testS2" />
+      <option name="METHOD_NAME" value="testS4" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MRB_MainTest.testS3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MRB_MainTest.testS5" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="RFID-TreeAlgorithm" />
       <extension name="coverage">
         <pattern>
@@ -134,7 +138,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="MRBerror" />
       <option name="MAIN_CLASS_NAME" value="MRBerror.MRB_MainTest" />
-      <option name="METHOD_NAME" value="testS3" />
+      <option name="METHOD_NAME" value="testS5" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -143,17 +147,17 @@
     <list>
       <item itemvalue="Application.MRB_Main" />
       <item itemvalue="Application.test" />
-      <item itemvalue="JUnit.MRB_MainTest.testS2" />
-      <item itemvalue="JUnit.MRB_MainTest.testS3" />
-      <item itemvalue="JUnit.MRB_MainTest.testInfinty" />
+      <item itemvalue="JUnit.MRB_MainTest.testFloat" />
+      <item itemvalue="JUnit.MRB_MainTest.testS5" />
+      <item itemvalue="JUnit.MRB_MainTest.testS4" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.test" />
+        <item itemvalue="JUnit.MRB_MainTest.testS4" />
         <item itemvalue="Application.MRB_Main" />
-        <item itemvalue="JUnit.MRB_MainTest.testInfinty" />
-        <item itemvalue="JUnit.MRB_MainTest.testS3" />
-        <item itemvalue="JUnit.MRB_MainTest.testS2" />
+        <item itemvalue="JUnit.MRB_MainTest.testS5" />
+        <item itemvalue="JUnit.MRB_MainTest.testFloat" />
+        <item itemvalue="Application.test" />
       </list>
     </recent_temporary>
   </component>
@@ -342,7 +346,8 @@
       <workItem from="1592537428907" duration="1427000" />
       <workItem from="1592546201442" duration="1743000" />
       <workItem from="1592814604497" duration="12000" />
-      <workItem from="1592897500583" duration="389000" />
+      <workItem from="1592897500583" duration="6609000" />
+      <workItem from="1593081443929" duration="188000" />
     </task>
     <task id="LOCAL-00001" summary="随机沉默待测试">
       <created>1581756228599</created>
@@ -386,10 +391,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="调整日志输出方式与数据输出方式" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="451" y="112" key="#Inspections" timestamp="1584067808181">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="451" y="112" key="#Inspections/0.0.1920.1080@0.0.1920.1080" timestamp="1584067808181" />
     <state x="361" y="91" key="#Project_Structure" timestamp="1586779196101">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -406,42 +407,42 @@
       <screen x="0" y="0" width="1536" height="864" />
     </state>
     <state x="549" y="173" key="FileChooserDialogImpl/0.0.1536.864@0.0.1536.864" timestamp="1587955820543" />
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1592547949783">
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom" timestamp="1592923106137">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592547949783" />
+    <state width="1493" height="194" key="GridCell.Tab.0.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592923106137" />
     <state width="1866" height="237" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1592547949783">
+    <state width="1493" height="194" key="GridCell.Tab.0.center" timestamp="1592923106136">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1592547949783" />
+    <state width="1493" height="194" key="GridCell.Tab.0.center/0.0.1536.864@0.0.1536.864" timestamp="1592923106136" />
     <state width="1866" height="237" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1592547949783">
+    <state width="1493" height="194" key="GridCell.Tab.0.left" timestamp="1592923106136">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1592547949783" />
+    <state width="1493" height="194" key="GridCell.Tab.0.left/0.0.1536.864@0.0.1536.864" timestamp="1592923106136" />
     <state width="1866" height="237" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1592547949783">
+    <state width="1493" height="194" key="GridCell.Tab.0.right" timestamp="1592923106137">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1592547949783" />
+    <state width="1493" height="194" key="GridCell.Tab.0.right/0.0.1536.864@0.0.1536.864" timestamp="1592923106137" />
     <state width="1866" height="237" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1584454102449" />
-    <state width="1493" height="438" key="GridCell.Tab.1.bottom" timestamp="1588761010279">
+    <state width="1493" height="336" key="GridCell.Tab.1.bottom" timestamp="1592923106129">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
-    <state width="1493" height="438" key="GridCell.Tab.1.center" timestamp="1588761010279">
+    <state width="1493" height="336" key="GridCell.Tab.1.bottom/0.0.1536.864@0.0.1536.864" timestamp="1592923106129" />
+    <state width="1493" height="336" key="GridCell.Tab.1.center" timestamp="1592923106129">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
-    <state width="1493" height="438" key="GridCell.Tab.1.left" timestamp="1588761010279">
+    <state width="1493" height="336" key="GridCell.Tab.1.center/0.0.1536.864@0.0.1536.864" timestamp="1592923106129" />
+    <state width="1493" height="336" key="GridCell.Tab.1.left" timestamp="1592923106128">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
-    <state width="1493" height="438" key="GridCell.Tab.1.right" timestamp="1588761010279">
+    <state width="1493" height="336" key="GridCell.Tab.1.left/0.0.1536.864@0.0.1536.864" timestamp="1592923106128" />
+    <state width="1493" height="336" key="GridCell.Tab.1.right" timestamp="1592923106129">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
-    <state width="1493" height="438" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1588761010279" />
+    <state width="1493" height="336" key="GridCell.Tab.1.right/0.0.1536.864@0.0.1536.864" timestamp="1592923106129" />
     <state x="499" y="76" width="1245" height="922" key="SettingsEditor" timestamp="1586779724771">
       <screen x="0" y="0" width="1536" height="864" />
     </state>
@@ -470,14 +471,15 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/MRBerror/MRB_Reader.java</url>
-          <line>1090</line>
-          <option name="timeStamp" value="11" />
+          <line>1070</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
         <watch expression="toSilenceTagList.size() &lt; toSilentCount" language="JAVA" />
+        <watch expression="(new HashSet&lt;String&gt;(toSilenceTagIds)).size()" language="JAVA" />
       </configuration>
       <configuration name="Application">
         <watch expression="res.identifiedTagList" language="JAVA" />
