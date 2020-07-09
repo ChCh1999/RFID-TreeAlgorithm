@@ -356,5 +356,6 @@ if __name__ == '__main__':
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
     # MBR_formator_20('res/20_10_10_1000_10/0507')
-    draw_slot_threshold_pm("res/continuous/0623_1")
+    # draw_slot_threshold_pm("res/continuous/0623_1")
+    draw_slot_threshold_pm("res/continuous/0709");
     #draw_slot_threshold_pm("res/continuous/0619")

@@ -82,7 +82,8 @@ public class MRB_Main {
         DecimalFormat dformat=new DecimalFormat("0.0000");
         for (int i = 0; i < 10; i++) {
             thresholdPM = threshold;
-            for (int j = 0; j <10 ; j++) {
+            for (int j = 0; j <100 ; j++) {
+                System.out.println("i = "+ i + " j = " + j);
                 getData(String.valueOf(j), "log/" + dformat.format(threshold) + '/');
             }
             threshold = threshold -0.001;

@@ -251,6 +251,7 @@ def get_slot_pm_threshold(dir_path: str):
     threshold_dir_list = os.listdir(dir_path)
     list_threshold = []
     num_match = re.compile(r'^([0-1].\d*)|0$')
+    # num_match = re.compile(r'^-?([0-1].\d*)|0$')
     for i in range(len(threshold_dir_list)):
         if not num_match.match(threshold_dir_list[i]):
             continue

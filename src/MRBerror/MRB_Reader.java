@@ -999,7 +999,50 @@ public class MRB_Reader {
                 break;
             case 2:
                 //从小的CBM沉默
+//                CBMTagList.sort(Comparator.comparing(List::size));
+
+                silentCount = silentCount - silencedTagList.size();
+                if (silentCount <= 0) {
+                    break;
+                }
+                //记录筛选出的待沉默标签数
+                int addCountOfSort = 0;
+                //优先沉默全识别的唯一碰撞集
+                for (List<MRB_Tag> CBMTags : CBMTagList) {
+                    if (addCountOfSort < silentCount) {
+                        boolean catchAll = true;
+                        for (MRB_Tag tag : CBMTags) {
+                            if (!currentFrameTagList.contains(tag.ID)) {
+                                catchAll = false;
+                                break;
+                            }
+                        }
+                        if (catchAll) {
+                            CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
+                            addCountOfSort += CBMTags.size();
+                        }
+                    }
+                }
+
                 CBMTagList.sort(Comparator.comparing(List::size));
+
+                //沉默剩余唯一碰撞集以补全沉默标签
+                int pointOfSort = 0;
+                while (addCountOfSort < silentCount) {
+                    List<MRB_Tag> CBMTags = CBMTagList.get(pointOfSort);
+                    //将未沉默的部分加入到沉默标签集
+                    if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
+                        for (MRB_Tag tag : CBMTags) {
+                            if (caughtTagSet.contains(tag)) {
+                                toSilenceTagIds.add(tag.ID);
+                                addCountOfSort += 1;
+                            }
+                        }
+
+                    }
+                    pointOfSort++;
+                }
+                break;
             case 1:
                 //以CBM为单位沉默
                 //添加已沉默标签
@@ -1078,8 +1121,8 @@ public class MRB_Reader {
                 random = new Random();
                 //随机选择沉默的标签序号
                 //添加沉默标签的数目
-                addCount = 0;
-                while (addCount < silentCount) {
+                addCountOfSort = 0;
+                while (addCountOfSort < silentCount) {
                     //随机生成沉默序号
                     int index = -1;
                     do {
@@ -1088,7 +1131,7 @@ public class MRB_Reader {
                     toSilenceIndex.add(index);
                     //添加index的ID
                     toSilenceTagIds.add(currentFrameTagList.get(index));
-                    addCount++;
+                    addCountOfSort++;
                 }
                 break;
             case 6:
@@ -1102,13 +1145,13 @@ public class MRB_Reader {
                     break;
                 }
                 //记录筛选出的待沉默标签数
-                addCount = 0;
+                addCountOfSort = 0;
                 for (List<MRB_Tag> CBMTags : CBMTagList) {
                     for (MRB_Tag tag : CBMTags) {
-                        if (addCount < silentCount) {
+                        if (addCountOfSort < silentCount) {
                             if (currentFrameTagList.contains(tag.ID)) {
                                 toSilenceTagIds.add(tag.ID);
-                                addCount++;
+                                addCountOfSort++;
                             }
                         } else {
                             break;
