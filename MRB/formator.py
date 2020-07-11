@@ -166,6 +166,16 @@ def MBR_formator_20(dir_path: str):
     data_slot_mean = get_data_avg(data_slot)
     data_slot_raw_mean = get_data_avg(data_slot_raw)
 
+    # data_p_mean = get_data_avg_from_dict_of_list(data_p)
+    # data_p_mean_abs = get_abs(data_p_mean)
+    # data_pm_mean = get_data_avg_from_dict_of_list(data_pm)
+    # data_pm_log = get_log(data_pm_mean)
+    # data_pm_t_mean = get_data_avg_from_dict_of_list(data_pm_t)
+    # data_slot_mean = get_data_avg_from_dict_of_list(data_slot)
+    # data_slot_raw_mean = get_data_avg_from_dict_of_list(data_slot_raw)
+
+
+
     # 绘制均值图
     draw_plot(data_p_mean, 'variance in estimate p', dir_path + "/out/p/p_mean_raw")
     draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean_abs")
@@ -255,6 +265,106 @@ def MBR_formator_20(dir_path: str):
     # draw_plot_two_axis(data_slot_mean, "slot", data_pm_t_mean, "pm_t", dir_path +
     # "/out/slotAndPm/pm_tAndSlot_mean_raw")
 
+def MBR_formator_of_pm_divided_input(dir_path: str, session_limit :int = -1):
+    '''
+    绘制除pm-slot外的各种图形，和MBR_formator_20的区别在于此函数用于处理以pm为实验中止条件的数据
+    和MBR_formator_20在实现上的主要区别为用get_data_avg_from_dict_of_list代替了get_data_avg
+    @author fwh
+    @param dir_path: 数据路径，该目录下的子目录应为0.001,0.002,0.003....代表以pm=xxx为实验中止条件的数据,或者该目录可直接为0.001,0.002......
+    @return:
+    '''
+    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'pm_t', 'slot', "CBMCount", "sameCBMCount"])
+
+    if session_limit != -1:
+        raw_datas = remove_data_of_too_few_session(raw_datas, session_limit)
+
+    # 获取p
+    data_p_raw = raw_datas["p"]
+    data_p = sub_a_num(data_p_raw, accurate)
+
+    # pm
+    data_pm = raw_datas['pm']
+
+    # pm_t
+    data_pm_t = raw_datas['pm_t']
+
+    # slot
+    data_slot_raw = raw_datas["slot"]
+    data_slot = get_sum(data_slot_raw)
+
+    # CBMCount
+    data_CBMCount = raw_datas['CBMCount']
+
+    # sameCBMCount
+    data_of_same_cbm_count = raw_datas['sameCBMCount']
+
+    # p的分布情况
+    # data_distribution(data_p, dir_path + "/data", "variance in estimate p", 'session count')
+
+    # 取均值
+    # data_p_mean = get_data_avg(data_p)
+    # data_p_mean_abs = get_abs(data_p_mean)
+    # data_pm_mean = get_data_avg(data_pm)
+    # data_pm_log = get_log(data_pm_mean)
+    # data_pm_t_mean = get_data_avg(data_pm_t)
+    # data_slot_mean = get_data_avg(data_slot)
+    # data_slot_raw_mean = get_data_avg(data_slot_raw)
+
+    data_p_mean = get_data_avg_from_dict_of_list(data_p)
+    data_p_mean_abs = get_abs(data_p_mean)
+    data_pm_mean = get_data_avg_from_dict_of_list(data_pm)
+    data_pm_log = get_log(data_pm_mean)
+    data_pm_t_mean = get_data_avg_from_dict_of_list(data_pm_t)
+    data_slot_mean = get_data_avg_from_dict_of_list(data_slot)
+    data_slot_raw_mean = get_data_avg_from_dict_of_list(data_slot_raw)
+    data_CBMCount_mean = get_data_avg_from_dict_of_list(data_CBMCount)
+    data_of_same_cbm_count_mean = get_data_avg_from_dict_of_list(data_of_same_cbm_count)
+
+    # 绘制均值图
+    draw_plot(data_p_mean, 'variance in estimate p', dir_path + "/out/p/p_mean_raw")
+    draw_plot(data_p_mean_abs, 'variance in estimate p', dir_path + "/out/p/p_mean_abs")
+    draw_plot(data_pm_mean, 'pm', dir_path + "/out/pm/pm_mean")
+    draw_plot(data_pm_log, 'log10(pm)', dir_path + "/out/pm/pm_mean_log")
+    draw_plot(data_pm_t_mean, 'pm_t', dir_path + "/out/pm_t/pm_t_mean")
+    draw_plot(data_slot_mean, 'average cumulative number of slots used by MBR', dir_path + "/out/slot/slot_mean")
+    with open(dir_path + "/out/slot/data_slot_mean.json", 'w') as wf:
+        json.dump(data_slot_raw_mean, wf, cls=NumpyEncoder, indent=4)
+    draw_plot(data_slot_raw_mean, 'number of slots used by MBR in each session'
+              , dir_path + "/out/slot/slot_mean_raw")
+
+    data_p_mean_bias = get_bias(data_p_mean)
+    data_p_mean_bias_2 = get_bias(data_p_mean, 4)
+    data_pm_mean_bias = get_bias(data_pm_mean)
+    data_pm_t_mean_bias = get_bias(data_pm_t_mean)
+    data_slot_mean_bias = get_bias(data_slot_mean)
+    data_slot_raw_mean_bias = get_bias(data_slot_raw_mean)
+
+
+    draw_plot(data_p_mean_bias, 'variance in estimate p compare with random', dir_path + "/out/p/p_mean_bias")
+    draw_plot(data_p_mean_bias_2, 'variance in estimate p compare with random_a', dir_path + "/out/p/p_mean_bias_2")
+    draw_plot(data_pm_mean_bias, 'pm compare with random', dir_path + "/out/pm/pm_mean_bias")
+    draw_plot(data_pm_t_mean_bias, 'pm_t compare with random', dir_path + "/out/pm_t/pm_t_mean_bias")
+    draw_plot(data_slot_mean_bias, 'slots used by MBR compare with random',
+              dir_path + "/out/slot/slot_mean_bias")
+    draw_plot(data_slot_raw_mean_bias, 'slots used by MBR in each session compare with random',
+              dir_path + "/out/slot/slot_mean_raw_bias")
+    draw_plot(data_CBMCount_mean, 'Count of CBM', dir_path + "/out/CBMCount/CBMCount_mean_raw")
+    draw_plot(data_of_same_cbm_count_mean, 'Count of CBM that occur in last frame',
+              dir_path + "/out/CBMOfSameCollisionBitsCount/CBMOfSameCollisionBitsCount_mean_raw")
+
+    # slot与pm的关系
+    # draw_plot_two_axis(data_pm_mean, "pm", data_slot_mean, "slot", dir_path + "/out/slotAndPm/slotAndPm_mean_raw")
+
+    # draw_plot_two_axis(data_slot_mean, "slot", data_pm_mean, "pm", dir_path + "/out/slotAndPm"
+    #                                                                           "/pmAndSlot_mean_raw")
+    # data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(data_slot_mean, data_pm_mean, 0.01)
+    # draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
+    #                    dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold")
+    # data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(data_slot_mean, data_pm_mean, 0.001)
+    # draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
+    #                    dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold_001")
+    # draw_plot_two_axis(data_slot_mean, "slot", data_pm_t_mean, "pm_t", dir_path +
+    # "/out/slotAndPm/pm_tAndSlot_mean_raw")
 
 def draw_slot_threshold_pm_2n(dir_path: str):
     data_slot_threshold, data_pm_threshold = get_slot_pm_threshold_2n(dir_path)
@@ -266,6 +376,11 @@ def draw_slot_threshold_pm(dir_path: str):
     data_slot_threshold, data_pm_threshold = get_slot_pm_threshold(dir_path)
     draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, "slot",
                        dir_path + "/out/slotAndPm/pmAndSlot_mean_raw_threshold_con")
+
+def draw_dep_var_threshold_pm(dir_path: str, dep_var: str):
+    data_slot_threshold, data_pm_threshold = get_dep_var_pm_threshold(dir_path, dep_var)
+    draw_plot_two_axis(data_pm_threshold, "pm", data_slot_threshold, dep_var,
+                       dir_path + "/out/pmAnd"+dep_var+"_mean_raw_threshold_con")
 
 
 def p_session(dir_path: str, session=0, out_dir_path=""):
@@ -357,5 +472,10 @@ if __name__ == '__main__':
 
     # MBR_formator_20('res/20_10_10_1000_10/0507')
     # draw_slot_threshold_pm("res/continuous/0623_1")
-    draw_slot_threshold_pm("res/continuous/0709");
+    draw_slot_threshold_pm("res/continuous/0711");
+    # draw_dep_var_threshold_pm("res/continuous/0710", "p")
+    # draw_dep_var_threshold_pm("res/continuous/0710", "slot")
+    MBR_formator_of_pm_divided_input("res/continuous/0711",18)
+
+    # draw_dep_var_threshold_pm("res/continuous/0710", "sameCBMCount")
     #draw_slot_threshold_pm("res/continuous/0619")

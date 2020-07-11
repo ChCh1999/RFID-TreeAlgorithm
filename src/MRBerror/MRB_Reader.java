@@ -33,7 +33,9 @@ class DataRecord {
 
 public class MRB_Reader {
     protected static Logger logger = Logger.getLogger(MRB_Reader.class);
-    int maxSessionCount = 20;
+    //maxSessionCount若设为20次，出现pm=0.001时20次仍收敛不到的情况
+    //似乎影响了后面画图的准确性，更改为30
+    int maxSessionCount = 30;
     private fileUtil fileWriter = new fileUtil("log/MRBRecord.txt");
 
     public fileUtil fileWriterFeng = new fileUtil("log/MRBRecordFeng.txt", true);
@@ -1051,10 +1053,10 @@ public class MRB_Reader {
                     break;
                 }
                 //记录筛选出的待沉默标签数
-                int addCount = 0;
+                int addCount_CBM_No = 0;
                 //优先沉默全识别的唯一碰撞集
                 for (List<MRB_Tag> CBMTags : CBMTagList) {
-                    if (addCount < silentCount) {
+                    if (addCount_CBM_No < silentCount) {
                         boolean catchAll = true;
                         for (MRB_Tag tag : CBMTags) {
                             if (!currentFrameTagList.contains(tag.ID)) {
@@ -1064,25 +1066,25 @@ public class MRB_Reader {
                         }
                         if (catchAll) {
                             CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
-                            addCount += CBMTags.size();
+                            addCount_CBM_No += CBMTags.size();
                         }
                     }
                 }
                 //沉默剩余唯一碰撞集以补全沉默标签
-                int point = 0;
-                while (addCount < silentCount) {
-                    List<MRB_Tag> CBMTags = CBMTagList.get(point);
+                int pointCBM_No = 0;
+                while (addCount_CBM_No < silentCount) {
+                    List<MRB_Tag> CBMTags = CBMTagList.get(pointCBM_No);
                     //将未沉默的部分加入到沉默标签集
                     if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
                         for (MRB_Tag tag : CBMTags) {
                             if (caughtTagSet.contains(tag)) {
                                 toSilenceTagIds.add(tag.ID);
-                                addCount += 1;
+                                addCount_CBM_No += 1;
                             }
                         }
 
                     }
-                    point++;
+                    pointCBM_No++;
                 }
                 break;
             case 3:
@@ -1146,18 +1148,46 @@ public class MRB_Reader {
                 }
                 //记录筛选出的待沉默标签数
                 addCountOfSort = 0;
-                for (List<MRB_Tag> CBMTags : CBMTagList) {
-                    for (MRB_Tag tag : CBMTags) {
-                        if (addCountOfSort < silentCount) {
-                            if (currentFrameTagList.contains(tag.ID)) {
-                                toSilenceTagIds.add(tag.ID);
-                                addCountOfSort++;
+//                for (List<MRB_Tag> CBMTags : CBMTagList) {
+//                    for (MRB_Tag tag : CBMTags) {
+//                        if (addCountOfSort < silentCount) {
+//                            if (currentFrameTagList.contains(tag.ID)) {
+//                                toSilenceTagIds.add(tag.ID);
+//                                addCountOfSort++;
+//                            }
+//                        } else {
+//                            break;
+//                        }
+//                    }
+//                }
+
+
+                int addCount = 0;
+
+                int point = 0;
+                while (addCount < silentCount) {
+                    List<MRB_Tag> CBMTags = CBMTagList.get(point);
+                    //将未沉默的部分加入到沉默标签集
+                    if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
+                        for (MRB_Tag tag : CBMTags) {
+//                            if (caughtTagSet.contains(tag)) {
+//                                toSilenceTagIds.add(tag.ID);
+//                                addCount += 1;
+//                            }
+
+                            if (tag.use && caughtTagList.contains(tag)) {
+                                if (!toSilenceTagIds.contains(tag.ID)) {
+                                    toSilenceTagIds.add(tag.ID);
+                                    addCount += 1;
+                                }
                             }
-                        } else {
-                            break;
                         }
+
                     }
+                    point++;
+//                    point = (int)(Math.random()*CBMTagList.size());
                 }
+
                 break;
         }
 

@@ -87,11 +87,45 @@ def get_log(data: dict):
 
 
 def get_data_avg(data: dict):
+    '''
+    获取平均值，处理以session为实验中止条件的数据
+    @param data:
+    @return:
+    '''
     res = {}
     for k, v in data.items():
         res[k] = []
         res[k].append(np.array(v).mean(axis=0))
     return res
+
+def get_data_avg_from_dict_of_list(data: dict):
+    '''
+    获取平均值，处理以pm为实验中止条件的数据。
+    和get_data_avg的区别在于data的格式
+    @author: fwh
+    @param data: 字典。格式类似{"random":[[],[],...,[]]},其中最内层list长度不定
+    @return: 字典，格式类似{"random":[]},列表中的每个元素是data中的最内层列表该位置的元素的平均值，所有list的长度均为data中最内层list长度的最小值
+    '''
+    res = {}
+    ses_min = 100000;
+    for (k, v) in data.items():
+        res[k] = []
+        # ses_min = 100000;
+        for sim in v:
+            if len(sim) < ses_min:
+                ses_min = len(sim)
+        for i in range(ses_min):
+            res[k].append(0)
+            for j in range(len(v)):
+                res[k][i] = (res[k][i]*j + v[j][i]) / (j+1)
+
+    for k in res.keys():
+        a = res[k]
+        res[k] = []
+        res[k].append(a[:ses_min])
+    return res
+
+
 
 
 def get_data_mid(data: dict):
@@ -100,7 +134,6 @@ def get_data_mid(data: dict):
         res[k] = []
         res[k].append(np.percentile(v, 50, axis=0))
     return res
-
 
 def get_data_freq_p(data: dict):
     """
@@ -283,6 +316,54 @@ def get_slot_pm_threshold(dir_path: str):
     return res_slot, res_threshold_pm
 
 
+def get_dep_var_pm_threshold(dir_path: str, dep_var: str):
+    """
+    获取以阈值为标签的文件夹数据
+    @param dir_path: 总文件夹目录，字目录均为阈值
+    @param dep_var: 要获取的因变量的标识
+    @return: 时隙数据、阈值数据
+    """
+    res_dep_var = {}
+    res_threshold_pm = {}
+
+    # for k in labels:
+    #     res_slot[k] = []
+    #     res_slot[k].append([])
+    threshold_dir_list = os.listdir(dir_path)
+    list_threshold = []
+    num_match = re.compile(r'^([0-1].\d*)|0$')
+    # num_match = re.compile(r'^-?([0-1].\d*)|0$')
+    for i in range(len(threshold_dir_list)):
+        if not num_match.match(threshold_dir_list[i]):
+            continue
+        else:
+            threshold = float(threshold_dir_list[i])
+            if threshold < 0 or threshold > 1:
+                continue
+        list_threshold.append(threshold)
+        print(os.path.join(dir_path, threshold_dir_list[i]))
+        data_temp = get_data_in_dir(os.path.join(dir_path, threshold_dir_list[i]), [dep_var])[dep_var]
+        if dep_var == 'slot':
+            data_temp = get_sum(data_temp)
+        for k, v in data_temp.items():
+            for index in range(len(v)):
+                v[index] = [v[index][-1]]
+        data_temp = get_data_avg(data_temp)
+        for k in data_temp.keys():
+            if k in res_dep_var.keys():
+                res_dep_var[k][0].append(data_temp[k][0][-1])
+            else:
+                res_dep_var[k] = []
+                res_dep_var[k].append([])
+                res_dep_var[k][0].append(data_temp[k][0][-1])
+
+    for k in labels:
+        if k in res_dep_var.keys():
+            res_threshold_pm[k] = []
+            res_threshold_pm[k].append(list_threshold.copy())
+
+    return res_dep_var, res_threshold_pm
+
 def get_p_in_dir(dir_path: str):
     """
 
@@ -311,6 +392,24 @@ def get_p_in_dir(dir_path: str):
                 round_data.append(session["p"])
             data[k].append(round_data)
     return data
+
+def remove_data_of_too_few_session(data:dict, session_limit:int):
+    res = {}
+    for (k,v) in data.items():
+        res_value = {}
+        for (strategy_key,strategy_value) in v.items():
+            res_strategy_value = []
+            for session in strategy_value:
+                if len(session) >= session_limit:
+                    res_strategy_value.append(session)
+            res_value[strategy_key] = res_strategy_value
+        res[k] = res_value
+    return res
+
+
+
+
+
 
 
 if __name__ == '__main__':
