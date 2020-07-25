@@ -98,7 +98,8 @@ def get_data_avg(data: dict):
         res[k].append(np.array(v).mean(axis=0))
     return res
 
-def get_data_avg_from_dict_of_list(data: dict):
+
+def get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data: dict):
     '''
     获取平均值，处理以pm为实验中止条件的数据。
     和get_data_avg的区别在于data的格式
@@ -126,6 +127,44 @@ def get_data_avg_from_dict_of_list(data: dict):
     return res
 
 
+def get_data_avg_from_dict_of_list_return_all_frame_data(data: dict):
+    '''
+    获取平均值，用于将每一个Frame在不同的模拟中的数据取平均。
+    和get_data_avg_from_dict_of_list_return_min_count_of_frame_data的区别在于，对于一些只在部分模拟中含有的Frame，
+    此函数的返回结果会在该Frame的位置计算这些含有该Frame的模拟数据的平均。
+    因此结果中可能会有部分数据只由很少的模拟平均而来，而且各个Frame的平均值对应的模拟次数会不相同。
+    @author fwh
+    @param data: 字典。格式类似{"random":[[],[],...,[]]},其中最内层list长度不定
+    @return: 字典，格式类似{"random":[]},列表中的每个元素是data中的最内层列表该位置的元素的平均值，每一个list的长度均为data中对应的该list的内层list长度的最大值
+    '''
+    res = {}
+    for (k, v) in data.items():
+        res[k] = get_data_avg_from_list_of_list(v)
+    return res
+
+
+def get_data_avg_from_list_of_list(data: list):
+    '''
+    获取平均值，用于将每一个Frame在不同的模拟中的数据取平均
+    对于第n个Frame，结果中该Frame的数据为输入数据中超过n个Frame的所有模拟在第n个Frame上的数据的平均值
+    由于需要处理的数据可能随着实验进行再次发生变化，所以此函数需要直接将某一数据(slot、pm、p等)的数值列表作为输入
+    @author fwh
+    @param data: 列表。格式为[[],[],...,[]]，其中的每一个子列表代表一次模拟的数据，长度可能不同。所有的数据应该都具有同一意义（比如都是slot）
+    @return:列表。格式为[],返回的列表长度与输入数据中最长的子列表相同，第i个元素代表输入数据中第i个Frame的数据的平均值
+    '''
+    res = []
+    see_max = 0
+    for m in data:
+        if len(m) > see_max:
+            for i in range(see_max,len(m)):
+                res.append([])
+            see_max = len(m)
+        for i in range(len(m)):
+            res[i].append(m[i])
+    for i in range(len(res)):
+        avg = np.array(res[i]).mean(axis=0)
+        res[i] = avg
+    return res
 
 
 def get_data_mid(data: dict):
@@ -134,6 +173,7 @@ def get_data_mid(data: dict):
         res[k] = []
         res[k].append(np.percentile(v, 50, axis=0))
     return res
+
 
 def get_data_freq_p(data: dict):
     """

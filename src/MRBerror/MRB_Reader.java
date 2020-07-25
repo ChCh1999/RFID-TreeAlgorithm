@@ -92,6 +92,7 @@ public class MRB_Reader {
         List<MRB_Tag> silentedTagList;
         List<Map<String, Set<String>>> CBMs;
         int countOfSlot;
+        int toSilentCountThisFrame;
 
         public resu() {
             identifiedTagList = null;
@@ -957,6 +958,8 @@ public class MRB_Reader {
         //至少需要沉默的标签数
         int silentCount = toSilentCount;
 
+        int toSilentCountThisFrame = toSilentCount - silencedTagList.size();
+
         //将要沉默的标签的ID集合
         List<String> toSilenceTagIds = new ArrayList<String>();
 
@@ -1139,6 +1142,35 @@ public class MRB_Reader {
             case 6:
                 //从小的CBM沉默
                 CBMTagList.sort(Comparator.comparing(List::size));
+
+                silentCount = silentCount - silencedTagList.size();
+                if (silentCount <= 0) {
+                    break;
+                }
+
+                int addCount_CBM_Min_No = 0;
+
+                int point_CBM_Min_No = 0;
+                while (addCount_CBM_Min_No < silentCount) {
+                    List<MRB_Tag> CBMTags = CBMTagList.get(point_CBM_Min_No);
+                    //将未沉默的部分加入到沉默标签集
+                    if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
+                        for (MRB_Tag tag : CBMTags) {
+                            if (tag.use && caughtTagList.contains(tag)) {
+                                if (!toSilenceTagIds.contains(tag.ID)) {
+                                    toSilenceTagIds.add(tag.ID);
+                                    addCount_CBM_Min_No += 1;
+                                }
+                            }
+                        }
+
+                    }
+                    point_CBM_Min_No++;
+//                    point = (int)(Math.random()*CBMTagList.size());
+                }
+
+                break;
+
             case 5:
                 //以CBM为单位沉默
                 //添加已沉默标签
@@ -1147,7 +1179,7 @@ public class MRB_Reader {
                     break;
                 }
                 //记录筛选出的待沉默标签数
-                addCountOfSort = 0;
+//                addCountOfSort = 0;
 //                for (List<MRB_Tag> CBMTags : CBMTagList) {
 //                    for (MRB_Tag tag : CBMTags) {
 //                        if (addCountOfSort < silentCount) {
@@ -1170,11 +1202,6 @@ public class MRB_Reader {
                     //将未沉默的部分加入到沉默标签集
                     if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
                         for (MRB_Tag tag : CBMTags) {
-//                            if (caughtTagSet.contains(tag)) {
-//                                toSilenceTagIds.add(tag.ID);
-//                                addCount += 1;
-//                            }
-
                             if (tag.use && caughtTagList.contains(tag)) {
                                 if (!toSilenceTagIds.contains(tag.ID)) {
                                     toSilenceTagIds.add(tag.ID);
@@ -1184,8 +1211,8 @@ public class MRB_Reader {
                         }
 
                     }
-                    point++;
-//                    point = (int)(Math.random()*CBMTagList.size());
+//                    point++;
+                    point = (int)(Math.random()*CBMTagList.size());
                 }
 
                 break;
@@ -1227,6 +1254,7 @@ public class MRB_Reader {
         res.silentedTagList = toSilenceTagList;
         res.countOfSlot = slotNum;
         res.CBMs = CBMs;
+        res.toSilentCountThisFrame = toSilentCountThisFrame;
         return res;
     }
 
@@ -1277,6 +1305,9 @@ public class MRB_Reader {
         fileWriterFeng.writemsg("\n---------------------------new MultiSession------------------------------");
         fileWriterFeng.writemsg("\nsilenceStrategy:" + silenceStrategy + "\n");
 
+        // 总消耗时隙数
+        int totalSlot = 0;
+
         double pm = 1;
         //重置已捕获的标签记录
         clearCaughtSet();
@@ -1293,6 +1324,7 @@ public class MRB_Reader {
         //保存结果
         DataRecord res = new DataRecord();
 
+        totalSlot += lastFrame.countOfSlot;
 
         //pm
         res.pm = pm;
@@ -1314,8 +1346,12 @@ public class MRB_Reader {
                         + ", \"pm_t\":" + res.pm_t
                         + ", \"caught\":" + caughtTagSet.size()
                         + ", \"slot\":" + lastFrame.countOfSlot
+                        + ", \"totalSlot\":" + totalSlot
                         + ", \"CBMCount\":" + lastFrame.countOfSlot
                         + ", \"sameCBMCount\":" + 0
+                        + ", \"toSilentCountTotal\":" + lastFrame.silentedTagList.size()
+                        + ", \"toSilentCountThisFrame\":" + lastFrame.toSilentCountThisFrame
+                        + ", \"actualSilentCountThisFrame\":" + lastFrame.silentedTagList.size()
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                         + "}\n"
         );
@@ -1372,6 +1408,8 @@ public class MRB_Reader {
             );
 
 
+            totalSlot += thisFrame.countOfSlot;
+
             int CBMCount = thisFrame.CBMs.size();
             int sameCBMCount = figureSameCBMCount(thisFrame.CBMs, lastFrame.CBMs);
 
@@ -1415,8 +1453,12 @@ public class MRB_Reader {
                             + ", \"pm_t\":" + res.pm_t
                             + ", \"caught\":" + caughtTagSet.size()
                             + ", \"slot\":" + thisFrame.countOfSlot
+                            + ", \"totalSlot\":" + totalSlot
                             + ", \"CBMCount\":" + CBMCount
                             + ", \"sameCBMCount\":" + sameCBMCount
+                            + ", \"toSilentCountTotal\":" + thisFrame.silentedTagList.size()
+                            + ", \"toSilentCountThisFrame\":" + thisFrame.toSilentCountThisFrame
+                            + ", \"actualSilentCountThisFrame\":" + (thisFrame.silentedTagList.size()-lastFrame.silentedTagList.size())
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                             + "}\n"
             );

@@ -310,15 +310,15 @@ def MBR_formator_of_pm_divided_input(dir_path: str, session_limit :int = -1):
     # data_slot_mean = get_data_avg(data_slot)
     # data_slot_raw_mean = get_data_avg(data_slot_raw)
 
-    data_p_mean = get_data_avg_from_dict_of_list(data_p)
+    data_p_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_p)
     data_p_mean_abs = get_abs(data_p_mean)
-    data_pm_mean = get_data_avg_from_dict_of_list(data_pm)
+    data_pm_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_pm)
     data_pm_log = get_log(data_pm_mean)
-    data_pm_t_mean = get_data_avg_from_dict_of_list(data_pm_t)
-    data_slot_mean = get_data_avg_from_dict_of_list(data_slot)
-    data_slot_raw_mean = get_data_avg_from_dict_of_list(data_slot_raw)
-    data_CBMCount_mean = get_data_avg_from_dict_of_list(data_CBMCount)
-    data_of_same_cbm_count_mean = get_data_avg_from_dict_of_list(data_of_same_cbm_count)
+    data_pm_t_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_pm_t)
+    data_slot_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_slot)
+    data_slot_raw_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_slot_raw)
+    data_CBMCount_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_CBMCount)
+    data_of_same_cbm_count_mean = get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data_of_same_cbm_count)
 
     # 绘制均值图
     draw_plot(data_p_mean, 'variance in estimate p', dir_path + "/out/p/p_mean_raw")
@@ -466,16 +466,57 @@ def MRB_best(dir_path: str, out_path: str):
         print(k, np.mean(data), len(data), np.mean(session_count))
 
 
+
+def testFixedTagsMutilRound(dir_path: str):
+    '''
+    为了测试CBM_no的数据和龚建民学长的总相差一些slot所做的测试函数的数据处理
+    bug解决后应该删除此函数
+    @author fwh
+    @param dir_path: 测试模拟数据
+    @return:
+    '''
+    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'pm_t', 'slot', "CBMCount", "sameCBMCount"])
+
+    data_slot_raw = raw_datas["slot"]
+    data_slot = get_sum(data_slot_raw)
+
+    data_slot_mean = get_data_avg_from_dict_of_list_return_all_frame_data(data_slot)
+    data_slot_mean_cbm_no = data_slot_mean["CBM_no"]
+
+    data_slot_cbm_no = data_slot["CBM_no"]
+    data_slot_cbm_no_total = []
+    for v in data_slot_cbm_no:
+        data_slot_cbm_no_total.append(v[-1])
+    data_slot_cbm_no_total_avg = np.array(data_slot_cbm_no_total).mean(axis=0)
+
+    f = open('res/test/result.txt', 'w')
+    for v in range(len(data_slot_mean_cbm_no)):
+        f.write("第"+str(v)+"个Frame消耗slot平均为"+str(data_slot_mean_cbm_no[v])+"个\n")
+    f.write("\n")
+    f.write("平均识别完成需要使用"+str(data_slot_cbm_no_total_avg)+"个slot\n")
+    f.close()
+
+
+
+
+    print("alu")
+
+
+
+
+
 if __name__ == '__main__':
     # variance in estimate p
     accurate = 1 - (1 - 0.2) * (1 - 0.1) * (1 - 0.1)
 
     # MBR_formator_20('res/20_10_10_1000_10/0507')
     # draw_slot_threshold_pm("res/continuous/0623_1")
-    draw_slot_threshold_pm("res/continuous/0711");
+    # draw_slot_threshold_pm("res/continuous/0712");
     # draw_dep_var_threshold_pm("res/continuous/0710", "p")
     # draw_dep_var_threshold_pm("res/continuous/0710", "slot")
-    MBR_formator_of_pm_divided_input("res/continuous/0711",18)
+    # MBR_formator_of_pm_divided_input("res/continuous/0711",18)
 
     # draw_dep_var_threshold_pm("res/continuous/0710", "sameCBMCount")
     #draw_slot_threshold_pm("res/continuous/0619")
+
+    testFixedTagsMutilRound("res/test")
