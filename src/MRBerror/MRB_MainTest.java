@@ -132,7 +132,7 @@ public class MRB_MainTest {
             }
 
         }
-        fileUtil.transferData2Json(".\\log\\0725\\testFixedTagsMultiTime.txt");
+        fileUtil.transferData2Json(".\\log\\0727_4\\testFixedTagsMultiTime.txt");
         try {
             r.fileWriterFeng.finalize();
         } catch (Throwable throwable) {

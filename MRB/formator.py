@@ -466,7 +466,6 @@ def MRB_best(dir_path: str, out_path: str):
         print(k, np.mean(data), len(data), np.mean(session_count))
 
 
-
 def testFixedTagsMutilRound(dir_path: str):
     '''
     为了测试CBM_no的数据和龚建民学长的总相差一些slot所做的测试函数的数据处理
@@ -489,18 +488,48 @@ def testFixedTagsMutilRound(dir_path: str):
         data_slot_cbm_no_total.append(v[-1])
     data_slot_cbm_no_total_avg = np.array(data_slot_cbm_no_total).mean(axis=0)
 
-    f = open('res/test/result.txt', 'w')
+    data_round_time = get_round_arrive_time(data_slot_cbm_no)
+
+    f = open(dir_path+'/result.txt', 'w')
     for v in range(len(data_slot_mean_cbm_no)):
         f.write("第"+str(v)+"个Frame消耗slot平均为"+str(data_slot_mean_cbm_no[v])+"个\n")
     f.write("\n")
+    for v in range(len(data_round_time)):
+        f.write("共有"+str(data_round_time[v])+"次识别达到了第"+str(v)+"轮\n")
     f.write("平均识别完成需要使用"+str(data_slot_cbm_no_total_avg)+"个slot\n")
     f.close()
 
 
 
+def testFixedTagsMutilRoundWithParams(dir_path: str, par: str):
+
+    raw_datas = get_data_in_dir(dir_path, ['p', 'pm', 'pm_t', 'slot', "CBMCount", "sameCBMCount"])
+
+
+    data_slot_raw = raw_datas[par]
+    data_slot = get_sum(data_slot_raw)
+
+    data_slot = data_slot_raw
+
+
+    data_slot_mean = get_data_avg_from_dict_of_list_return_all_frame_data(data_slot)
+    data_slot_mean_cbm_no = data_slot_mean["CBM_no"]
+
+    data_slot_cbm_no = data_slot["CBM_no"]
+    data_slot_cbm_no_total = []
+    for v in data_slot_cbm_no:
+        data_slot_cbm_no_total.append(v[-1])
+    data_slot_cbm_no_total_avg = np.array(data_slot_cbm_no_total).mean(axis=0)
+
+    f = open(dir_path+'/result'+par+'.txt', 'w')
+    for v in range(len(data_slot_mean_cbm_no)):
+        f.write("第" + str(v) + "个Frame的"+par+"平均为" + str(data_slot_mean_cbm_no[v]) + "\n")
+    f.write("\n")
+    # f.write("平均识别完成需要使用" + str(data_slot_cbm_no_total_avg) + "个slot\n")
+    f.close()
+
 
     print("alu")
-
 
 
 
@@ -511,12 +540,13 @@ if __name__ == '__main__':
 
     # MBR_formator_20('res/20_10_10_1000_10/0507')
     # draw_slot_threshold_pm("res/continuous/0623_1")
-    # draw_slot_threshold_pm("res/continuous/0712");
+    draw_slot_threshold_pm("res/continuous/0728");
     # draw_dep_var_threshold_pm("res/continuous/0710", "p")
     # draw_dep_var_threshold_pm("res/continuous/0710", "slot")
-    # MBR_formator_of_pm_divided_input("res/continuous/0711",18)
+    MBR_formator_of_pm_divided_input("res/continuous/0728",18)
 
     # draw_dep_var_threshold_pm("res/continuous/0710", "sameCBMCount")
     #draw_slot_threshold_pm("res/continuous/0619")
 
-    testFixedTagsMutilRound("res/test")
+    # testFixedTagsMutilRound("res/test/0727_4")
+    # testFixedTagsMutilRoundWithParams("res/test/0727_4","pm")

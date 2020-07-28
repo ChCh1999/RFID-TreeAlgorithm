@@ -127,6 +127,27 @@ def get_data_avg_from_dict_of_list_return_min_count_of_frame_data(data: dict):
     return res
 
 
+def get_round_arrive_time(data: list):
+    '''
+    获取一组不同的模拟数据中进行了大于等于n轮的模拟数据的个数
+    @author fwh
+    @param data: 数据，格式为[[],[],...,[]]，每个子列表是一组模拟数据，子列表长度可能不同
+    @return:格式为[],其中第i个元素代表输入数据中进行了大于等于i轮后结束识别的模拟的个数
+    '''
+    res = []
+    see_max = 0
+    for m in data:
+        if len(m) > see_max:
+            for i in range(see_max, len(m)):
+                res.append(0)
+            see_max = len(m)
+        res[len(m)-1] += 1
+    for i in range(len(res)):
+        for j in range(i):
+            res[j] += res[i]
+    return res
+
+
 def get_data_avg_from_dict_of_list_return_all_frame_data(data: dict):
     '''
     获取平均值，用于将每一个Frame在不同的模拟中的数据取平均。

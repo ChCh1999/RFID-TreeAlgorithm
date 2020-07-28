@@ -1056,10 +1056,10 @@ public class MRB_Reader {
                     break;
                 }
                 //记录筛选出的待沉默标签数
-                int addCount_CBM_No = 0;
+                int addCount_CBM = 0;
                 //优先沉默全识别的唯一碰撞集
                 for (List<MRB_Tag> CBMTags : CBMTagList) {
-                    if (addCount_CBM_No < silentCount) {
+                    if (addCount_CBM < silentCount) {
                         boolean catchAll = true;
                         for (MRB_Tag tag : CBMTags) {
                             if (!currentFrameTagList.contains(tag.ID)) {
@@ -1069,25 +1069,31 @@ public class MRB_Reader {
                         }
                         if (catchAll) {
                             CBMTags.forEach(tag -> toSilenceTagIds.add(tag.ID));
-                            addCount_CBM_No += CBMTags.size();
+                            addCount_CBM += CBMTags.size();
                         }
                     }
                 }
                 //沉默剩余唯一碰撞集以补全沉默标签
-                int pointCBM_No = 0;
-                while (addCount_CBM_No < silentCount) {
-                    List<MRB_Tag> CBMTags = CBMTagList.get(pointCBM_No);
+                int pointCBM = 0;
+                while (addCount_CBM < silentCount) {
+                    List<MRB_Tag> CBMTags = CBMTagList.get(pointCBM);
                     //将未沉默的部分加入到沉默标签集
                     if (!toSilenceTagIds.contains(CBMTags.get(0).ID)) {
                         for (MRB_Tag tag : CBMTags) {
                             if (caughtTagSet.contains(tag)) {
                                 toSilenceTagIds.add(tag.ID);
-                                addCount_CBM_No += 1;
+                                addCount_CBM += 1;
                             }
                         }
 
                     }
-                    pointCBM_No++;
+                    //                    point = (int)(Math.random()*CBMTagList.size());
+                    /*
+                    修改为随机选取唯一碰撞集，从而和学长的代码匹配并进行测试
+                    冯文翰修改与2020年7月28日00:07
+                     */
+//                    pointCBM++;
+                    pointCBM = (int)(Math.random()*CBMTagList.size());
                 }
                 break;
             case 3:
@@ -1218,6 +1224,29 @@ public class MRB_Reader {
                 break;
         }
 
+        /*
+        测试用修改
+        冯文翰修改于2020年7月25日13：17
+         */
+//        //沉默相应标签
+//        int failCount = 0;
+//        for (MRB_Tag tag : l) {
+//            if (!tag.use) {
+//                toSilenceTagList.add(tag);
+//                continue;
+//            }
+//            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID) && caughtTagSet.contains(tag)) {
+//                tag.use = false;
+//                logger.info("沉默标签" + tag.ID);
+//                toSilenceTagList.add(tag);
+//                continue;
+//            }
+//            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)) {
+//                if (!caughtTagSet.contains(tag)) {
+//                    failCount++;
+//                }
+//            }
+//        }
         //沉默相应标签
         int failCount = 0;
         for (MRB_Tag tag : l) {
@@ -1225,17 +1254,17 @@ public class MRB_Reader {
                 toSilenceTagList.add(tag);
                 continue;
             }
-            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID) && caughtTagSet.contains(tag)) {
+            if (toSilenceTagIds.contains(tag.ID) && caughtTagSet.contains(tag)) {
                 tag.use = false;
                 logger.info("沉默标签" + tag.ID);
                 toSilenceTagList.add(tag);
                 continue;
             }
-            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)) {
-                if (!caughtTagSet.contains(tag)) {
-                    failCount++;
-                }
-            }
+//            if (toSilenceTagList.size() < toSilentCount && toSilenceTagIds.contains(tag.ID)) {
+//                if (!caughtTagSet.contains(tag)) {
+//                    failCount++;
+//                }
+//            }
         }
 
         slotNum++;
@@ -1355,6 +1384,13 @@ public class MRB_Reader {
 //                            + ", \"silent\":" + thisFrame.silentedTagList.size()
                         + "}\n"
         );
+
+        /*
+        这里似乎应该添加一个R++，既然第一轮识别此时已结束
+        冯文翰修改于2020年7月27日17：04
+         */
+        R++;
+
         while (pm > thresholdOfPM && R < maxSessionCount) {
             //未收敛或者未到20次会话
             resu thisFrame = OneFrame(mrb_tags, silenceStrategy);
@@ -1390,10 +1426,17 @@ public class MRB_Reader {
             //错误概率p的估计值 p=l/l+m
             double p = (double) l / (l + m);
             //p与之前结果取均值
-            for (DataRecord dataRecord : resList) {
-                p = p + dataRecord.p;
+            /*
+            * 似乎有问题
+            * 冯文翰修改于7月27日11：56
+            */
+            if (resList.size()>1){
+                p = (resList.get(resList.size()-1).p*resList.size()+p) / (resList.size()+1);
             }
-            p = p / (resList.size());
+//            for (DataRecord dataRecord : resList) {
+//                p = p + dataRecord.p;
+//            }
+//            p = p / (resList.size());
 
             //参与识别的标签数N的估计值
             double N = ((double) (k1 + k2 + l + m))
